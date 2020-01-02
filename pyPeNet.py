@@ -1,14 +1,22 @@
 #!/usr/bin/env python3.7
 # coding: utf8
 
+"""
+    Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques
+"""
+
 
 class Place(object):
+    """
+        Représente une place dans un RdP
+    """
+
     def __init__(self, name, jetons=0):
         self.name = name
         self.contains = jetons
 
     def __str__(self):
-        return self.name
+        return self.name+"("+self.contains+")"
 
 
 class Transition(object):
@@ -27,7 +35,7 @@ class Arc(object):
         self.cible = None
 
     def __str__(self):
-        return self.source+"-"+self.poids+"->"+self.cible
+        return str(self.source)+" -"+str(self.poids)+"-> "+str(self.cible)
 
 
 class ArcPT(Arc):
@@ -51,7 +59,42 @@ class ArcTP(Arc):
 
 
 class PeNet(object):
-    pass
+    def __init__(self):
+        pass
+
+    def define(self, P, T, A, W, M0):
+        self.P = list(P)
+        self.T = list(T)
+        self.A = list(A)
+        self.W = list(W)
+        self.M0 = list(M0)
+
+    def load(self, P, T, A, W, M0):
+        nbp = len(P)
+        self.P = list()
+        nbt = len(T)
+        self.T = list()
+        nba = len(A)
+        self.A = list()
+
+        self.W = list(W)
+        self.M0 = list(M0)
+
+        for i in range(nbp):
+            p = P[i]
+            m = M0[i]
+            self.P.append(Place(p, m))
+
+        for i in range(nbt):
+            t = T[i]
+            self.T.append(Transition(t))
+
+        for i in range(nba):
+            pass
+
+    def init(self):
+        for i in range(len(self.M0)):
+            self.P[i].contains = self.M0[i]
 
 
 # ==================================================
@@ -61,7 +104,22 @@ class PeNet(object):
 
 if __name__ == '__main__':
     print('main de pyPeNet.py')
+
     p1 = Place("p1")
     t1 = Transition("t1")
-    a = ArcPT(p1, t1)
-    print(a)
+    p2 = Place("p2")
+    t2 = Transition("t2")
+    p3 = Place("p3")
+    t3 = Transition("t3")
+    a1 = ArcPT(p1, t1)
+    a2 = ArcTP(t1, p2)
+    a3 = ArcPT(p2, t2)
+    a4 = ArcTP(t2, p1)
+
+    rdp1 = PeNet()
+    rdp1.define((p1, p2, p3), (t1, t2, t3),
+                (a1, a2, a3, a4), (1, 1, 1, 1), (1, 0, 0, 0))
+
+    rdp2 = PeNet()
+    rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
+                                           ("p2", "t2"), ("t2", "p1")), (1, 1),  (1, 0))
