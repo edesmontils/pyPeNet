@@ -1,10 +1,11 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3.7 
 # coding: utf8
 
 
 class Place(object):
-    def __init__(self, name):
+    def __init__(self, name, jetons=0):
         self.name = name
+        self.contains = jetons
 
 
 class Transition(object):
