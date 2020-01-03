@@ -4,7 +4,7 @@
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques
 """
-
+import pprint
 
 class Place(object):
     """
@@ -16,7 +16,7 @@ class Place(object):
         self.contains = jetons
 
     def __str__(self):
-        return self.name+"("+self.contains+")"
+        return self.name+"("+str(self.contains)+")"
 
 
 class Transition(object):
@@ -62,12 +62,18 @@ class PeNet(object):
     def __init__(self):
         pass
 
+    def __str__(self):
+        return [str(p) for p in self.P]
+
     def define(self, P, T, A, W, M0):
+        assert len(A) == len(W), "incohérence entre A et W"
+        assert len(P) == len(M0), "incohérence entre P et M0"
         self.P = list(P)
         self.T = list(T)
         self.A = list(A)
         self.W = list(W)
         self.M0 = list(M0)
+
 
     def load(self, P, T, A, W, M0):
         nbp = len(P)
@@ -76,6 +82,9 @@ class PeNet(object):
         self.T = list()
         nba = len(A)
         self.A = list()
+
+        assert nba == len(W), "incohérence entre A et W"
+        assert nbp == len(M0), "incohérence entre P et M0"
 
         self.W = list(W)
         self.M0 = list(M0)
@@ -90,7 +99,25 @@ class PeNet(object):
             self.T.append(Transition(t))
 
         for i in range(nba):
-            pass
+            (source, cible) = A[i]
+            assert ((source in P) and (cible in T)) or ((source in T) and (cible in P) ), "Arc incohérent "+source+"/"+cible
+            if source in P:
+                for p in self.P:
+                    if p.name == source :
+                        break
+                for t in self.T:
+                    if t.name == cible :
+                        break
+                self.A.append(ArcPT(p,t,W[i]))
+            else:
+                for p in self.P:
+                    if p.name == cible :
+                        break
+                for t in self.T:
+                    if t.name == source :
+                        break
+                self.A.append(ArcTP(t,p,W[i]))  
+
 
     def init(self):
         for i in range(len(self.M0)):
@@ -104,6 +131,7 @@ class PeNet(object):
 
 if __name__ == '__main__':
     print('main de pyPeNet.py')
+    pp = pprint.PrettyPrinter(indent=4)
 
     p1 = Place("p1")
     t1 = Transition("t1")
@@ -118,8 +146,9 @@ if __name__ == '__main__':
 
     rdp1 = PeNet()
     rdp1.define((p1, p2, p3), (t1, t2, t3),
-                (a1, a2, a3, a4), (1, 1, 1, 1), (1, 0, 0, 0))
+                (a1, a2, a3, a4), (1, 1, 1, 1), (1, 0, 0))
 
     rdp2 = PeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), (1, 1),  (1, 0))
+                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 0))
+    for p in rdp2.P: print(str(p)+" ")
