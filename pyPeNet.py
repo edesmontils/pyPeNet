@@ -87,7 +87,7 @@ class PeNet(object):
         self.setUs()
         self.setUe()
         self.setU()
-        self.v_count = np.zeros(len(T))
+        self.v_count = np.zeros(len(T), dtype=int)
         self.init()
 
     def setUs(self):
@@ -136,7 +136,7 @@ class PeNet(object):
 
         self.W = list(W)
         self.M0 = np.array(list(M0))
-        self.v_count = np.zeros(nbt)
+        self.v_count = np.zeros(nbt,dtype=int)
 
         for i in range(nbp):
             p = P[i]
@@ -175,7 +175,7 @@ class PeNet(object):
     def init(self):
         for i in range(len(self.M0)):
             self.P[i].contains = self.M0[i]
-        self.v_count = np.zeros(len(self.T))
+        self.v_count = np.zeros(len(self.T),dtype=int)
         self.UeT = self.Ue.transpose()
         self.UsT = self.Us.transpose()
         self.UT = self.U.transpose()
@@ -199,6 +199,7 @@ class PeNet(object):
         self.v_count[n] += 1
         for i in range(c):
             self.P[i].contains += self.UT[n][i]
+        assert (self.Mi() == self.EquationEtat(self.v_count)).all(), "pb d'exécution"
 
 
 # ==================================================
@@ -229,6 +230,7 @@ if __name__ == '__main__':
                                            ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1))
 
     print(rdp2.Mi())
-    for i in range(10) :
+    for i in range(15) :
         rdp2.next()
         print(rdp2.Mi())
+    print(rdp2.v_count)
