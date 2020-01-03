@@ -6,6 +6,7 @@
 """
 import pprint
 import numpy as np
+import random
 
 
 class Place(object):
@@ -66,11 +67,11 @@ class PeNet(object):
         self.T = list()
         self.A = list()
         self.W = list()
-        self.M0 = np.array([0, 0])
-        self.Us = np.zeros((2, 3))  # U+
-        self.Ue = np.zeros((2, 3))  # U-
-        self.setU()
-        self.v_count = np.array([0, 0])
+        self.M0 = None
+        self.Us = None  # U+
+        self.Ue = None  # U-
+        self.U = None  # U
+        self.v_count = None
 
     def __str__(self):
         return [str(p) for p in self.P]
@@ -86,6 +87,8 @@ class PeNet(object):
         self.setUs()
         self.setUe()
         self.setU()
+        self.v_count = np.zeros(len(T))
+        self.init()
 
     def setUs(self):
         l = list()
@@ -133,6 +136,7 @@ class PeNet(object):
 
         self.W = list(W)
         self.M0 = np.array(list(M0))
+        self.v_count = np.zeros(nbt)
 
         for i in range(nbp):
             p = P[i]
@@ -166,16 +170,40 @@ class PeNet(object):
         self.setUs()
         self.setUe()
         self.setU()
+        self.init()
 
     def init(self):
         for i in range(len(self.M0)):
             self.P[i].contains = self.M0[i]
+        self.v_count = np.zeros(len(self.T))
+        self.UeT = self.Ue.transpose()
+        self.UsT = self.Us.transpose()
+        self.UT = self.U.transpose()
+
+    def Mi(self):
+        l = list()
+        for p in self.P:
+            l.append(p.contains)
+        return np.array(l)
+
+    def next(self):
+        (l, c) = np.shape(self.UeT)
+        lDeclanchables = list()
+        for i in range(l):
+            ok = True
+            for j in range(c):
+                ok = ok and self.UeT[i][j] <= self.P[j].contains
+            if ok:
+                lDeclanchables.append(i)
+        n = random.choice(lDeclanchables)
+        self.v_count[n] += 1
+        for i in range(c):
+            self.P[i].contains += self.UT[n][i]
 
 
 # ==================================================
 # ==================================================
 # ==================================================
-
 
 if __name__ == '__main__':
     print('main de pyPeNet.py')
@@ -198,14 +226,9 @@ if __name__ == '__main__':
 
     rdp2 = PeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 0))
-    for p in rdp2.P:
-        print(str(p)+" ")
-    for a in rdp2.A:
-        print(str(a))
-    print(rdp2.M0)
-    print(rdp2.Us)
-    print(rdp2.Ue)
-    print(rdp2.U)
+                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1))
 
-    print(rdp2.EquationEtat(np.array([1,1])))
+    print(rdp2.Mi())
+    for i in range(10) :
+        rdp2.next()
+        print(rdp2.Mi())
