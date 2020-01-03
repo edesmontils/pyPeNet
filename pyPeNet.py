@@ -32,7 +32,7 @@ class Transition(object):
 
 class Arc(object):
     def __init__(self, poids=1):
-        assert poids >= 0, "Erreur sur le poids"
+        assert poids >= 0, "[Arc] Erreur sur le poids"
         self.poids = poids
         self.source = None
         self.cible = None
@@ -44,9 +44,9 @@ class Arc(object):
 class ArcPT(Arc):
     def __init__(self, place, transition, poids=1):
         super().__init__(poids)
-        assert isinstance(place, Place), "place n'est pas une Place"
+        assert isinstance(place, Place), "[ArcPT] place n'est pas une Place"
         assert isinstance(
-            transition, Transition), "transition n'est pas une Transition"
+            transition, Transition), "[ArcPT] transition n'est pas une Transition"
         self.source = place
         self.cible = transition
 
@@ -54,9 +54,9 @@ class ArcPT(Arc):
 class ArcTP(Arc):
     def __init__(self, transition, place, poids=1):
         super().__init__(poids)
-        assert isinstance(place, Place), "place n'est pas une Place"
+        assert isinstance(place, Place), "[ArcTP] place n'est pas une Place"
         assert isinstance(
-            transition, Transition), "transition n'est pas une Transition"
+            transition, Transition), "[ArcTP] transition n'est pas une Transition"
         self.cible = place
         self.source = transition
 
@@ -77,17 +77,13 @@ class PeNet(object):
         return [str(p) for p in self.P]
 
     def define(self, P, T, A, W, M0):
-        assert len(A) == len(W), "incohérence entre A et W"
-        assert len(P) == len(M0), "incohérence entre P et M0"
+        assert len(A) == len(W), "[define] incohérence entre A et W"
+        assert len(P) == len(M0), "[define] incohérence entre P et M0"
         self.P = list(P)
         self.T = list(T)
         self.A = list(A)
         self.W = list(W)
         self.M0 = np.array(list(M0))
-        self.setUs()
-        self.setUe()
-        self.setU()
-        self.v_count = np.zeros(len(T), dtype=int)
         self.init()
 
     def setUs(self):
@@ -120,6 +116,11 @@ class PeNet(object):
         self.U = self.Us - self.Ue  # U = U+ - U-
 
     def EquationEtat(self, v):
+        assert isinstance(v, np.ndarray), "[EquationEtat] Pb v (1)"
+        n = np.shape(v)
+        assert len(n) == 1, "[EquationEtat] Pb v (2)"
+        assert n[0] == len(self.T), "[EquationEtat] Pb v (3)"
+
         M = self.M0.transpose() + self.U.dot(v.transpose())
         return M.transpose()
 
@@ -131,12 +132,12 @@ class PeNet(object):
         nba = len(A)
         self.A = list()
 
-        assert nba == len(W), "incohérence entre A et W"
-        assert nbp == len(M0), "incohérence entre P et M0"
+        assert nba == len(W), "[load] incohérence entre A et W"
+        assert nbp == len(M0), "[load] incohérence entre P et M0"
 
         self.W = list(W)
         self.M0 = np.array(list(M0))
-        self.v_count = np.zeros(nbt,dtype=int)
+        self.v_count = np.zeros(nbt, dtype=int)
 
         for i in range(nbp):
             p = P[i]
@@ -150,7 +151,7 @@ class PeNet(object):
         for i in range(nba):
             (source, cible) = A[i]
             assert ((source in P) and (cible in T)) or ((source in T)
-                                                        and (cible in P)), "Arc incohérent "+source+"/"+cible
+                                                        and (cible in P)), "[load] Arc incohérent "+source+"/"+cible
             if source in P:
                 for p in self.P:
                     if p.name == source:
@@ -167,20 +168,28 @@ class PeNet(object):
                     if t.name == source:
                         break
                 self.A.append(ArcTP(t, p, W[i]))
-        self.setUs()
-        self.setUe()
-        self.setU()
         self.init()
 
     def init(self):
-        for i in range(len(self.M0)):
-            self.P[i].contains = self.M0[i]
-        self.v_count = np.zeros(len(self.T),dtype=int)
+        self.setMi(self.M0)
+        self.v_count = np.zeros(len(self.T), dtype=int)
+        self.setUs()
+        self.setUe()
+        self.setU()
         self.UeT = self.Ue.transpose()
         self.UsT = self.Us.transpose()
         self.UT = self.U.transpose()
 
-    def Mi(self):
+    def setMi(self, m):
+        assert isinstance(m, np.ndarray), "[setMi] Pb m (1)"
+        v = np.shape(m)
+        assert len(v) == 1, "[setMi] Pb m (2)"
+        assert v[0] == len(self.P), "[setMi] Pb m (3)"
+
+        for i in range(len(m)):
+            self.P[i].contains = m[i]
+
+    def getMi(self):
         l = list()
         for p in self.P:
             l.append(p.contains)
@@ -199,7 +208,8 @@ class PeNet(object):
         self.v_count[n] += 1
         for i in range(c):
             self.P[i].contains += self.UT[n][i]
-        assert (self.Mi() == self.EquationEtat(self.v_count)).all(), "pb d'exécution"
+        assert (self.getMi() == self.EquationEtat(
+            self.v_count)).all(), "[next] pb d'exécution"
 
 
 # ==================================================
@@ -229,8 +239,8 @@ if __name__ == '__main__':
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1))
 
-    print(rdp2.Mi())
-    for i in range(15) :
+    print(rdp2.getMi())
+    for i in range(15):
         rdp2.next()
-        print(rdp2.Mi())
-    print(rdp2.v_count)
+        print(rdp2.getMi())
+    print("Comptage:" + str(rdp2.v_count))
