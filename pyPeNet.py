@@ -2,7 +2,10 @@
 # coding: utf8
 
 """
-    Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques
+    Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques.
+    TODO : 
+    - gérer les arcs hinibiteurs
+    - EV3PeNet
 """
 import pprint
 import numpy as np
@@ -109,6 +112,21 @@ class PeNet(object):
         return n
 
 
+class EV3PeNet(PeNet):
+
+    def connect(self, fl):
+        """
+            fl : propose une liste d'actions associées aux transitions. Valeurs possibles :
+            - None : pas d'actions
+            - 
+        """
+        assert len(fl) == len(self.T)
+        self.fl = fl
+        
+
+    
+
+
 # ==================================================
 # ==================================================
 # ==================================================
@@ -129,3 +147,6 @@ if __name__ == '__main__':
         rdp2.next()
         print(rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
+
+    ev3 = EV3PeNet()
+    print(ev3.P)
