@@ -5,6 +5,8 @@
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques
 """
 import pprint
+import numpy as np
+
 
 class Place(object):
     """
@@ -60,7 +62,15 @@ class ArcTP(Arc):
 
 class PeNet(object):
     def __init__(self):
-        pass
+        self.P = list()
+        self.T = list()
+        self.A = list()
+        self.W = list()
+        self.M0 = np.array([0, 0])
+        self.Us = np.zeros((2, 3))  # U+
+        self.Ue = np.zeros((2, 3))  # U-
+        self.setU()
+        self.v_count = np.array([0, 0])
 
     def __str__(self):
         return [str(p) for p in self.P]
@@ -72,8 +82,39 @@ class PeNet(object):
         self.T = list(T)
         self.A = list(A)
         self.W = list(W)
-        self.M0 = list(M0)
+        self.M0 = np.array(list(M0))
+        self.setUs()
+        self.setUe()
+        self.setU()
 
+    def setUs(self):
+        l = list()
+        for p in self.P:
+            lp = list()
+            for t in self.T:
+                w = 0
+                for a in self.A:
+                    if isinstance(a, ArcTP) and a.cible == p and a.source == t:
+                        w = a.poids
+                lp.append(w)
+            l.append(lp)
+        self.Us = np.array(l, dtype=int)
+
+    def setUe(self):
+        l = list()
+        for p in self.P:
+            lp = list()
+            for t in self.T:
+                w = 0
+                for a in self.A:
+                    if isinstance(a, ArcPT) and a.cible == t and a.source == p:
+                        w = a.poids
+                lp.append(w)
+            l.append(lp)
+        self.Ue = np.array(l, dtype=int)
+
+    def setU(self):
+        self.U = self.Us - self.Ue  # U = U+ - U-
 
     def load(self, P, T, A, W, M0):
         nbp = len(P)
@@ -87,7 +128,7 @@ class PeNet(object):
         assert nbp == len(M0), "incohérence entre P et M0"
 
         self.W = list(W)
-        self.M0 = list(M0)
+        self.M0 = np.array(list(M0))
 
         for i in range(nbp):
             p = P[i]
@@ -100,24 +141,27 @@ class PeNet(object):
 
         for i in range(nba):
             (source, cible) = A[i]
-            assert ((source in P) and (cible in T)) or ((source in T) and (cible in P) ), "Arc incohérent "+source+"/"+cible
+            assert ((source in P) and (cible in T)) or ((source in T)
+                                                        and (cible in P)), "Arc incohérent "+source+"/"+cible
             if source in P:
                 for p in self.P:
-                    if p.name == source :
+                    if p.name == source:
                         break
                 for t in self.T:
-                    if t.name == cible :
+                    if t.name == cible:
                         break
-                self.A.append(ArcPT(p,t,W[i]))
+                self.A.append(ArcPT(p, t, W[i]))
             else:
                 for p in self.P:
-                    if p.name == cible :
+                    if p.name == cible:
                         break
                 for t in self.T:
-                    if t.name == source :
+                    if t.name == source:
                         break
-                self.A.append(ArcTP(t,p,W[i]))  
-
+                self.A.append(ArcTP(t, p, W[i]))
+        self.setUs()
+        self.setUe()
+        self.setU()
 
     def init(self):
         for i in range(len(self.M0)):
@@ -151,4 +195,11 @@ if __name__ == '__main__':
     rdp2 = PeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 0))
-    for p in rdp2.P: print(str(p)+" ")
+    for p in rdp2.P:
+        print(str(p)+" ")
+    for a in rdp2.A:
+        print(str(a))
+    print(rdp2.M0)
+    print(rdp2.Us)
+    print(rdp2.Ue)
+    print(rdp2.U)
