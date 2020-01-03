@@ -116,6 +116,10 @@ class PeNet(object):
     def setU(self):
         self.U = self.Us - self.Ue  # U = U+ - U-
 
+    def EquationEtat(self, v):
+        M = self.M0.transpose() + self.U.dot(v.transpose())
+        return M.transpose()
+
     def load(self, P, T, A, W, M0):
         nbp = len(P)
         self.P = list()
@@ -203,3 +207,5 @@ if __name__ == '__main__':
     print(rdp2.Us)
     print(rdp2.Ue)
     print(rdp2.U)
+
+    print(rdp2.EquationEtat(np.array([1,1])))
