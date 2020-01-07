@@ -3,9 +3,8 @@
 
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques.
-    TODO : 
+    TODO :
     - gérer les arcs hinibiteurs
-    - EV3PeNet
 """
 import pprint
 import numpy as np
@@ -15,8 +14,11 @@ import random
 class PeNet(object):
     def __init__(self):
         self.P = list()
+        self.nbp = 0
         self.T = list()
+        self.nbt = 0
         self.A = list()
+        self.nba = 0
         self.W = list()
         self.M0 = None
         self.Mi = None
@@ -65,19 +67,19 @@ class PeNet(object):
         return M.transpose()
 
     def load(self, P, T, A, W, M0):
-        nbp = len(P)
+        self.nbp = len(P)
         self.P = list(P)
-        nbt = len(T)
+        self.nbt = len(T)
         self.T = list(T)
-        nba = len(A)
+        self.nba = len(A)
         self.A = list(A)
 
-        assert nba == len(W), "[load] incohérence entre A et W"
-        assert nbp == len(M0), "[load] incohérence entre P et M0"
+        assert self.nba == len(W), "[load] incohérence entre A et W"
+        assert self.nbp == len(M0), "[load] incohérence entre P et M0"
 
         self.W = list(W)
         self.M0 = np.array(list(M0))
-        self.v_count = np.zeros(nbt, dtype=int)
+        self.v_count = np.zeros(self.nbt, dtype=int)
 
         self.init()
 
@@ -95,42 +97,28 @@ class PeNet(object):
         self.Mi = m
 
     def next(self):
-        (l, c) = np.shape(self.UeT)
         lDeclanchables = list()
-        for i in range(l):
+        for t in range(self.nbt):
             ok = True
-            for j in range(c):
-                ok = ok and self.UeT[i][j] <= self.Mi[j]
+            for p in range(self.nbp):
+                ok = ok and (self.UeT[t][p] <= self.Mi[p])
             if ok:
-                lDeclanchables.append(i)
-        n = random.choice(lDeclanchables)
-        self.v_count[n] += 1
-        for i in range(c):
-            self.Mi[i] += self.UT[n][i]
-        assert (self.Mi == self.EquationEtat(
-            self.v_count)).all(), "[next] pb d'exécution"
-        return n
-
-
-class EV3PeNet(PeNet):
-
-    def connect(self, fl):
-        """
-            fl : propose une liste d'actions associées aux transitions. Valeurs possibles :
-            - None : pas d'actions
-            - 
-        """
-        assert len(fl) == len(self.T)
-        self.fl = fl
-        
-
-    
+                lDeclanchables.append(t)
+        if len(lDeclanchables)>0:
+            n = random.choice(lDeclanchables)
+            self.v_count[n] += 1
+            for p in range(self.nbp):
+                self.Mi[p] += self.UT[n][p]
+            assert (self.Mi == self.EquationEtat(
+                self.v_count)).all(), "[next] pb d'exécution"
+            return n
+        else:
+            return None
 
 
 # ==================================================
 # ==================================================
 # ==================================================
-
 if __name__ == '__main__':
     print('main de pyPeNet.py')
     pp = pprint.PrettyPrinter(indent=4)
@@ -147,6 +135,3 @@ if __name__ == '__main__':
         rdp2.next()
         print(rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
-
-    ev3 = EV3PeNet()
-    print(ev3.P)
