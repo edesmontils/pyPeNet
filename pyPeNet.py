@@ -96,22 +96,30 @@ class PeNet(object):
 
         self.Mi = m
 
+    def estDeclanchable(self, t):
+        ok = True
+        for p in range(self.nbp):
+            ok = ok and (self.UeT[t][p] <= self.Mi[p])
+        return ok
+
+    def declancher(self, t):
+        self.v_count[t] += 1
+        for p in range(self.nbp):
+            self.Mi[p] += self.UT[t][p]
+
     def next(self):
         lDeclanchables = list()
         for t in range(self.nbt):
-            ok = True
-            for p in range(self.nbp):
-                ok = ok and (self.UeT[t][p] <= self.Mi[p])
-            if ok:
+            if self.estDeclanchable(t):
                 lDeclanchables.append(t)
-        if len(lDeclanchables)>0:
-            n = random.choice(lDeclanchables)
-            self.v_count[n] += 1
-            for p in range(self.nbp):
-                self.Mi[p] += self.UT[n][p]
+                
+        if len(lDeclanchables) > 0:
+            t = random.choice(lDeclanchables)
+            self.declancher(t)
+
             assert (self.Mi == self.EquationEtat(
                 self.v_count)).all(), "[next] pb d'exécution"
-            return n
+            return t
         else:
             return None
 
