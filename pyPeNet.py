@@ -4,7 +4,7 @@
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques.
     TODO :
-    - gérer les arcs hinibiteurs
+    - ...
 """
 import pprint
 import numpy as np
@@ -12,6 +12,8 @@ import random
 
 
 class PeNet(object):
+    """ RdP de base """
+
     def __init__(self):
         self.P = list()
         self.nbp = 0
@@ -97,31 +99,69 @@ class PeNet(object):
         self.Mi = m
 
     def estDeclanchable(self, t):
-        ok = True
-        for p in range(self.nbp):
-            ok = ok and (self.UeT[t][p] <= self.Mi[p])
-        return ok
+        return (self.UeT[t] <= self.Mi).all()
 
     def declancher(self, t):
         self.v_count[t] += 1
-        for p in range(self.nbp):
-            self.Mi[p] += self.UT[t][p]
+        self.Mi = self.Mi + self.UT[t]
 
     def next(self):
         lDeclanchables = list()
         for t in range(self.nbt):
             if self.estDeclanchable(t):
                 lDeclanchables.append(t)
-                
+
         if len(lDeclanchables) > 0:
             t = random.choice(lDeclanchables)
             self.declancher(t)
 
             assert (self.Mi == self.EquationEtat(
                 self.v_count)).all(), "[next] pb d'exécution"
+
             return t
         else:
             return None
+
+
+class PeNet_I(PeNet):
+    """ RdP avec arcs inhibiteurs possibles """
+
+    def __init__(self):
+        super(PeNet, self).__init__()
+        self.I = list()
+
+    def load(self, P, T, A, W, M0):
+        super().load(P, T, A, W, M0)
+        self.I = list()
+        li = list()
+        for p in self.P:
+            lpi = list()
+            for t in self.T:
+                w = 0
+                for (i, (source, cible)) in enumerate(self.A):
+                    if cible == t and source == p and self.W[i] == 0:
+                        w = 1
+                        break
+                lpi.append(w)
+            li.append(lpi)
+
+        self.I = np.array(li, dtype=int)
+        self.IT = self.I.transpose()
+
+    def estDeclanchable(self, t):
+        ok = True
+        for p in range(self.nbp):
+            if self.IT[t][p] == 0 :
+                ok = ok and (self.UeT[t][p] <= self.Mi[p])
+            else:
+                ok = ok and (self.Mi[p] == 0)
+
+        return ok
+
+    def declancher(self, t):
+        self.v_count[t] += 1
+        for p in range(self.nbp):
+            self.Mi[p] += self.UT[t][p]
 
 
 # ==================================================
@@ -131,9 +171,9 @@ if __name__ == '__main__':
     print('main de pyPeNet.py')
     pp = pprint.PrettyPrinter(indent=4)
 
-    rdp2 = PeNet()
+    rdp2 = PeNet_I()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1))
+                                           ("p2", "t2"), ("t2", "p1"), ("p1", "t2")), (1, 1, 1, 1, 0),  (1, 1))
 
     print(rdp2.Mi)
     print(rdp2.Ue)
@@ -143,3 +183,4 @@ if __name__ == '__main__':
         rdp2.next()
         print(rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
+    print(rdp2.I)
