@@ -31,16 +31,16 @@ class Detecteur(ES):
         super(Detecteur, self).__init__(*args)
         self.change = False
 
-    def done(self):
+    def raised(self):
         self.change = True
 
     def do(self):
-        pass
+        self.change = False
 
 
-class EV3PeNet(PeNet_I):
+class DynaPeNet(PeNet_I):
     def __init__(self, ):
-        super(EV3PeNet, self).__init__()
+        super(DynaPeNet, self).__init__()
 
     def connect(self, fl):
         """
@@ -68,7 +68,7 @@ class EV3PeNet(PeNet_I):
 if __name__ == '__main__':
     print('main de pyEV3PeNet.py')
 
-    rdp2 = EV3PeNet()
+    rdp2 = DynaPeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")), 
                                            (1, 1, 1, 1),  (1, 1), (None, Action()))
