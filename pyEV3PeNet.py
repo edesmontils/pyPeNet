@@ -24,7 +24,9 @@ class Detecteur(Action):
         super(Detecteur, self).__init__(*args)
 
 
-class EV3PeNet(PeNet):
+class EV3PeNet(PeNet_I):
+    def __init__(self, ):
+        super(PeNet_I, self).__init__()
 
     def connect(self, fl):
         """
@@ -35,17 +37,24 @@ class EV3PeNet(PeNet):
         assert len(fl) == len(self.T)
         self.fl = fl
 
+    def load(self, P, T, A, W, M0, F):
+        super().load(P, T, A, W, M0)
+        self.F = F
+
+    def next(self):
+        t = super().next()
+
+
 # ==================================================
 # ==================================================
 # ==================================================
 if __name__ == '__main__':
     print('main de pyEV3PeNet.py')
 
-    rdp2 = PeNet()
+    rdp2 = EV3PeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1))
+                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1), (None, None))
 
 
 
-    ev3 = EV3PeNet()
-    print(ev3.P)
+    print(rdp2.P)

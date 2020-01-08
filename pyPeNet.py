@@ -167,8 +167,8 @@ if __name__ == '__main__':
     pp = pprint.PrettyPrinter(indent=4)
 
     rdp2 = PeNet_I()
-    rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1"), ("p1", "t2")), (1, 1, 1, 1, 0),  (1, 1))
+    rdp2.load(("p1", "p2"), ("t1", "t2", "t3"), (("p1", "t1"), ("t1", "p2"),
+                                           ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")), (1, 1, 1, 1, 0, 1),  (1, 1))
 
     print(rdp2.Mi)
     print(rdp2.Ue)
