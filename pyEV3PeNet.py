@@ -13,20 +13,34 @@ from pyPeNet import *
 #from pybricks.parameters import Port
 #from pybricks.tools import wait
 #from pybricks.robotics import DriveBase
+class ES(object) :
+    def __init__(self, *args):
+        super(ES, self).__init__(*args)
 
-class Action(object):
+    def do(self):
+        print("Action done!")
+
+
+class Action(ES):
     def __init__(self, *args):
         super(Action, self).__init__(*args)
 
 
-class Detecteur(Action):
+class Detecteur(ES):
     def __init__(self, *args):
         super(Detecteur, self).__init__(*args)
+        self.change = False
+
+    def done(self):
+        self.change = True
+
+    def do(self):
+        pass
 
 
 class EV3PeNet(PeNet_I):
     def __init__(self, ):
-        super(PeNet_I, self).__init__()
+        super(EV3PeNet, self).__init__()
 
     def connect(self, fl):
         """
@@ -43,6 +57,9 @@ class EV3PeNet(PeNet_I):
 
     def next(self):
         t = super().next()
+        a = self.F[t]
+        if (a != None) and (isinstance(a,Action)): a.do()
+        return t
 
 
 # ==================================================
@@ -53,8 +70,10 @@ if __name__ == '__main__':
 
     rdp2 = EV3PeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1), (None, None))
+                                           ("p2", "t2"), ("t2", "p1")), (1, 1, 1, 1),  (1, 1), (None, Action()))
 
 
 
-    print(rdp2.P)
+    for i in range(15):
+        rdp2.next()
+        print(rdp2.Mi)
