@@ -157,12 +157,7 @@ class PeNet_I(PeNet):
                 ok = ok and (self.Mi[p] == 0)
 
         return ok
-
-    def declancher(self, t):
-        self.v_count[t] += 1
-        for p in range(self.nbp):
-            self.Mi[p] += self.UT[t][p]
-
+        
 
 # ==================================================
 # ==================================================
