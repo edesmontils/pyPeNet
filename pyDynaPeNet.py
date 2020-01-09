@@ -35,13 +35,14 @@ class DisplayEvent(OutEvent):
     def __init__(self):
         super(DisplayEvent, self).__init__()
 
-class StdoutDisplayEvent(OutEvent):
-    def __init__(self, cdc = None):
+
+class StdoutDisplayEvent(DisplayEvent):
+    def __init__(self, cdc=None):
         super(StdoutDisplayEvent, self).__init__()
         self.cdc = cdc
 
     def do(self):
-        print(self.cdc)    
+        print(self.cdc)
 
 
 # ==================================================
@@ -56,6 +57,7 @@ class InEvent(Event):
 
 # ==================================================
 
+
 class Sensor(InEvent):
     def __init__(self, port):
         super(Sensor, self).__init__(port)
@@ -69,8 +71,21 @@ class Sensor(InEvent):
         self.change = False
 
 # ==================================================
+
+
+class ButtonEvent(InEvent):
+    def __init__(self):
+        super(ButtonEvent, self).__init__()
+
+class KeyboardEvent(InEvent):
+    def __init__(self):
+        super(KeyboardEvent, self).__init__()
+
+
 # ==================================================
 # ==================================================
+# ==================================================
+
 
 class DynaPeNet(PeNet_I):
     def __init__(self, ):
@@ -97,6 +112,16 @@ class DynaPeNet(PeNet_I):
         return t
 
 
+    def run(self):
+        t = -1
+        try :
+            while(t != None):
+                t = self.next()   
+        except KeyboardInterrupt:
+            print("Fin du RdP par interruption:")
+            print(self.Mi)
+
+
 # ==================================================
 # ==================================================
 # ==================================================
@@ -104,8 +129,10 @@ if __name__ == '__main__':
     rdp2 = DynaPeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")),
-              (1, 1, 1, 1),  (1, 1), (None, StdoutDisplayEvent("Mon action !")))
+              (1, 1, 1, 1),  (1, 1), (StdoutDisplayEvent("t1 !"), StdoutDisplayEvent("t2 !")))
 
-    for i in range(15):
-        rdp2.next()
-        print(rdp2.Mi)
+    # for i in range(15):
+    #     rdp2.next()
+    #     print(rdp2.Mi)
+
+    rdp2.run()
