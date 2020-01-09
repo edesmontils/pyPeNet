@@ -17,7 +17,7 @@ class Event(object):
         super(Event, self).__init__()
 
     def do(self):
-        pass # print("Action done!")
+        pass
 
 # ==================================================
 # OUT
@@ -35,6 +35,13 @@ class DisplayEvent(OutEvent):
     def __init__(self):
         super(DisplayEvent, self).__init__()
 
+class StdoutDisplayEvent(OutEvent):
+    def __init__(self, cdc = None):
+        super(StdoutDisplayEvent, self).__init__()
+        self.cdc = cdc
+
+    def do(self):
+        print(self.cdc)    
 
 
 # ==================================================
@@ -97,7 +104,7 @@ if __name__ == '__main__':
     rdp2 = DynaPeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")),
-              (1, 1, 1, 1),  (1, 1), (None, DisplayEvent()))
+              (1, 1, 1, 1),  (1, 1), (None, StdoutDisplayEvent("Mon action !")))
 
     for i in range(15):
         rdp2.next()
