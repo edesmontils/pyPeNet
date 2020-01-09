@@ -9,6 +9,9 @@
 import numpy as np
 import random
 
+# ==================================================
+# ==================================================
+# ==================================================
 
 class PeNet(object):
     """ RdP de base """
@@ -121,6 +124,10 @@ class PeNet(object):
         else:
             return None
 
+# ==================================================
+# ==================================================
+# ==================================================
+
 
 class PeNet_I(PeNet):
     """ RdP avec arcs inhibiteurs possibles """
@@ -150,13 +157,13 @@ class PeNet_I(PeNet):
     def estDeclanchable(self, t):
         ok = True
         for p in range(self.nbp):
-            if self.IT[t][p] == 0 :
+            if self.IT[t][p] == 0:
                 ok = ok and (self.UeT[t][p] <= self.Mi[p])
             else:
                 ok = ok and (self.Mi[p] == 0)
 
         return ok
-        
+
 
 # ==================================================
 # ==================================================
@@ -164,7 +171,7 @@ class PeNet_I(PeNet):
 if __name__ == '__main__':
     rdp2 = PeNet_I()
     rdp2.load(("p1", "p2"), ("t1", "t2", "t3"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")), (1, 1, 1, 1, 0, 1),  (1, 1))
+                                                 ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")), (1, 1, 1, 1, 0, 1),  (1, 1))
 
     print(rdp2.Mi)
     print(rdp2.Ue)

@@ -8,28 +8,51 @@
 """
 from pyPeNet import *
 
-#from pybricks import ev3brick as brick
-#from pybricks.ev3devices import Motor, UltrasonicSensor, TouchSensor, ColorSensor
-#from pybricks.parameters import Port
-#from pybricks.tools import wait
-#from pybricks.robotics import DriveBase
+# ==================================================
+# ==================================================
 
-class ES(object) :
-    def __init__(self, *args):
-        super(ES, self).__init__(*args)
+
+class Event(object):
+    def __init__(self):
+        super(Event, self).__init__()
 
     def do(self):
-        print("Action done!")
+        pass # print("Action done!")
+
+# ==================================================
+# OUT
+# ==================================================
 
 
-class Action(ES):
-    def __init__(self, *args):
-        super(Action, self).__init__(*args)
+class OutEvent(Event):
+    def __init__(self):
+        super(OutEvent, self).__init__()
 
 
-class Detecteur(ES):
-    def __init__(self, *args):
-        super(Detecteur, self).__init__(*args)
+# ==================================================
+
+class DisplayEvent(OutEvent):
+    def __init__(self):
+        super(DisplayEvent, self).__init__()
+
+
+
+# ==================================================
+# IN
+# ==================================================
+
+
+class InEvent(Event):
+    def __init__(self, port=None):
+        super(InEvent, self).__init__()
+        self.port = port
+
+# ==================================================
+
+class Sensor(InEvent):
+    def __init__(self, port):
+        super(Sensor, self).__init__(port)
+        assert port != None, "[Sensor init] bad port value"
         self.change = False
 
     def raised(self):
@@ -38,6 +61,9 @@ class Detecteur(ES):
     def do(self):
         self.change = False
 
+# ==================================================
+# ==================================================
+# ==================================================
 
 class DynaPeNet(PeNet_I):
     def __init__(self, ):
@@ -59,7 +85,8 @@ class DynaPeNet(PeNet_I):
     def next(self):
         t = super().next()
         a = self.F[t]
-        if (a != None) and (isinstance(a,Action)): a.do()
+        if (a != None) and (isinstance(a, OutEvent)):
+            a.do()
         return t
 
 
@@ -69,10 +96,8 @@ class DynaPeNet(PeNet_I):
 if __name__ == '__main__':
     rdp2 = DynaPeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2"), ("t2", "p1")), 
-                                           (1, 1, 1, 1),  (1, 1), (None, Action()))
-
-
+                                           ("p2", "t2"), ("t2", "p1")),
+              (1, 1, 1, 1),  (1, 1), (None, DisplayEvent()))
 
     for i in range(15):
         rdp2.next()
