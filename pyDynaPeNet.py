@@ -13,6 +13,7 @@ from pyPeNet import *
 #from pybricks.parameters import Port
 #from pybricks.tools import wait
 #from pybricks.robotics import DriveBase
+
 class ES(object) :
     def __init__(self, *args):
         super(ES, self).__init__(*args)
@@ -66,8 +67,6 @@ class DynaPeNet(PeNet_I):
 # ==================================================
 # ==================================================
 if __name__ == '__main__':
-    print('main de pyEV3PeNet.py')
-
     rdp2 = DynaPeNet()
     rdp2.load(("p1", "p2"), ("t1", "t2"), (("p1", "t1"), ("t1", "p2"),
                                            ("p2", "t2"), ("t2", "p1")), 
