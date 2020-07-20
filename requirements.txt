@@ -1,0 +1,3 @@
+numpy==1.18.5
+pybricks==2.0.0
+pynput==1.6.8
