@@ -13,8 +13,78 @@ import random
 # ==================================================
 # ==================================================
 
+
+def choixAleatoire(lde, cpt, seq) :
+    return random.choice(lde)
+
+def choixPFreq(lde, cpt, seq) :
+    c = lde[0]
+    nb = cpt[c]
+    for t in lde[1:] :
+        if nb < cpt[t]:
+            nb = cpt[t]
+            c = t
+    return c
+
+def choixMFreq(lde, cpt, seq) :
+    c = lde[0]
+    nb = cpt[c]
+    for t in lde[1:] :
+        if nb > cpt[t]:
+            nb = cpt[t]
+            c = t
+    return c
+
+def choixPRecent(lde, cpt, seq) :
+    l = len(seq)
+    if l ==0 :
+        return choixAleatoire(lde, cpt, seq)
+    else :
+        seqR = seq[::-1]
+        c = lde[0]
+        #print('c:',c)
+        if c in seqR: 
+            nb = seqR.index(c)
+        else: nb = l
+
+        for t in lde[1:] :
+            if t in seqR:
+                i = seqR.index(t)
+            else: i = l
+            if nb > i:
+                nb = i
+                c = t    
+        return c 
+
+def choixMRecent(lde, cpt, seq) :
+    l = len(seq)
+    if l == 0 :
+        return choixAleatoire(lde, cpt, seq)
+    else :
+        seqR = seq[::-1]
+
+        c = lde[0]
+        if c in seqR: 
+            nb = seqR.index(c)
+        else: nb = l
+
+        for t in lde[1:] :
+            if t in seqR:
+                i = seqR.index(t)
+            else: i = l    
+            if nb < i:
+                nb = i
+                c = t    
+        return c 
+
 class PeNet(object):
     """ RdP de base """
+
+    MODE_ALEATOIRE = choixAleatoire
+    MODE_PLUSFREQUENT = choixPFreq
+    MODE_MOINSFREQUENT = choixMFreq
+    MODE_PLUSRECENT = choixPRecent
+    MODE_MOINSRECENT = choixMRecent
 
     def __init__(self):
         self.P = list()
@@ -30,6 +100,10 @@ class PeNet(object):
         self.Ue = None  # U-
         self.U = None  # U
         self.v_count = None
+        self.lastT = None
+
+        self.choix = self.MODE_ALEATOIRE
+        self.sequence=list()
 
     def __str__(self):
         return [str(p) for p in self.P]
@@ -87,9 +161,12 @@ class PeNet(object):
 
         self.init()
 
-    def init(self):
+    def init(self, mode = MODE_ALEATOIRE):
         self.Mi = self.M0.copy()
         self.v_count = np.zeros(len(self.T), dtype=int)
+        self.sequence = list()
+        self.choix = mode
+        self.lastT = None
         self.setU()
 
     def setMi(self, m):
@@ -114,12 +191,14 @@ class PeNet(object):
                 lDeclanchables.append(t)
 
         if len(lDeclanchables) > 0:
-            t = random.choice(lDeclanchables)
+            t = self.choix(lDeclanchables, self.v_count, self.sequence)
+            # print(lDeclanchables, self.v_count, self.sequence)
             self.declancher(t)
+            self.sequence.append(t)
 
             assert (self.Mi == self.EquationEtat(
                 self.v_count)).all(), "[next] pb d'exécution"
-
+            self.lastT = t
             return t
         else:
             return None
@@ -133,7 +212,8 @@ class PeNet_I(PeNet):
     """ RdP avec arcs inhibiteurs possibles """
 
     def __init__(self):
-        super(PeNet, self).__init__()
+        #super(PeNet, self).__init__()
+        PeNet.__init__(self)
         self.I = list()
 
     def load(self, P, T, A, W, M0):
