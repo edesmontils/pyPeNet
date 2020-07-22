@@ -15,25 +15,33 @@ import random
 
 
 def choixAleatoire(lde, cpt, seq) :
-    return random.choice(lde)
+    #print('--> aleatoire :',lde)
+    if len(lde) == 1 :
+        return lde[0]
+    else :
+        return random.choice(lde)
 
 def choixPFreq(lde, cpt, seq) :
-    c = lde[0]
-    nb = cpt[c]
+    c = [ lde[0] ]
+    nb = cpt[lde[0]]
     for t in lde[1:] :
         if nb < cpt[t]:
             nb = cpt[t]
-            c = t
-    return c
+            c = [t]
+        elif nb == cpt[t]:
+            c.append(t)
+    return choixAleatoire(c, cpt, seq)
 
 def choixMFreq(lde, cpt, seq) :
-    c = lde[0]
-    nb = cpt[c]
+    c = [ lde[0] ]
+    nb = cpt[lde[0]]
     for t in lde[1:] :
         if nb > cpt[t]:
             nb = cpt[t]
-            c = t
-    return c
+            c = [t]
+        elif nb == cpt[t]:
+            c.append(t)
+    return choixAleatoire(c, cpt, seq)
 
 def choixPRecent(lde, cpt, seq) :
     l = len(seq)
@@ -41,10 +49,11 @@ def choixPRecent(lde, cpt, seq) :
         return choixAleatoire(lde, cpt, seq)
     else :
         seqR = seq[::-1]
-        c = lde[0]
+        t = lde[0]
+        c = [ t ]
         #print('c:',c)
-        if c in seqR: 
-            nb = seqR.index(c)
+        if t in seqR: 
+            nb = seqR.index(t)
         else: nb = l
 
         for t in lde[1:] :
@@ -53,8 +62,10 @@ def choixPRecent(lde, cpt, seq) :
             else: i = l
             if nb > i:
                 nb = i
-                c = t    
-        return c 
+                c = [t]
+            elif  nb == i: 
+                c.append(t) 
+        return choixAleatoire(c, cpt, seq) 
 
 def choixMRecent(lde, cpt, seq) :
     l = len(seq)
@@ -63,19 +74,22 @@ def choixMRecent(lde, cpt, seq) :
     else :
         seqR = seq[::-1]
 
-        c = lde[0]
-        if c in seqR: 
-            nb = seqR.index(c)
+        t = lde[0]
+        c = [t]
+        if t in seqR: 
+            nb = seqR.index(t)
         else: nb = l
-
         for t in lde[1:] :
             if t in seqR:
                 i = seqR.index(t)
-            else: i = l    
+            else: i = l
             if nb < i:
                 nb = i
-                c = t    
-        return c 
+                c = [t]
+            else : 
+                if nb == i:
+                    c.append(t)    
+        return choixAleatoire(c, cpt, seq) 
 
 class PeNet(object):
     """ RdP de base """
@@ -192,7 +206,7 @@ class PeNet(object):
 
         if len(lDeclanchables) > 0:
             t = self.choix(lDeclanchables, self.v_count, self.sequence)
-            # print(lDeclanchables, self.v_count, self.sequence)
+            print(lDeclanchables, self.v_count, self.sequence)
             self.declancher(t)
             self.sequence.append(t)
 
@@ -253,12 +267,13 @@ if __name__ == '__main__':
     rdp2.load(("p1", "p2"), ("t1", "t2", "t3"), (("p1", "t1"), ("t1", "p2"),
                                                  ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")), (1, 1, 1, 1, 0, 1),  (1, 1))
 
-    print(rdp2.Mi)
+    print(rdp2.M0)
     print(rdp2.Ue)
     print(rdp2.Us)
     print(rdp2.U)
+    rdp2.init(mode=PeNet.MODE_MOINSFREQUENT)
     for i in range(15):
         rdp2.next()
-        print(rdp2.Mi)
+        print(rdp2.lastT, '->', rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
     print(rdp2.I)
