@@ -8,6 +8,18 @@
 """
 import numpy as np
 import random
+from lxml import etree
+import os
+
+#==================================================
+#============ Tools ===============================
+#==================================================
+
+def existFile(f):
+    return os.path.isfile(f)
+
+def existDir(d):
+    return os.path.exists(d)
 
 # ==================================================
 # ==================================================
@@ -171,11 +183,48 @@ class PeNet(object):
 
         self.W = list(W)
         self.M0 = np.array(list(M0))
-        self.v_count = np.zeros(self.nbt, dtype=int)
-
         self.init()
 
-    def init(self, mode = MODE_ALEATOIRE):
+    def loadPIPEFile(self, f : str) -> None :
+        if existFile(f) :
+            XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
+            tree = etree.parse(f, XMLparser)
+            self.P = list()
+            M0 = list()
+            for p in tree.getroot().iter('place'):
+                self.P.append(p.get('id'))
+                contains = p[2][0].text.split(',')[1]
+                M0.append(int(contains))
+            self.nbp = len(self.P)
+            self.M0 = np.array(list(M0))
+
+            self.T = list()
+            for t in tree.getroot().iter('transition'):
+                self.T.append(t.get('id'))
+            self.nbt = len(self.T)
+
+            self.W = list()
+            self.A = list()
+            for a in tree.getroot().iter('arc'):
+                source = a.get('source')
+                target = a.get('target')
+                w = a[1][0].text
+                atype = a[-1].get('value')
+                if (w is not None) and (atype == 'normal') :
+                    w = w.split(',')[1]
+                    self.W.append(int(w))
+                elif (w is None) and (atype == 'inhibitor') :
+                    self.W.append(0)
+                else :
+                    self.W.append(1)
+                self.A.append( (source,target) )
+            self.nba = len(self.A)
+
+            self.init()
+        else:
+            pass
+
+    def init(self, mode : int = MODE_ALEATOIRE) -> None :
         self.Mi = self.M0.copy()
         self.v_count = np.zeros(len(self.T), dtype=int)
         self.sequence = list()
@@ -183,7 +232,7 @@ class PeNet(object):
         self.lastT = None
         self.setU()
 
-    def setMi(self, m):
+    def setMi(self, m : np.ndarray) -> None :
         assert isinstance(m, np.ndarray), "[setMi] Pb m (1)"
         v = np.shape(m)
         assert len(v) == 1, "[setMi] Pb m (2)"
@@ -230,8 +279,7 @@ class PeNet_I(PeNet):
         PeNet.__init__(self)
         self.I = list()
 
-    def load(self, P, T, A, W, M0):
-        super().load(P, T, A, W, M0)
+    def setInhibitorMatrix(self) :
         self.I = list()
         li = list()
         for p in self.P:
@@ -247,6 +295,15 @@ class PeNet_I(PeNet):
 
         self.I = np.array(li, dtype=int)
         self.IT = self.I.transpose()
+
+
+    def load(self, P, T, A, W, M0):
+        super().load(P, T, A, W, M0)
+        self.setInhibitorMatrix()
+
+    def loadPIPEFile(self, f : str) -> None :
+        super().loadPIPEFile(f)
+        self.setInhibitorMatrix()
 
     def estDeclanchable(self, t):
         ok = True
@@ -276,4 +333,11 @@ if __name__ == '__main__':
         rdp2.next()
         print(rdp2.lastT, '->', rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
+    print(rdp2.I)
+
+    rdp2.loadPIPEFile('ex_PIPEa.xml')
+    print(rdp2.M0)
+    print(rdp2.Ue)
+    print(rdp2.Us)
+    print(rdp2.U)
     print(rdp2.I)
