@@ -240,23 +240,23 @@ class PeNet(object):
 
         self.Mi = m
 
-    def estDeclanchable(self, t):
+    def estDeclenchable(self, t):
         return (self.UeT[t] <= self.Mi).all()
 
-    def declancher(self, t):
+    def declencher(self, t):
         self.v_count[t] += 1
         self.Mi = self.Mi + self.UT[t]
 
     def next(self):
-        lDeclanchables = list()
+        lDeclenchables = list()
         for t in range(self.nbt):
-            if self.estDeclanchable(t):
-                lDeclanchables.append(t)
+            if self.estDeclenchable(t):
+                lDeclenchables.append(t)
 
-        if len(lDeclanchables) > 0:
-            t = self.choix(lDeclanchables, self.v_count, self.sequence)
-            print(lDeclanchables, self.v_count, self.sequence)
-            self.declancher(t)
+        if len(lDeclenchables) > 0:
+            t = self.choix(lDeclenchables, self.v_count, self.sequence)
+            print(lDeclenchables, self.v_count, self.sequence)
+            self.declencher(t)
             self.sequence.append(t)
 
             assert (self.Mi == self.EquationEtat(
@@ -305,7 +305,7 @@ class PeNet_I(PeNet):
         super().loadPIPEFile(f)
         self.setInhibitorMatrix()
 
-    def estDeclanchable(self, t):
+    def estDeclenchable(self, t):
         ok = True
         for p in range(self.nbp):
             if self.IT[t][p] == 0:
