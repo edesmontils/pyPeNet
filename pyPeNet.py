@@ -6,9 +6,9 @@
     TODO :
     - ...
 """
-import numpy as np
+
 import random
-from lxml import etree
+#from lxml import etree
 import os
 
 #==================================================
@@ -20,6 +20,47 @@ def existFile(f):
 
 def existDir(d):
     return os.path.exists(d)
+
+# pour ne pas utiliser numpy...
+
+def setIntMatrix(l,c):
+    return [ [0] * c for i in range(l) ]
+
+def transposeIntMatrix(m) :
+    l = len(m)
+    c = len(m[0])
+    n = setIntMatrix(c,l)
+    for i in range(l) :
+        for j in range(c) :
+            n[j][i] = m[i][j]
+    return n
+
+def diffIntMatrix(m,n) :
+    l = len(m)
+    c = len(m[0])
+    d = setIntMatrix(l, c)
+    for i in range(l):
+        for j in range(c) :
+            d[i][j] = m[i][j]-n[i][j]
+    return d
+
+def setIntVector(n):
+    return [0]*n
+
+def copyIntVector(v):
+    l = len(v)
+    w = [0]*l
+    for i in range(l):
+        w[i] = v[i]
+    return v
+
+def addVector(v,w) :
+    l = len(v)
+    z = [0]*l
+    for i in range(l):
+        z[i] = v[i] + w[i]
+    return z
+
 
 # ==================================================
 # ==================================================
@@ -135,40 +176,26 @@ class PeNet(object):
         return [str(p) for p in self.P]
 
     def setU(self):
-        ls = list()
-        le = list()
-        for p in self.P:
-            lps = list()
-            lpe = list()
-            for t in self.T:
+        self.Us = setIntMatrix(self.nbp,self.nbt) 
+        self.Ue = setIntMatrix(self.nbp,self.nbt)
+
+        for (i,p) in enumerate(self.P):
+            for (j,t) in enumerate(self.T):
                 ws = 0
                 we = 0
-                for (i, (source, cible)) in enumerate(self.A):
+                for (k, (source, cible)) in enumerate(self.A):
                     if cible == p and source == t:
-                        ws = self.W[i]
+                        ws = self.W[k]
                     elif cible == t and source == p:
-                        we = self.W[i]
-                lps.append(ws)
-                lpe.append(we)
-            ls.append(lps)
-            le.append(lpe)
+                        we = self.W[k]
+                self.Us[i][j]=ws
+                self.Ue[i][j]=we
 
-        self.Us = np.array(ls, dtype=int)
-        self.Ue = np.array(le, dtype=int)
-        self.U = self.Us - self.Ue  # U = U+ - U-
+        self.U = diffIntMatrix(self.Us, self.Ue)  # U = U+ - U-
 
-        self.UeT = self.Ue.transpose()
-        self.UsT = self.Us.transpose()
-        self.UT = self.U.transpose()
-
-    def EquationEtat(self, v):
-        assert isinstance(v, np.ndarray), "[EquationEtat] Pb v (1)"
-        n = np.shape(v)
-        assert len(n) == 1, "[EquationEtat] Pb v (2)"
-        assert n[0] == len(self.T), "[EquationEtat] Pb v (3)"
-
-        M = self.M0.transpose() + self.U.dot(v.transpose())
-        return M.transpose()
+        self.UeT = transposeIntMatrix(self.Ue)
+        self.UsT = transposeIntMatrix(self.Us)
+        self.UT = transposeIntMatrix(self.U)
 
     def load(self, P, T, A, W, M0):
         self.nbp = len(P)
@@ -182,70 +209,69 @@ class PeNet(object):
         assert self.nbp == len(M0), "[load] incohérence entre P et M0"
 
         self.W = list(W)
-        self.M0 = np.array(list(M0))
+        self.M0 = list(M0)
         self.init()
 
-    def loadPIPEFile(self, f : str) -> None :
-        if existFile(f) :
-            XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
-            tree = etree.parse(f, XMLparser)
-            self.P = list()
-            M0 = list()
-            for p in tree.getroot().iter('place'):
-                self.P.append(p.get('id'))
-                contains = p[2][0].text.split(',')[1]
-                M0.append(int(contains))
-            self.nbp = len(self.P)
-            self.M0 = np.array(list(M0))
+    # def loadPIPEFile(self, f : str) -> None :
+    #     if existFile(f) :
+    #         XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
+    #         tree = etree.parse(f, XMLparser)
+    #         self.P = list()
+    #         M0 = list()
+    #         for p in tree.getroot().iter('place'):
+    #             self.P.append(p.get('id'))
+    #             contains = p[2][0].text.split(',')[1]
+    #             M0.append(int(contains))
+    #         self.nbp = len(self.P)
+    #         self.M0 = list(M0)
 
-            self.T = list()
-            for t in tree.getroot().iter('transition'):
-                self.T.append(t.get('id'))
-            self.nbt = len(self.T)
+    #         self.T = list()
+    #         for t in tree.getroot().iter('transition'):
+    #             self.T.append(t.get('id'))
+    #         self.nbt = len(self.T)
 
-            self.W = list()
-            self.A = list()
-            for a in tree.getroot().iter('arc'):
-                source = a.get('source')
-                target = a.get('target')
-                w = a[1][0].text
-                atype = a[-1].get('value')
-                if (w is not None) and (atype == 'normal') :
-                    w = w.split(',')[1]
-                    self.W.append(int(w))
-                elif (w is None) and (atype == 'inhibitor') :
-                    self.W.append(0)
-                else :
-                    self.W.append(1)
-                self.A.append( (source,target) )
-            self.nba = len(self.A)
+    #         self.W = list()
+    #         self.A = list()
+    #         for a in tree.getroot().iter('arc'):
+    #             source = a.get('source')
+    #             target = a.get('target')
+    #             w = a[1][0].text
+    #             atype = a[-1].get('value')
+    #             if (w is not None) and (atype == 'normal') :
+    #                 w = w.split(',')[1]
+    #                 self.W.append(int(w))
+    #             elif (w is None) and (atype == 'inhibitor') :
+    #                 self.W.append(0)
+    #             else :
+    #                 self.W.append(1)
+    #             self.A.append( (source,target) )
+    #         self.nba = len(self.A)
 
-            self.init()
-        else:
-            pass
+    #         self.init()
+    #     else:
+    #         pass
 
     def init(self, mode : int = MODE_ALEATOIRE) -> None :
-        self.Mi = self.M0.copy()
-        self.v_count = np.zeros(len(self.T), dtype=int)
+        self.Mi = copyIntVector(self.M0)
+        self.v_count = [0]*self.nbt
         self.sequence = list()
         self.choix = mode
         self.lastT = None
         self.setU()
 
-    def setMi(self, m : np.ndarray) -> None :
-        assert isinstance(m, np.ndarray), "[setMi] Pb m (1)"
-        v = np.shape(m)
-        assert len(v) == 1, "[setMi] Pb m (2)"
-        assert v[0] == len(self.P), "[setMi] Pb m (3)"
-
-        self.Mi = m
+    def setMi(self, m : list ) -> None :
+        assert isinstance(m, list), "[setMi] Pb m (1)"
+        self.Mi = copyIntVector(m)
 
     def estDeclenchable(self, t):
-        return (self.UeT[t] <= self.Mi).all()
+        ok = True
+        for p in range(self.nbp):
+            ok = ok and (self.UeT[t][p] <= self.Mi[p])
+        return ok
 
     def declencher(self, t):
         self.v_count[t] += 1
-        self.Mi = self.Mi + self.UT[t]
+        self.Mi = addVector(self.Mi, self.UT[t])
 
     def next(self):
         lDeclenchables = list()
@@ -258,9 +284,6 @@ class PeNet(object):
             print(lDeclenchables, self.v_count, self.sequence)
             self.declencher(t)
             self.sequence.append(t)
-
-            assert (self.Mi == self.EquationEtat(
-                self.v_count)).all(), "[next] pb d'exécution"
             self.lastT = t
             return t
         else:
@@ -280,21 +303,17 @@ class PeNet_I(PeNet):
         self.I = list()
 
     def setInhibitorMatrix(self) :
-        self.I = list()
-        li = list()
-        for p in self.P:
-            lpi = list()
-            for t in self.T:
+        self.I = setIntMatrix(self.nbp,self.nbt)
+        for (i,p) in enumerate(self.P):
+            for (j,t) in enumerate(self.T):
                 w = 0
-                for (i, (source, cible)) in enumerate(self.A):
-                    if cible == t and source == p and self.W[i] == 0:
+                for (k, (source, cible)) in enumerate(self.A):
+                    if cible == t and source == p and self.W[k] == 0:
                         w = 1
                         break
-                lpi.append(w)
-            li.append(lpi)
+                self.I[i][j] = w
 
-        self.I = np.array(li, dtype=int)
-        self.IT = self.I.transpose()
+        self.IT = transposeIntMatrix(self.I)
 
 
     def load(self, P, T, A, W, M0):
@@ -337,9 +356,9 @@ if __name__ == '__main__':
     print("Comptage:" + str(rdp2.v_count))
     print(rdp2.I)
 
-    rdp2.loadPIPEFile('ex_PIPEa.xml')
-    print(rdp2.M0)
-    print(rdp2.Ue)
-    print(rdp2.Us)
-    print(rdp2.U)
-    print(rdp2.I)
+    # rdp2.loadPIPEFile('ex_PIPEa.xml')
+    # print(rdp2.M0)
+    # print(rdp2.Ue)
+    # print(rdp2.Us)
+    # print(rdp2.U)
+    # print(rdp2.I)
