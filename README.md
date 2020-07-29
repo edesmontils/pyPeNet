@@ -47,7 +47,7 @@ P1;place;0;;
 P2;place;0;;
 P3;place;4;;
 P4;place;0;;
-T0;transition;1;;
+T0;transition;4;;
 T1;transition;1;;
 T2;transition;1;;
 T3;transition;1;;
@@ -68,7 +68,10 @@ T3 to P4;normal;T3;P4;1
 T4 to P0;normal;T4;P0;1
 ```
 
-
+Bien évidemment, il est possible de décrire le RdP directement dans le CSV :
+- Place -> _nom_;**place**;_marquage_initial_
+- Transition -> _nom_;**transition**;_priorité_
+- Arc -> _nom_;**normal**;_source_;_cible_;_poids_ ou _nom_;**inhibitor**;_source_;_cible_;
 
 Puis, avec pyPeNet, le charger :
 ```
