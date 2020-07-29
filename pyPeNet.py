@@ -182,26 +182,28 @@ class PeNet(object):
 
     def __init__(self):
         self.P = list() # liste des places
-        self.nbp = 0
+        self.nbp = 0 # nombre de places
         self.T = list() # liste des transitions
-        self.nbt = 0
+        self.nbt = 0 # nombre de transitions
         self.A = list() # liste des arcs
-        self.nba = 0
+        self.nba = 0 # nombre d'arcs
         self.W = list() # poids des arcs
         self.M0 = None # marquage initial
         self.Mi = None # marquage courant
         self.Us = None  # U+
         self.Ue = None  # U-
         self.U = None  # U
-        self.v_count = None
-        self.lastT = None
+        self.v_count = None # vecteur de comptage
+        self.lastT = None # dernière transition empruntée
         self.Pr = None # priorité des transitions
 
         self.choix = self.MODE_ALEATOIRE
         self.sequence=list()
 
     def __str__(self):
-        return [str(p) for p in self.P]
+        return "\n".join([ ", ".join([str(p)+'/'+str(self.M0[i]) for (i,p) in enumerate(self.P)]), 
+                           ", ".join([str(t)+'/'+str(self.Pr[i]) for (i,t) in enumerate(self.T)]),
+                           ", ".join([str(a)+'/'+str(self.W[i])  for (i,a) in enumerate(self.A)]) ])
 
     def setU(self):
         self.Us = setIntMatrix(self.nbp,self.nbt) 
@@ -430,4 +432,4 @@ if __name__ == '__main__':
     print(rdp2.Us)
     print(rdp2.U)
     print(rdp2.I)
-    print(rdp2.Pr)
+    print(rdp2)
