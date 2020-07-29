@@ -48,7 +48,6 @@ class StdoutDisplayEvent(DisplayEvent):
     def declencher(self) :
         print(self.cdc)
 
-
 # ==================================================
 # IN
 # ==================================================
@@ -63,30 +62,6 @@ class InEvent(Event):
 
     def declencher(self) :
         pass
-
-# ==================================================
-
-
-class Sensor(InEvent):
-    def __init__(self, port=None):
-        super(Sensor, self).__init__(port)
-        assert port != None, "[Sensor init] bad port value"
-        self.port = port
-        self.change = False
-
-    def raised(self):
-        self.change = True
-
-    def declencher(self):
-        self.change = False
-
-# ==================================================
-
-
-class ButtonEvent(InEvent):
-    def __init__(self):
-        super(ButtonEvent, self).__init__()
-
 
 # ==================================================
 # ==================================================
@@ -146,15 +121,15 @@ class DynaPeNet(PeNet_I):
         if (a != None) and (isinstance(a, OutEvent)):
             a.declencher()
 
-    def run(self):
+    def run(self,delay=1):
         t = -1
         try:
             while(1):
                 t = self.next()
                 if t!=None : print(self.sequence)
-                time.sleep(1)
+                time.sleep(delay)
         except KeyboardInterrupt:
-            print("Fin du RdP par interruption:")
+            print("Fin du RdP par interruption clavier")
         finally:
             print(self.Mi)
             print(self.v_count)
