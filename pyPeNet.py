@@ -68,14 +68,14 @@ def addVector(v,w) :
 # ==================================================
 
 
-def choixAleatoire(lde, cpt, seq) :
+def choixAleatoire(lde, cpt, seq, pr) :
     #print('--> aleatoire :',lde)
     if len(lde) == 1 :
         return lde[0]
     else :
         return random.choice(lde)
 
-def choixPFreq(lde, cpt, seq) :
+def choixPFreq(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = cpt[lde[0]]
     for t in lde[1:] :
@@ -84,9 +84,9 @@ def choixPFreq(lde, cpt, seq) :
             c = [t]
         elif nb == cpt[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq)
+    return choixAleatoire(c, cpt, seq, pr)
 
-def choixMFreq(lde, cpt, seq) :
+def choixMFreq(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = cpt[lde[0]]
     for t in lde[1:] :
@@ -95,12 +95,34 @@ def choixMFreq(lde, cpt, seq) :
             c = [t]
         elif nb == cpt[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq)
+    return choixAleatoire(c, cpt, seq, pr)
 
-def choixPRecent(lde, cpt, seq) :
+def choixPPrio(lde, cpt, seq, pr) :
+    c = [ lde[0] ]
+    nb = pr[lde[0]]
+    for t in lde[1:] :
+        if nb < pr[t]:
+            nb = pr[t]
+            c = [t]
+        elif nb == pr[t]:
+            c.append(t)
+    return choixAleatoire(c, cpt, seq, pr)
+
+def choixMPrio(lde, cpt, seq, pr) :
+    c = [ lde[0] ]
+    nb = pr[lde[0]]
+    for t in lde[1:] :
+        if nb > pr[t]:
+            nb = pr[t]
+            c = [t]
+        elif nb == pr[t]:
+            c.append(t)
+    return choixAleatoire(c, cpt, seq, pr)
+
+def choixPRecent(lde, cpt, seq, pr) :
     l = len(seq)
     if l ==0 :
-        return choixAleatoire(lde, cpt, seq)
+        return choixAleatoire(lde, cpt, seq, pr)
     else :
         seqR = seq[::-1]
         t = lde[0]
@@ -119,12 +141,12 @@ def choixPRecent(lde, cpt, seq) :
                 c = [t]
             elif  nb == i: 
                 c.append(t) 
-        return choixAleatoire(c, cpt, seq) 
+        return choixAleatoire(c, cpt, seq, pr) 
 
-def choixMRecent(lde, cpt, seq) :
+def choixMRecent(lde, cpt, seq, pr) :
     l = len(seq)
     if l == 0 :
-        return choixAleatoire(lde, cpt, seq)
+        return choixAleatoire(lde, cpt, seq, pr)
     else :
         seqR = seq[::-1]
 
@@ -143,7 +165,9 @@ def choixMRecent(lde, cpt, seq) :
             else : 
                 if nb == i:
                     c.append(t)    
-        return choixAleatoire(c, cpt, seq) 
+        return choixAleatoire(c, cpt, seq, pr) 
+
+
 
 class PeNet(object):
     """ RdP de base """
@@ -153,22 +177,25 @@ class PeNet(object):
     MODE_MOINSFREQUENT = choixMFreq
     MODE_PLUSRECENT = choixPRecent
     MODE_MOINSRECENT = choixMRecent
+    MODE_PLUSPRIORITAIRE = choixPPrio
+    MODE_MOINSPRIORITAIRE = choixMPrio
 
     def __init__(self):
-        self.P = list()
+        self.P = list() # liste des places
         self.nbp = 0
-        self.T = list()
+        self.T = list() # liste des transitions
         self.nbt = 0
-        self.A = list()
+        self.A = list() # liste des arcs
         self.nba = 0
-        self.W = list()
-        self.M0 = None
-        self.Mi = None
+        self.W = list() # poids des arcs
+        self.M0 = None # marquage initial
+        self.Mi = None # marquage courant
         self.Us = None  # U+
         self.Ue = None  # U-
         self.U = None  # U
         self.v_count = None
         self.lastT = None
+        self.Pr = None # priorité des transitions
 
         self.choix = self.MODE_ALEATOIRE
         self.sequence=list()
@@ -205,7 +232,7 @@ class PeNet(object):
         self.T = list(T)
         self.nba = len(A)
         self.A = list(A)
-
+        self.Pr = [1]*self.nbt
         assert self.nba == len(W), "[load] incohérence entre A et W"
         assert self.nbp == len(M0), "[load] incohérence entre P et M0"
 
@@ -219,6 +246,7 @@ class PeNet(object):
             self.P = list()
             self.M0 = list()
             self.T = list()
+            self.Pr = list()
             self.W = list()
             self.A = list()
             with open(f, newline='') as csvfile:
@@ -227,10 +255,11 @@ class PeNet(object):
                     typeNode = row['type']
                     if typeNode == 'place' :
                         self.P.append(row['name'])
-                        self.M0.append(int(row['v1']))
+                        self.M0.append(int(row['v1'])) # contenu de la place dans le marquage initial
                     
                     elif typeNode == 'transition' :
                         self.T.append(row['name'])
+                        self.Pr.append(int(row['v1'])) # priorité de la transition
 
                     elif typeNode == 'normal' :
                         source = row['v1']
@@ -318,7 +347,7 @@ class PeNet(object):
                 lDeclenchables.append(t)
 
         if len(lDeclenchables) > 0:
-            t = self.choix(lDeclenchables, self.v_count, self.sequence)
+            t = self.choix(lDeclenchables, self.v_count, self.sequence, self.Pr)
             print(lDeclenchables, self.v_count, self.sequence)
             self.declencher(t)
             self.sequence.append(t)
@@ -401,3 +430,4 @@ if __name__ == '__main__':
     print(rdp2.Us)
     print(rdp2.U)
     print(rdp2.I)
+    print(rdp2.Pr)
