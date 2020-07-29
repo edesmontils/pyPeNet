@@ -32,10 +32,41 @@ Il est possible de modifier le comportement du moteur d'exécution :
 
 ## Récupérer un RdP construit avec PIPE 
 
-Transformer le fichier XML en CSV :
+Transformer le fichier XML PIPE (http://pipe2.sourceforge.net/) en CSV :
 ``
 xsltproc PIPE2CSV.xsl ex_PIPEa.xml > ex_PIPEa.csv
 ``
+
+On obtient alors :
+```
+name;type;v1;v2;v3
+P0;place;10;;
+P1;place;0;;
+P2;place;0;;
+P3;place;4;;
+P4;place;0;;
+T0;transition;1;;
+T1;transition;1;;
+T2;transition;1;;
+T3;transition;1;;
+T4;transition;1;;
+P0 to T0;normal;P0;T0;1
+P1 to T1;normal;P1;T1;1
+P1 to T3;normal;P1;T3;1
+P2 to T2;normal;P2;T2;1
+P3 to T1;normal;P3;T1;1
+P4 to T2;inhibitor;P4;T2;
+P4 to T4;normal;P4;T4;2
+T0 to P1;normal;T0;P1;1
+T0 to P4;normal;T0;P4;1
+T1 to P2;normal;T1;P2;1
+T2 to P1;normal;T2;P1;1
+T2 to P3;normal;T2;P3;1
+T3 to P4;normal;T3;P4;1
+T4 to P0;normal;T4;P0;1
+```
+
+
 
 Puis, avec pyPeNet, le charger :
 ```
