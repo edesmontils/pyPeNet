@@ -29,6 +29,8 @@ Il est possible de modifier le comportement du moteur d'exécution :
 - MODE_PLUSFREQUENT : la transition déclenchée est choisie aléatoirement parmi les transitions déclenchables les plus souvent utilisées ;
 - MODE_PLUSRECENT : la transition déclenchée est choisie aléatoirement parmi les transitions déclenchables les plus récemment utilisées ;
 - MODE_MOINSRECENT : la transition déclenchée est choisie aléatoirement parmi les transitions déclenchables les plus anciennement utilisées ;
+- MODE_MOINSPRIORITAIRE : la transition déclenchée est choisie aléatoirement parmi les transitions déclenchables les moins prioritaires ;
+- MODE_PLUSPRIORITAIRE : la transition déclenchée est choisie aléatoirement parmi les transitions déclenchables les moins prioritaires.
 
 ## Récupérer un RdP construit avec PIPE 
 
