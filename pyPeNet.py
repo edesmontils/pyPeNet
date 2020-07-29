@@ -10,6 +10,7 @@
 import random
 #from lxml import etree
 import os
+import csv
 
 #==================================================
 #============ Tools ===============================
@@ -212,6 +213,43 @@ class PeNet(object):
         self.M0 = list(M0)
         self.init()
 
+    
+    def loadPIPEFile(self, f) :
+        if existFile(f) :
+            self.P = list()
+            self.M0 = list()
+            self.T = list()
+            self.W = list()
+            self.A = list()
+            with open(f, newline='') as csvfile:
+                rdp = csv.DictReader(csvfile, delimiter=';')
+                for row in rdp:
+                    typeNode = row['type']
+                    if typeNode == 'place' :
+                        self.P.append(row['name'])
+                        self.M0.append(int(row['v1']))
+                    
+                    elif typeNode == 'transition' :
+                        self.T.append(row['name'])
+
+                    elif typeNode == 'normal' :
+                        source = row['v1']
+                        target = row['v2']
+                        w = row['v3']
+                        self.W.append(int(w))
+                        self.A.append( (source,target) )
+
+                    elif typeNode == 'inhibitor' :
+                        self.W.append(0)
+                        self.A.append( (source,target) )
+
+                self.nbt = len(self.T)
+                self.nba = len(self.A)
+                self.nbp = len(self.P)
+                self.init()
+        else :
+            pass
+
     # def loadPIPEFile(self, f : str) -> None :
     #     if existFile(f) :
     #         XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
@@ -349,16 +387,17 @@ if __name__ == '__main__':
     print(rdp2.Ue)
     print(rdp2.Us)
     print(rdp2.U)
+    print(rdp2.I)
     rdp2.init(mode=PeNet.MODE_MOINSFREQUENT)
     for i in range(15):
         rdp2.next()
         print(rdp2.lastT, '->', rdp2.Mi)
     print("Comptage:" + str(rdp2.v_count))
-    print(rdp2.I)
+   
 
-    # rdp2.loadPIPEFile('ex_PIPEa.xml')
-    # print(rdp2.M0)
-    # print(rdp2.Ue)
-    # print(rdp2.Us)
-    # print(rdp2.U)
-    # print(rdp2.I)
+    rdp2.loadPIPEFile('ex_PIPEa.csv')
+    print(rdp2.M0)
+    print(rdp2.Ue)
+    print(rdp2.Us)
+    print(rdp2.U)
+    print(rdp2.I)
