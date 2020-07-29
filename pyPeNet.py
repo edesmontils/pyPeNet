@@ -378,21 +378,22 @@ class PeNet_I(PeNet):
 # ==================================================
 if __name__ == '__main__':
     rdp2 = PeNet_I()
-    # rdp2.load(("p1", "p2"), ("t1", "t2", "t3"), (("p1", "t1"), ("t1", "p2"),
-    #                                              ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")),
-    #           (1, 1, 1, 1, 0, 1),
-    #           (1, 1))
+    rdp2.load(("p1", "p2"), ("t1", "t2", "t3"), (("p1", "t1"), ("t1", "p2"),
+                                                 ("p2", "t2"), ("t2", "p1"), ("p1", "t2"), ("t3", "p2")),
+              (1, 1, 1, 1, 0, 1),
+              (1, 1))
 
-    # print(rdp2.M0)
-    # print(rdp2.Ue)
-    # print(rdp2.Us)
-    # print(rdp2.U)
-    # rdp2.init(mode=PeNet.MODE_MOINSFREQUENT)
-    # for i in range(15):
-    #     rdp2.next()
-    #     print(rdp2.lastT, '->', rdp2.Mi)
-    # print("Comptage:" + str(rdp2.v_count))
-    # print(rdp2.I)
+    print(rdp2.M0)
+    print(rdp2.Ue)
+    print(rdp2.Us)
+    print(rdp2.U)
+    print(rdp2.I)
+    rdp2.init(mode=PeNet.MODE_MOINSFREQUENT)
+    for i in range(15):
+        rdp2.next()
+        print(rdp2.lastT, '->', rdp2.Mi)
+    print("Comptage:" + str(rdp2.v_count))
+   
 
     rdp2.loadPIPEFile('ex_PIPEa.csv')
     print(rdp2.M0)

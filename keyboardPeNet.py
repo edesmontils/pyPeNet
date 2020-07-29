@@ -54,9 +54,9 @@ class KeyboardEventOnlyOne(KeyboardEvent):
 
 if __name__ == '__main__':
     rdp2 = DynaPeNet()
-    rdp2.load(("p0","p1", "p2"), ("t0","t1", "t2"), (("t0","p0"),("p0","t1"), ("p1", "t1"), ("t1", "p2"),
-                                           ("p2", "t2")),
-              (1, 1, 1, 1, 1),  (0, 2, 0))#, (KeyboardEvent('c'), None, None),  (None, StdoutDisplayEvent("T1 go !"), StdoutDisplayEvent("T2 go !") ) )
+    rdp2.load(("p0","p1", "p2"), ("t0","t1", "t2"), 
+              (("t0","p0"),("p0","t1"), ("p1", "t1"), ("t1", "p2"), ("p2", "t2")),
+              (1, 1, 1, 1, 1),  (0, 2, 0))
     rdp2.setInEvent("t0", KeyboardEvent('c'))
     rdp2.setOutEvent("t0", StdoutDisplayEvent("====> new c !"))
     rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 go !"))
