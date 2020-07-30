@@ -3,7 +3,7 @@
 
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor
-from pybricks.parameters import Port
+from pybricks.parameters import Port, Color, Button
 
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) pour exécuter sous EV3.
@@ -13,28 +13,7 @@ from pybricks.parameters import Port
 from pyDynaPeNet import *
 
 # ==================================================
-# ================ Sorties =========================
-# ==================================================
-
-class EV3Motor(OutEvent):
-    def __init__(self, port, speed):
-        OutEvent.__init__(self)
-        assert (port != None) and (port in [Port.A, Port.B, Port.C, Port.D]), "[EV3Motor init] bad port value"
-        self.port = port
-        self.speed = speed
-        self.motor = Motor(self.port)
-
-    def declencher(self) :
-        self.motor.run(500)
-
-class EV3MotorTime(EV3Motor):
-    def __init__(self, port, speed, duration):
-        EV3Motor.__init__(self, port, speed)
-        self.duration = duration
-
-    def declencher(self) :
-        self.motor.run_time(self.speed, self.duration)
-
+# ================ Entrées =========================
 # ==================================================
 
 class EV3Sensor(InEvent):
@@ -143,23 +122,6 @@ class EV3GyroscopicSensor(EV3GyroscopicSensor):
 
 # ==================================================
 
-class EV3lightOn(OutEvent):
-
-    colorList = [Color.BLACK, Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED, Color.WHITE, Color.BROWN, Color.PURPLE, None]
-
-    def __init__(self, ev3, color):
-        OutEvent.__init__(self)
-        assert color in self.colorList, "[EV3LightOn init] bad color value"
-        self.ev3 = port
-        self.color = color
-
-    def declencher(self) :
-        self.motor.run(500)
-
-# ==================================================
-# =============== Entrées ==========================
-# ==================================================
-
 class EV3Button(InEvent):
     buttonList = [Button.LEFT_DOWN, Button.LEFT, Button.LEFT_UP, Button.UP, Button.RIGHT_UP, Button.RIGHT, Button.RIGHT_DOWN, Button.DOWN, Button.CENTER]
 
@@ -172,8 +134,85 @@ class EV3Button(InEvent):
     def estDeclenchable(self):
         return self.button in self.ev3.buttons.pressed()
 
-    def declencher(self):
-        pass
+# ==================================================
+# =============== Sorties ==========================
+# ==================================================
+
+class EV3Motor(OutEvent):
+    def __init__(self, port, speed):
+        OutEvent.__init__(self)
+        assert (port != None) and (port in [Port.A, Port.B, Port.C, Port.D]), "[EV3Motor init] bad port value"
+        self.port = port
+        self.speed = speed
+        self.motor = Motor(self.port)
+
+    def declencher(self) :
+        self.motor.run(500)
+
+class EV3MotorTime(EV3Motor):
+    def __init__(self, port, speed, duration):
+        EV3Motor.__init__(self, port, speed)
+        self.duration = duration
+
+    def declencher(self) :
+        self.motor.run_time(self.speed, self.duration)
+
+# ==================================================
+
+class EV3LightOn(OutEvent):
+
+    colorList = [Color.BLACK, Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED, Color.WHITE, Color.BROWN, Color.PURPLE, None]
+
+    def __init__(self, ev3, color):
+        OutEvent.__init__(self)
+        assert color in self.colorList, "[EV3LightOn init] bad color value"
+        self.ev3 = ev3
+        self.color = color
+
+    def declencher(self) :
+        self.ev3.light.on(self.color)
+
+class EV3LightOff(OutEvent):
+    
+    def __init__(self, ev3):
+        OutEvent.__init__(self)
+        self.ev3 = ev3
+
+    def declencher(self) :
+        self.ev3.light.off()
+
+
+# ==================================================
+
+class EV3Say(OutEvent):
+    
+    def __init__(self, ev3, text, langue = 'fr-fr'):
+        OutEvent.__init__(self)
+        self.ev3 = ev3
+        self.text = text
+        self.ev3.speaker.set_speech_options(language=langue)
+
+    def declencher(self) :
+        self.ev3.speaker.say(self.text)
+
+# ==================================================
+
+class EV3StdoutDisplay(DisplayEvent):
+    def __init__(self, ev3, cdc=None):
+        DisplayEvent.__init__(self)
+        self.cdc = cdc
+        self.ev3 = ev3
+
+    def declencher(self) :
+        self.ev3.screen.print(self.cdc)
+
+class EV3StdoutClear(DisplayEvent):
+    def __init__(self, ev3):
+        DisplayEvent.__init__(self)
+        self.ev3 = ev3
+
+    def declencher(self) :
+        self.ev3.screen.clear()
 
 
 # ==================================================
@@ -186,36 +225,22 @@ class EV3PeNet(DynaPeNet):
         self.ev3 = ev3
         ev3.speaker.say("Let's go!")
 
-    def build
-
 # ==================================================
 # ==================================================
 # ==================================================
 if __name__ == '__main__':
 
-    # Initialize the EV3 Brick.
     rdp2 = EV3PeNet(EV3Brick())
-
-    # # Initialize a motor at port B.
-    # test_motor = Motor(Port.B)
-    # print('test')
-    # # Write your program here
-
-    # # Play a sound.
-    # ev3.speaker.beep()
-
-    # # Run the motor up to 500 degrees per second. To a target angle of 90 degrees.
-    # test_motor.run_target(500, 90)
-
-    # # Play another beep sound.
-    # ev3.speaker.beep(frequency=1000, duration=500)
-
     rdp2.load(("p1", "p2"), 
               ("t0","t1", "t2"), 
               (("p1", "t1"), ("t1", "p2"),("p2", "t2"),("t0","p1") ),
               (1, 1, 1, 1),  
               (0, 1) )
+    rdp2.setOutEvent("t0",EV3LightOn(rdp2.ev3, Color.RED))
     rdp2.setInEvent("t0",EV3TouchSensor(Port.S1))
-    rdp2.setOutEvent("t1", StdoutDisplayEvent("====> t1 !"))
+    rdp2.setInEvent("t1",EV3Button(rdp2.ev3, Button.CENTER))
+    rdp2.setOutEvent("t1", EV3StdoutDisplay(rdp2.ev3,"====> t1 !"))
+    rdp2.setOutEvent("t2", EV3Say(rdp2.ev3, "Moteur !"))
     rdp2.setOutEvent("t2", EV3MotorTime(Port.B,200,600))
+    rdp2.setOutEvent("t2", EV3LightOff(rdp2.ev3))
     rdp2.run(delay=0)
