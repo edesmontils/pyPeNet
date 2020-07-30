@@ -33,7 +33,7 @@ class KeyboardEvent(InEvent):
         self.c = "'"+str(c)+"'"
 
     def estDeclenchable(self) :
-        return keysDict.get(self.c, 0) > 0
+        return keysDict.get(self.c, 0) > 0cccccc
 
     def declencher(self) :
         keysDict[self.c] = keysDict[self.c] - 1

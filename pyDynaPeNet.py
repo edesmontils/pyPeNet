@@ -71,18 +71,18 @@ class InEvent(Event):
 class DynaPeNet(PeNet_I):
     def __init__(self):
         PeNet_I.__init__(self)
-        self.F_In = list()
-        self.F_Out = list()
+        self.F_In = [list() for i in range(self.nbt)]
+        self.F_Out = [list() for i in range(self.nbt)]
 
     def load(self, P, T, A, W, M0, FI = None, FO = None):
         super().load(P, T, A, W, M0)
         if FI == None :
-            self.F_In = [None] * len(self.T)
+            self.F_In = [list() for i in range(self.nbt)]
         else:
             self.F_In = FI
         assert self.nbt == len(self.F_In), "[load] incohérence entre F_In et T"
         if FO == None :
-            self.F_Out = [None] * len(self.T)
+            self.F_Out = [list() for i in range(self.nbt)]
         else:
             self.F_Out = FO
         assert self.nbt == len(self.F_Out), "[load] incohérence entre F_Out et T"
@@ -92,7 +92,7 @@ class DynaPeNet(PeNet_I):
         assert isinstance(inEvt, InEvent), "[setInEvent] mauvais type d'event"
         if t in self.T:
             i = self.T.index(t)
-            self.F_In[i] = inEvt
+            self.F_In[i].append(inEvt)
         else:
             pass
 
@@ -100,26 +100,31 @@ class DynaPeNet(PeNet_I):
         assert isinstance(outEvt, OutEvent), "[setOutEvent] mauvais type d'event"
         if t in self.T:
             i = self.T.index(t)
-            self.F_Out[i] = outEvt
+            self.F_Out[i].append(outEvt)
         else:
             pass
 
     def estDeclenchable(self, t):
         dec = super().estDeclenchable(t)
-        a = self.F_In[t]
-        if dec and (a != None) and (isinstance(a, InEvent)):
-            return dec and a.estDeclenchable()
-        else:
-            return dec
+        la = self.F_In[t]
+        if dec and (la != []) :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    dec = dec and a.estDeclenchable()            
+        return dec
 
     def declencher(self, t):
         super().declencher(t)
-        a = self.F_In[t]
-        if (a != None) and (isinstance(a, InEvent)):
-            a.declencher()
-        a = self.F_Out[t]
-        if (a != None) and (isinstance(a, OutEvent)):
-            a.declencher()
+        la = self.F_In[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    a.declencher()
+        la = self.F_Out[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, OutEvent) :
+                    a.declencher()
 
     def run(self,delay=1):
         t = -1
@@ -148,5 +153,6 @@ if __name__ == '__main__':
               (0, 2, 0))
     rdp2.setOutEvent("t0", StdoutDisplayEvent("====> new c !"))
     rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 go !"))
+    rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 gone !"))
     rdp2.setOutEvent("t2", StdoutDisplayEvent("T2 go !"))
     rdp2.run()
