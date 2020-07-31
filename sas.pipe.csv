@@ -15,7 +15,7 @@ Permut d-g;transition;1;;
 Permut g-d;transition;1;;
 sortie SAS d->g;transition;1;;
 sortie SAS g->d;transition;1;;
-Valiation;transition;1;;
+Validation;transition;1;;
 Analyse terminée to sortie SAS g->d;normal;Analyse terminée;sortie SAS g->d;1
 Analyse terminée to T6;normal;Analyse terminée;sortie SAS d->g;1
 Arrivée g to Attente g->d;normal;Arrivée g;Attente g->d;1
@@ -40,5 +40,5 @@ sortie SAS g->d to Sens d->g;normal;sortie SAS g->d;Sens d->g;1
 T4 to P4;normal;Arrivée d;Attente d->g;1
 T5 to P5;normal;Entrée SAS d->g;dans SAS d->g;1
 T6 to Sens g->d;normal;sortie SAS d->g;Sens g->d;1
-Valiation to Analyse terminée;normal;Valiation;Analyse terminée;1
-Validation possible to Valiation;normal;Validation possible;Valiation;1
+Valiation to Analyse terminée;normal;Validation;Analyse terminée;1
+Validation possible to Valiation;normal;Validation possible;Validation;1

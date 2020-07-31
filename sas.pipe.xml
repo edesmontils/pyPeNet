@@ -1,751 +1,742 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<pnml>
-    <net id="Net-One" type="P/T net">
-        <token id="Default" enabled="true" red="0" green="0" blue="0"/>
-        <place id="Analyse terminée">
-            <graphics>
-                <position x="390.0" y="255.0"/>
-            </graphics>
-            <name>
-                <value>Analyse terminée</value>
-                <graphics>
-                    <offset x="63.0" y="-3.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="Attente d-&gt;g">
-            <graphics>
-                <position x="570.0" y="105.0"/>
-            </graphics>
-            <name>
-                <value>Attente d-&gt;g</value>
-                <graphics>
-                    <offset x="112.0" y="18.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="Attente g-&gt;d">
-            <graphics>
-                <position x="180.0" y="105.0"/>
-            </graphics>
-            <name>
-                <value>Attente g-&gt;d</value>
-                <graphics>
-                    <offset x="-15.0" y="19.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="dans SAS d-&gt;g">
-            <graphics>
-                <position x="570.0" y="255.0"/>
-            </graphics>
-            <name>
-                <value>dans SAS d-&gt;g</value>
-                <graphics>
-                    <offset x="124.0" y="9.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="dans SAS g-&gt;d">
-            <graphics>
-                <position x="195.0" y="255.0"/>
-            </graphics>
-            <name>
-                <value>dans SAS g-&gt;d</value>
-                <graphics>
-                    <offset x="-9.0" y="19.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="Sens d-&gt;g">
-            <graphics>
-                <position x="450.0" y="105.0"/>
-            </graphics>
-            <name>
-                <value>Sens d-&gt;g</value>
-                <graphics>
-                    <offset x="-2.0" y="20.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="Sens g-&gt;d">
-            <graphics>
-                <position x="300.0" y="105.0"/>
-            </graphics>
-            <name>
-                <value>Sens g-&gt;d</value>
-                <graphics>
-                    <offset x="-4.0" y="9.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,1</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <place id="Validation possible">
-            <graphics>
-                <position x="390.0" y="435.0"/>
-            </graphics>
-            <name>
-                <value>Validation possible</value>
-                <graphics>
-                    <offset x="64.0" y="41.0"/>
-                </graphics>
-            </name>
-            <initialMarking>
-                <value>Default,0</value>
-                <graphics>
-                    <offset x="0.0" y="0.0"/>
-                </graphics>
-            </initialMarking>
-            <capacity>
-                <value>0</value>
-            </capacity>
-        </place>
-        <transition id="Arrivée d">
-            <graphics>
-                <position x="570.0" y="30.0"/>
-            </graphics>
-            <name>
-                <value>Arrivée d</value>
-                <graphics>
-                    <offset x="93.0" y="16.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>90</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Arrivée g">
-            <graphics>
-                <position x="180.0" y="30.0"/>
-            </graphics>
-            <name>
-                <value>Arrivée g</value>
-                <graphics>
-                    <offset x="-9.0" y="19.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>90</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Entrée SAS d-&gt;g">
-            <graphics>
-                <position x="570.0" y="180.0"/>
-            </graphics>
-            <name>
-                <value>Entrée SAS d-&gt;g</value>
-                <graphics>
-                    <offset x="134.0" y="17.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>90</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Entrée SAS g-&gt;d">
-            <graphics>
-                <position x="195.0" y="180.0"/>
-            </graphics>
-            <name>
-                <value>Entrée SAS g-&gt;d</value>
-                <graphics>
-                    <offset x="-17.0" y="16.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>90</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Permut d-g">
-            <graphics>
-                <position x="300.0" y="30.0"/>
-            </graphics>
-            <name>
-                <value>Permut d-g</value>
-                <graphics>
-                    <offset x="42.0" y="-4.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>0</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Permut g-d">
-            <graphics>
-                <position x="450.0" y="30.0"/>
-            </graphics>
-            <name>
-                <value>Permut g-d</value>
-                <graphics>
-                    <offset x="51.0" y="-5.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>0</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="sortie SAS d-&gt;g">
-            <graphics>
-                <position x="480.0" y="255.0"/>
-            </graphics>
-            <name>
-                <value>sortie SAS d-&gt;g</value>
-                <graphics>
-                    <offset x="25.0" y="49.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>0</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="sortie SAS g-&gt;d">
-            <graphics>
-                <position x="285.0" y="255.0"/>
-            </graphics>
-            <name>
-                <value>sortie SAS g-&gt;d</value>
-                <graphics>
-                    <offset x="59.0" y="45.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>0</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <transition id="Valiation">
-            <graphics>
-                <position x="390.0" y="330.0"/>
-            </graphics>
-            <name>
-                <value>Valiation</value>
-                <graphics>
-                    <offset x="35.0" y="38.0"/>
-                </graphics>
-            </name>
-            <orientation>
-                <value>90</value>
-            </orientation>
-            <rate>
-                <value>1.0</value>
-            </rate>
-            <timed>
-                <value>false</value>
-            </timed>
-            <infiniteServer>
-                <value>false</value>
-            </infiniteServer>
-            <priority>
-                <value>1</value>
-            </priority>
-        </transition>
-        <arc id="Analyse terminée to sortie SAS g-&gt;d" source="Analyse terminée"
-            target="sortie SAS g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="387" y="267" curvePoint="false"/>
-            <arcpath id="001" x="301" y="272" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Analyse terminée to T6" source="Analyse terminée" target="sortie SAS d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="416" y="267" curvePoint="false"/>
-            <arcpath id="001" x="486" y="272" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Arrivée g to Attente g-&gt;d" source="Arrivée g" target="Attente g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="191" y="46" curvePoint="false"/>
-            <arcpath id="001" x="191" y="102" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Attente d-&gt;g to Permut g-d" source="Attente d-&gt;g" target="Permut g-d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="569" y="108" curvePoint="false"/>
-            <arcpath id="001" x="467" y="41" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Attente g-&gt;d to Entrée SAS g-&gt;d" source="Attente g-&gt;d"
-            target="Entrée SAS g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="194" y="131" curvePoint="false"/>
-            <arcpath id="001" x="201" y="186" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Attente g-&gt;d to Permut d-g" source="Attente g-&gt;d" target="Permut d-g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="203" y="107" curvePoint="false"/>
-            <arcpath id="001" x="285" y="40" curvePoint="false"/>
-            <arcpath id="002" x="307" y="37" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="dans SAS g-&gt;d to sortie SAS g-&gt;d" source="dans SAS g-&gt;d"
-            target="sortie SAS g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="221" y="267" curvePoint="false"/>
-            <arcpath id="001" x="291" y="267" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Entrée SAS d-&gt;g to Validation possible" source="Entrée SAS d-&gt;g"
-            target="Validation possible">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="576" y="196" curvePoint="false"/>
-            <arcpath id="001" x="551" y="327" curvePoint="false"/>
-            <arcpath id="002" x="413" y="437" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Entrée SAS g-&gt;d to dans SAS g-&gt;d" source="Entrée SAS g-&gt;d"
-            target="dans SAS g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="201" y="196" curvePoint="false"/>
-            <arcpath id="001" x="206" y="252" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Entrée SAS g-&gt;d to Validation possible" source="Entrée SAS g-&gt;d"
-            target="Validation possible">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="211" y="197" curvePoint="false"/>
-            <arcpath id="001" x="249" y="316" curvePoint="false"/>
-            <arcpath id="002" x="390" y="437" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="P4 to T5" source="Attente d-&gt;g" target="Entrée SAS d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="581" y="131" curvePoint="false"/>
-            <arcpath id="001" x="586" y="187" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="P5 to T6" source="dans SAS d-&gt;g" target="sortie SAS d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="567" y="267" curvePoint="false"/>
-            <arcpath id="001" x="496" y="267" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="P6 to T5" source="Sens d-&gt;g" target="Entrée SAS d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="474" y="124" curvePoint="false"/>
-            <arcpath id="001" x="576" y="186" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Permut d-g to Attente g-&gt;d" source="Permut d-g" target="Attente g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="306" y="47" curvePoint="false"/>
-            <arcpath id="001" x="281" y="74" curvePoint="false"/>
-            <arcpath id="002" x="205" y="110" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Permut d-g to Sens g-&gt;d" source="Permut d-g" target="Sens g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="312" y="57" curvePoint="false"/>
-            <arcpath id="001" x="312" y="102" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Permut g-d to Attente d-&gt;g" source="Permut g-d" target="Attente d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="467" y="34" curvePoint="false"/>
-            <arcpath id="001" x="536" y="54" curvePoint="false"/>
-            <arcpath id="002" x="573" y="104" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Permut g-d to Sens d-&gt;g" source="Permut g-d" target="Sens d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="462" y="57" curvePoint="false"/>
-            <arcpath id="001" x="462" y="102" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Sens d-&gt;g to Permut d-g" source="Sens d-&gt;g" target="Permut d-g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="448" y="110" curvePoint="false"/>
-            <arcpath id="001" x="317" y="37" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Sens g-&gt;d to Entrée SAS g-&gt;d" source="Sens g-&gt;d"
-            target="Entrée SAS g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="299" y="125" curvePoint="false"/>
-            <arcpath id="001" x="211" y="187" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Sens g-&gt;d to Permut g-d" source="Sens g-&gt;d" target="Permut g-d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="325" y="110" curvePoint="false"/>
-            <arcpath id="001" x="456" y="42" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="sortie SAS g-&gt;d to Sens d-&gt;g" source="sortie SAS g-&gt;d"
-            target="Sens d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="302" y="262" curvePoint="false"/>
-            <arcpath id="001" x="450" y="127" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="T4 to P4" source="Arrivée d" target="Attente d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="581" y="46" curvePoint="false"/>
-            <arcpath id="001" x="581" y="102" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="T5 to P5" source="Entrée SAS d-&gt;g" target="dans SAS d-&gt;g">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="586" y="197" curvePoint="false"/>
-            <arcpath id="001" x="583" y="252" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="T6 to Sens g-&gt;d" source="sortie SAS d-&gt;g" target="Sens g-&gt;d">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="487" y="262" curvePoint="false"/>
-            <arcpath id="001" x="323" y="126" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Valiation to Analyse terminée" source="Valiation" target="Analyse terminée">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="401" y="336" curvePoint="false"/>
-            <arcpath id="001" x="401" y="281" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-        <arc id="Validation possible to Valiation" source="Validation possible" target="Valiation">
-            <graphics/>
-            <inscription>
-                <value>Default,1</value>
-                <graphics/>
-            </inscription>
-            <tagged>
-                <value>false</value>
-            </tagged>
-            <arcpath id="000" x="401" y="432" curvePoint="false"/>
-            <arcpath id="001" x="401" y="346" curvePoint="false"/>
-            <type value="normal"/>
-        </arc>
-    </net>
+<?xml version="1.0" encoding="ISO-8859-1"?><pnml>
+<net id="Net-One" type="P/T net">
+<token id="Default" enabled="true" red="0" green="0" blue="0"/>
+<place id="Analyse terminée">
+<graphics>
+<position x="390.0" y="255.0"/>
+</graphics>
+<name>
+<value>Analyse terminée</value>
+<graphics>
+<offset x="63.0" y="-3.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Attente d-&gt;g">
+<graphics>
+<position x="570.0" y="105.0"/>
+</graphics>
+<name>
+<value>Attente d-&gt;g</value>
+<graphics>
+<offset x="112.0" y="18.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Attente g-&gt;d">
+<graphics>
+<position x="180.0" y="105.0"/>
+</graphics>
+<name>
+<value>Attente g-&gt;d</value>
+<graphics>
+<offset x="-15.0" y="19.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="dans SAS d-&gt;g">
+<graphics>
+<position x="570.0" y="255.0"/>
+</graphics>
+<name>
+<value>dans SAS d-&gt;g</value>
+<graphics>
+<offset x="124.0" y="9.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="dans SAS g-&gt;d">
+<graphics>
+<position x="195.0" y="255.0"/>
+</graphics>
+<name>
+<value>dans SAS g-&gt;d</value>
+<graphics>
+<offset x="-9.0" y="19.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Sens d-&gt;g">
+<graphics>
+<position x="450.0" y="105.0"/>
+</graphics>
+<name>
+<value>Sens d-&gt;g</value>
+<graphics>
+<offset x="-2.0" y="20.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Sens g-&gt;d">
+<graphics>
+<position x="300.0" y="105.0"/>
+</graphics>
+<name>
+<value>Sens g-&gt;d</value>
+<graphics>
+<offset x="-4.0" y="9.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,1</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<place id="Validation possible">
+<graphics>
+<position x="390.0" y="435.0"/>
+</graphics>
+<name>
+<value>Validation possible</value>
+<graphics>
+<offset x="64.0" y="41.0"/>
+</graphics>
+</name>
+<initialMarking>
+<value>Default,0</value>
+<graphics>
+<offset x="0.0" y="0.0"/>
+</graphics>
+</initialMarking>
+<capacity>
+<value>0</value>
+</capacity>
+</place>
+<transition id="Arrivée d">
+<graphics>
+<position x="570.0" y="30.0"/>
+</graphics>
+<name>
+<value>Arrivée d</value>
+<graphics>
+<offset x="93.0" y="16.0"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Arrivée g">
+<graphics>
+<position x="180.0" y="30.0"/>
+</graphics>
+<name>
+<value>Arrivée g</value>
+<graphics>
+<offset x="-9.0" y="19.0"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Entrée SAS d-&gt;g">
+<graphics>
+<position x="570.0" y="180.0"/>
+</graphics>
+<name>
+<value>Entrée SAS d-&gt;g</value>
+<graphics>
+<offset x="134.0" y="17.0"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Entrée SAS g-&gt;d">
+<graphics>
+<position x="195.0" y="180.0"/>
+</graphics>
+<name>
+<value>Entrée SAS g-&gt;d</value>
+<graphics>
+<offset x="-17.0" y="16.0"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Permut d-g">
+<graphics>
+<position x="300.0" y="30.0"/>
+</graphics>
+<name>
+<value>Permut d-g</value>
+<graphics>
+<offset x="42.0" y="-4.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Permut g-d">
+<graphics>
+<position x="450.0" y="30.0"/>
+</graphics>
+<name>
+<value>Permut g-d</value>
+<graphics>
+<offset x="51.0" y="-5.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="sortie SAS d-&gt;g">
+<graphics>
+<position x="480.0" y="255.0"/>
+</graphics>
+<name>
+<value>sortie SAS d-&gt;g</value>
+<graphics>
+<offset x="25.0" y="49.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="sortie SAS g-&gt;d">
+<graphics>
+<position x="285.0" y="255.0"/>
+</graphics>
+<name>
+<value>sortie SAS g-&gt;d</value>
+<graphics>
+<offset x="59.0" y="45.0"/>
+</graphics>
+</name>
+<orientation>
+<value>0</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<transition id="Validation">
+<graphics>
+<position x="390.0" y="330.0"/>
+</graphics>
+<name>
+<value>Validation</value>
+<graphics>
+<offset x="36.0" y="38.0"/>
+</graphics>
+</name>
+<orientation>
+<value>90</value>
+</orientation>
+<rate>
+<value>1.0</value>
+</rate>
+<timed>
+<value>false</value>
+</timed>
+<infiniteServer>
+<value>false</value>
+</infiniteServer>
+<priority>
+<value>1</value>
+</priority>
+</transition>
+<arc id="Analyse terminée to sortie SAS g-&gt;d" source="Analyse terminée" target="sortie SAS g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="387" y="267" curvePoint="false"/>
+<arcpath id="001" x="301" y="272" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Analyse terminée to T6" source="Analyse terminée" target="sortie SAS d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="416" y="268" curvePoint="false"/>
+<arcpath id="001" x="486" y="272" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Arrivée g to Attente g-&gt;d" source="Arrivée g" target="Attente g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="191" y="46" curvePoint="false"/>
+<arcpath id="001" x="191" y="102" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Attente d-&gt;g to Permut g-d" source="Attente d-&gt;g" target="Permut g-d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="569" y="109" curvePoint="false"/>
+<arcpath id="001" x="466" y="47" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Attente g-&gt;d to Entrée SAS g-&gt;d" source="Attente g-&gt;d" target="Entrée SAS g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="193" y="131" curvePoint="false"/>
+<arcpath id="001" x="201" y="186" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Attente g-&gt;d to Permut d-g" source="Attente g-&gt;d" target="Permut d-g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="203" y="107" curvePoint="false"/>
+<arcpath id="001" x="286" y="41" curvePoint="false"/>
+<arcpath id="002" x="307" y="37" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="dans SAS g-&gt;d to sortie SAS g-&gt;d" source="dans SAS g-&gt;d" target="sortie SAS g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="221" y="267" curvePoint="false"/>
+<arcpath id="001" x="291" y="267" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Entrée SAS d-&gt;g to Validation possible" source="Entrée SAS d-&gt;g" target="Validation possible">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="576" y="196" curvePoint="false"/>
+<arcpath id="001" x="552" y="328" curvePoint="false"/>
+<arcpath id="002" x="413" y="437" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Entrée SAS g-&gt;d to dans SAS g-&gt;d" source="Entrée SAS g-&gt;d" target="dans SAS g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="201" y="196" curvePoint="false"/>
+<arcpath id="001" x="205" y="252" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Entrée SAS g-&gt;d to Validation possible" source="Entrée SAS g-&gt;d" target="Validation possible">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="211" y="197" curvePoint="false"/>
+<arcpath id="001" x="250" y="317" curvePoint="false"/>
+<arcpath id="002" x="390" y="437" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P4 to T5" source="Attente d-&gt;g" target="Entrée SAS d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="582" y="131" curvePoint="false"/>
+<arcpath id="001" x="586" y="187" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P5 to T6" source="dans SAS d-&gt;g" target="sortie SAS d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="567" y="267" curvePoint="false"/>
+<arcpath id="001" x="496" y="267" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="P6 to T5" source="Sens d-&gt;g" target="Entrée SAS d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="474" y="124" curvePoint="false"/>
+<arcpath id="001" x="576" y="186" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Permut d-g to Attente g-&gt;d" source="Permut d-g" target="Attente g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="306" y="47" curvePoint="false"/>
+<arcpath id="001" x="282" y="75" curvePoint="false"/>
+<arcpath id="002" x="205" y="110" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Permut d-g to Sens g-&gt;d" source="Permut d-g" target="Sens g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="312" y="57" curvePoint="false"/>
+<arcpath id="001" x="312" y="102" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Permut g-d to Attente d-&gt;g" source="Permut g-d" target="Attente d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="467" y="37" curvePoint="false"/>
+<arcpath id="001" x="537" y="55" curvePoint="false"/>
+<arcpath id="002" x="573" y="104" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Permut g-d to Sens d-&gt;g" source="Permut g-d" target="Sens d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="462" y="57" curvePoint="false"/>
+<arcpath id="001" x="462" y="102" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Sens d-&gt;g to Permut d-g" source="Sens d-&gt;g" target="Permut d-g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="448" y="110" curvePoint="false"/>
+<arcpath id="001" x="316" y="42" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Sens g-&gt;d to Entrée SAS g-&gt;d" source="Sens g-&gt;d" target="Entrée SAS g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="299" y="125" curvePoint="false"/>
+<arcpath id="001" x="211" y="187" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Sens g-&gt;d to Permut g-d" source="Sens g-&gt;d" target="Permut g-d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="325" y="110" curvePoint="false"/>
+<arcpath id="001" x="456" y="42" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="sortie SAS g-&gt;d to Sens d-&gt;g" source="sortie SAS g-&gt;d" target="Sens d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="302" y="262" curvePoint="false"/>
+<arcpath id="001" x="450" y="127" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T4 to P4" source="Arrivée d" target="Attente d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="581" y="46" curvePoint="false"/>
+<arcpath id="001" x="581" y="102" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T5 to P5" source="Entrée SAS d-&gt;g" target="dans SAS d-&gt;g">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="586" y="197" curvePoint="false"/>
+<arcpath id="001" x="583" y="252" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="T6 to Sens g-&gt;d" source="sortie SAS d-&gt;g" target="Sens g-&gt;d">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="487" y="262" curvePoint="false"/>
+<arcpath id="001" x="323" y="126" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Valiation to Analyse terminée" source="Validation" target="Analyse terminée">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="401" y="336" curvePoint="false"/>
+<arcpath id="001" x="401" y="281" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+<arc id="Validation possible to Valiation" source="Validation possible" target="Validation">
+<graphics/>
+<inscription>
+<value>Default,1</value>
+<graphics/>
+</inscription>
+<tagged>
+<value>false</value>
+</tagged>
+<arcpath id="000" x="401" y="432" curvePoint="false"/>
+<arcpath id="001" x="401" y="346" curvePoint="false"/>
+<type value="normal"/>
+</arc>
+</net>
 </pnml>

@@ -201,9 +201,9 @@ class PeNet(object):
         self.sequence=list()
 
     def __str__(self):
-        return "\n".join([ ", ".join([str(p)+'/'+str(self.M0[i]) for (i,p) in enumerate(self.P)]), 
-                           ", ".join([str(t)+'/'+str(self.Pr[i]) for (i,t) in enumerate(self.T)]),
-                           ", ".join([str(a)+'/'+str(self.W[i])  for (i,a) in enumerate(self.A)]) ])
+        return "\n".join([ ", ".join([str(i)+'/'+str(p)+'/'+str(self.M0[i]) for (i,p) in enumerate(self.P)]), 
+                           ", ".join([str(i)+'/'+str(t)+'/'+str(self.Pr[i]) for (i,t) in enumerate(self.T)]),
+                           ", ".join([str(i)+'/'+str(a)+'/'+str(self.W[i])  for (i,a) in enumerate(self.A)]) ])
 
     def setU(self):
         self.Us = setIntMatrix(self.nbp,self.nbt) 
@@ -278,8 +278,11 @@ class PeNet(object):
                 self.nba = len(self.A)
                 self.nbp = len(self.P)
                 self.init()
+                print('File loaded')
+                return True
         else :
-            pass
+            print('File ',f,' doesn''t exist')
+            return False
 
     # def loadPIPEFile(self, f : str) -> None :
     #     if existFile(f) :
@@ -350,10 +353,10 @@ class PeNet(object):
 
         if len(lDeclenchables) > 0:
             t = self.choix(lDeclenchables, self.v_count, self.sequence, self.Pr)
-            print(lDeclenchables, self.v_count, self.sequence)
             self.declencher(t)
             self.sequence.append(t)
             self.lastT = t
+            print(lDeclenchables, self.v_count, self.sequence, self.Pr, ' -> ', t, '/',self.T[t])
             return t
         else:
             return None
@@ -389,9 +392,11 @@ class PeNet_I(PeNet):
         super().load(P, T, A, W, M0)
         self.setInhibitorMatrix()
 
-    def loadPIPEFile(self, f : str) -> None :
-        super().loadPIPEFile(f)
-        self.setInhibitorMatrix()
+    def loadPIPEFile(self, f) :
+        ok = super().loadPIPEFile(f)
+        if ok :
+            self.setInhibitorMatrix()
+        return ok
 
     def estDeclenchable(self, t):
         ok = True

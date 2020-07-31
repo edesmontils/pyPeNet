@@ -74,8 +74,7 @@ class DynaPeNet(PeNet_I):
         self.F_In = [list() for i in range(self.nbt)]
         self.F_Out = [list() for i in range(self.nbt)]
 
-    def load(self, P, T, A, W, M0, FI = None, FO = None):
-        super().load(P, T, A, W, M0)
+    def eventsBuilding(self, FI = None, FO = None):
         if FI == None :
             self.F_In = [list() for i in range(self.nbt)]
         else:
@@ -87,6 +86,19 @@ class DynaPeNet(PeNet_I):
             self.F_Out = FO
         assert self.nbt == len(self.F_Out), "[load] incohérence entre F_Out et T"
 
+    def load(self, P, T, A, W, M0, FI = None, FO = None):
+        super().load(P, T, A, W, M0)
+        self.eventsBuilding()
+
+    def loadPIPEFile(self, f) :
+        ok = super().loadPIPEFile(f)
+        print(ok)
+        if ok :
+            self.eventsBuilding()
+            return True
+        else: 
+            print('pb')
+            return False
 
     def setInEvent(self, t, inEvt) :
         assert isinstance(inEvt, InEvent), "[setInEvent] mauvais type d'event"
@@ -131,7 +143,6 @@ class DynaPeNet(PeNet_I):
         try:
             while(1):
                 t = self.next()
-                if t!=None : print(self.sequence)
                 time.sleep(delay)
         except KeyboardInterrupt:
             print("Fin du RdP par interruption clavier")
@@ -146,6 +157,7 @@ class DynaPeNet(PeNet_I):
 
 
 if __name__ == '__main__':
+
     rdp2 = DynaPeNet()
     rdp2.load(("p0","p1", "p2"), ("t0","t1", "t2"), 
               (("t0","p0"),("p0","t1"), ("p1", "t1"), ("t1", "p2"), ("p2", "t2")),
