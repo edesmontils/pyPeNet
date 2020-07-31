@@ -2,11 +2,6 @@ from keyboardPeNet import *
 
 rdp1 = DynaPeNet()
 rdp1.loadPIPEFile('sas.pipe.csv')
-print(rdp1.M0)
-print(rdp1.Ue)
-print(rdp1.Us)
-print(rdp1.U)
-print(rdp1.I)
 print(rdp1)
 
 rdp1.setInEvent("Arrivée d", KeyboardEvent('d'))
