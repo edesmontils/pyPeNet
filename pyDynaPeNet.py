@@ -4,15 +4,15 @@
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter.
     TODO :
-    - gestion des événements clavier comme transition source
     - gestion des événements souris (?) faisable par le même blibliothèque que pour le clavier.
     - proposer un timer pour provoquer une transition source au bout de x secondes
     - introduire un timer sur les transitions pour simuler le temps d'exécution
 """
 from pyPeNet import *
 
-#from multiprocessing import Manager
 import time
+
+
 # ==================================================
 # ==================================================
 # ==================================================
