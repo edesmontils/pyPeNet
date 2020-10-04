@@ -12,6 +12,8 @@ import random
 import os
 import csv
 
+import pdb
+
 #==================================================
 #============ Tools ===============================
 #==================================================
@@ -271,6 +273,8 @@ class PeNet(object):
                         self.A.append( (source,target) )
 
                     elif typeNode == 'inhibitor' :
+                        source = row['v1']
+                        target = row['v2']                        
                         self.W.append(0)
                         self.A.append( (source,target) )
 
@@ -330,6 +334,7 @@ class PeNet(object):
         self.choix = mode
         self.lastT = None
         self.setU()
+        print('M0:',self.Mi, ' ; Pr:', self.Pr)
 
     def setMi(self, m : list ) -> None :
         assert isinstance(m, list), "[setMi] Pb m (1)"
@@ -338,7 +343,7 @@ class PeNet(object):
     def estDeclenchable(self, t):
         ok = True
         for p in range(self.nbp):
-            ok = ok and (self.UeT[t][p] <= self.Mi[p])
+            if self.UeT[t][p] > 0 : ok = ok and (self.UeT[t][p] <= self.Mi[p])
         return ok
 
     def declencher(self, t):
@@ -356,7 +361,7 @@ class PeNet(object):
             self.declencher(t)
             self.sequence.append(t)
             self.lastT = t
-            print(lDeclenchables, self.v_count, self.sequence, self.Pr, ' -> ', t, '/',self.T[t])
+            print(lDeclenchables,  ' -> ', t, '/',self.T[t], ' Mi:',self.Mi, ' count:', self.v_count)
             return t
         else:
             return None
@@ -386,6 +391,7 @@ class PeNet_I(PeNet):
                 self.I[i][j] = w
 
         self.IT = transposeIntMatrix(self.I)
+        print('I:',self.I)
 
 
     def load(self, P, T, A, W, M0):
@@ -402,7 +408,7 @@ class PeNet_I(PeNet):
         ok = True
         for p in range(self.nbp):
             if self.IT[t][p] == 0:
-                ok = ok and (self.UeT[t][p] <= self.Mi[p])
+                if self.UeT[t][p] > 0 : ok = ok and (self.UeT[t][p] <= self.Mi[p])
             else:
                 ok = ok and (self.Mi[p] == 0)
 
