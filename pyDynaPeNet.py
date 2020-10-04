@@ -6,6 +6,7 @@
 """
 
 from pyPeNet import *
+import argparse
 
 import time
 
@@ -155,13 +156,52 @@ class DynaPeNet(PeNet_I):
 
 if __name__ == '__main__':
 
-    rdp2 = DynaPeNet()
-    rdp2.load(("p0","p1", "p2"), ("t0","t1", "t2"), 
-              (("t0","p0"),("p0","t1"), ("p1", "t1"), ("t1", "p2"), ("p2", "t2")),
-              (1, 1, 1, 1, 1),
-              (0, 2, 0))
-    rdp2.setOutEvent("t0", StdoutDisplayEvent("====> new c !"))
-    rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 go !"))
-    rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 gone !"))
-    rdp2.setOutEvent("t2", StdoutDisplayEvent("T2 go !"))
-    rdp2.run()
+    # rdp2 = DynaPeNet()
+    # rdp2.load(("p0","p1", "p2"), ("t0","t1", "t2"), 
+    #           (("t0","p0"),("p0","t1"), ("p1", "t1"), ("t1", "p2"), ("p2", "t2")),
+    #           (1, 1, 1, 1, 1),
+    #           (0, 2, 0))
+    # rdp2.setOutEvent("t0", StdoutDisplayEvent("====> new c !"))
+    # rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 go !"))
+    # rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 gone !"))
+    # rdp2.setOutEvent("t2", StdoutDisplayEvent("T2 go !"))
+    # rdp2.run()
+
+    parser = argparse.ArgumentParser(description='Celcat explorer')
+    parser.add_argument("-f", "--file", default='', dest="file", help="Nom du fichier CSV contenant le RdP")
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument("-a", "--aleatoire", action="store_true")
+    group.add_argument("-pf", "--plusfrequent", action="store_true")
+    group.add_argument("-mf", "--moinsfrequent", action="store_true")
+    group.add_argument("-pr", "--plusrecent", action="store_true")
+    group.add_argument("-mr", "--moinsrecent", action="store_true")
+    group.add_argument("-pp", "--plusprioritaire", action="store_true")
+    group.add_argument("-mp", "--moinsprioritaire", action="store_true")
+
+    args = parser.parse_args()
+
+    rdp1 = DynaPeNet()
+    if rdp1.loadPIPEFile(args.file) :
+
+        if args.aleatoire :
+            rdp1.init(mode=PeNet.ALEATOIRE)
+        elif args.plusfrequent :
+            rdp1.init(mode=PeNet.MODE_PLUSFREQUENT)
+        elif args.moinsfrequent :
+            rdp1.init(mode=PeNet.MODE_MOINSFREQUENT)
+        elif args.plusrecent :
+            rdp1.init(mode=PeNet.MODE_PLUSRECENT)
+        elif args.moinsrecent :
+            rdp1.init(mode=PeNet.MODE_MOINSRECENT)
+        elif args.plusprioritaire :
+            rdp1.init(mode=PeNet.MODE_PLUSPRIORITAIRE)
+        elif args.moinsprioritaire :
+            rdp1.init(mode=PeNet.MODE_MOINSPRIORITAIRE)
+        else:
+            rdp1.init()
+
+        
+        print(rdp1)
+        rdp1.run()
+
