@@ -167,7 +167,7 @@ if __name__ == '__main__':
     # rdp2.setOutEvent("t2", StdoutDisplayEvent("T2 go !"))
     # rdp2.run()
 
-    parser = argparse.ArgumentParser(description='Celcat explorer')
+    parser = argparse.ArgumentParser(description='pyDynaPeNet')
     parser.add_argument("-f", "--file", default='', dest="file", help="Nom du fichier CSV contenant le RdP")
     group = parser.add_mutually_exclusive_group()
 
@@ -201,7 +201,7 @@ if __name__ == '__main__':
         else:
             rdp1.init()
 
-        
+
         print(rdp1)
         rdp1.run()
 
