@@ -98,7 +98,6 @@ def _addVector(v,w) :
 # ==================================================
 
 def _choixAleatoire(lde, cpt, seq, pr) :
-    #print(&#39;--&gt; aleatoire :&#39;,lde)
     if len(lde) == 1 :
         return lde[0]
     else :
@@ -201,26 +200,7 @@ def _choixMRecent(lde, cpt, seq, pr) :
 # ==================================================
 
 class PeNet(object):
-    &#34;&#34;&#34; 
-        Description d&#39;un RdP de base 
-
-        Attributes
-        ----------
-        P : list(str)
-            Liste des places
-        T : list(str)
-            Liste des transitions
-        Pr : list(int)
-            Priorité des transitions
-        A : list(str)
-            Liste des arcs
-        W : list(str)
-            poids des arcs
-        M0 : list(int)
-            Marquage initial
-        Mi : list(int)
-            Marquage courant
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Description d&#39;un RdP de base &#34;&#34;&#34;
 
     MODE_ALEATOIRE = _choixAleatoire
     MODE_PLUSFREQUENT = _choixPFreq
@@ -232,21 +212,32 @@ class PeNet(object):
 
     def __init__(self):
         self.P = list() # liste des places
+        &#34;&#34;&#34; Liste des places : list(str) &#34;&#34;&#34;
         self.nbp = 0 # nombre de places
+
         self.T = list() # liste des transitions
+        &#34;&#34;&#34; Liste des transitions : list(str) &#34;&#34;&#34;
         self.nbt = 0 # nombre de transitions
+
         self.A = list() # liste des arcs
+        &#34;&#34;&#34; Liste des arcs : list(str) &#34;&#34;&#34;
         self.nba = 0 # nombre d&#39;arcs
+
         self.W = list() # poids des arcs
+        &#34;&#34;&#34; Poids des arcs : list(int) &#34;&#34;&#34;
+        self.Pr = None # priorité des transitions
+        &#34;&#34;&#34; Priorité des transitions : list(int) &#34;&#34;&#34;
+
         self.M0 = None # marquage initial
+        &#34;&#34;&#34; Marquage initial : list(int) &#34;&#34;&#34;
         self.Mi = None # marquage courant
+        &#34;&#34;&#34; Marquage courant : list(int) &#34;&#34;&#34;
+
         self.Us = None  # U+
         self.Ue = None  # U-
         self.U = None  # U
         self.v_count = None # vecteur de comptage
         self.lastT = None # dernière transition empruntée
-        self.Pr = None # priorité des transitions
-
         self._choix = self.MODE_ALEATOIRE
         self.sequence=list()
 
@@ -547,8 +538,8 @@ class PeNet_I(PeNet):
         super().load(P, T, A, W, M0)
         self._setInhibitorMatrix()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         if ok :
             self._setInhibitorMatrix()
         return ok
@@ -614,49 +605,13 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">PeNet</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Description d'un RdP de base </p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>P</code></strong> :&ensp;<code>list(str)</code></dt>
-<dd>Liste des places</dd>
-<dt><strong><code>T</code></strong> :&ensp;<code>list(str)</code></dt>
-<dd>Liste des transitions</dd>
-<dt><strong><code>Pr</code></strong> :&ensp;<code>list(int)</code></dt>
-<dd>Priorité des transitions</dd>
-<dt><strong><code>A</code></strong> :&ensp;<code>list(str)</code></dt>
-<dd>Liste des arcs</dd>
-<dt><strong><code>W</code></strong> :&ensp;<code>list(str)</code></dt>
-<dd>poids des arcs</dd>
-<dt><strong><code>M0</code></strong> :&ensp;<code>list(int)</code></dt>
-<dd>Marquage initial</dd>
-<dt><strong><code>Mi</code></strong> :&ensp;<code>list(int)</code></dt>
-<dd>Marquage courant</dd>
-</dl></div>
+<div class="desc"><p>Description d'un RdP de base</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class PeNet(object):
-    &#34;&#34;&#34; 
-        Description d&#39;un RdP de base 
-
-        Attributes
-        ----------
-        P : list(str)
-            Liste des places
-        T : list(str)
-            Liste des transitions
-        Pr : list(int)
-            Priorité des transitions
-        A : list(str)
-            Liste des arcs
-        W : list(str)
-            poids des arcs
-        M0 : list(int)
-            Marquage initial
-        Mi : list(int)
-            Marquage courant
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Description d&#39;un RdP de base &#34;&#34;&#34;
 
     MODE_ALEATOIRE = _choixAleatoire
     MODE_PLUSFREQUENT = _choixPFreq
@@ -668,21 +623,32 @@ if __name__ == &#39;__main__&#39;:
 
     def __init__(self):
         self.P = list() # liste des places
+        &#34;&#34;&#34; Liste des places : list(str) &#34;&#34;&#34;
         self.nbp = 0 # nombre de places
+
         self.T = list() # liste des transitions
+        &#34;&#34;&#34; Liste des transitions : list(str) &#34;&#34;&#34;
         self.nbt = 0 # nombre de transitions
+
         self.A = list() # liste des arcs
+        &#34;&#34;&#34; Liste des arcs : list(str) &#34;&#34;&#34;
         self.nba = 0 # nombre d&#39;arcs
+
         self.W = list() # poids des arcs
+        &#34;&#34;&#34; Poids des arcs : list(int) &#34;&#34;&#34;
+        self.Pr = None # priorité des transitions
+        &#34;&#34;&#34; Priorité des transitions : list(int) &#34;&#34;&#34;
+
         self.M0 = None # marquage initial
+        &#34;&#34;&#34; Marquage initial : list(int) &#34;&#34;&#34;
         self.Mi = None # marquage courant
+        &#34;&#34;&#34; Marquage courant : list(int) &#34;&#34;&#34;
+
         self.Us = None  # U+
         self.Ue = None  # U-
         self.U = None  # U
         self.v_count = None # vecteur de comptage
         self.lastT = None # dernière transition empruntée
-        self.Pr = None # priorité des transitions
-
         self._choix = self.MODE_ALEATOIRE
         self.sequence=list()
 
@@ -956,6 +922,37 @@ if __name__ == &#39;__main__&#39;:
 <ul class="hlist">
 <li><a title="pyPeNet.PeNet_I" href="#pyPeNet.PeNet_I">PeNet_I</a></li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyPeNet.PeNet.A"><code class="name">var <span class="ident">A</span></code></dt>
+<dd>
+<div class="desc"><p>Liste des arcs : list(str)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.M0"><code class="name">var <span class="ident">M0</span></code></dt>
+<dd>
+<div class="desc"><p>Marquage initial : list(int)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.Mi"><code class="name">var <span class="ident">Mi</span></code></dt>
+<dd>
+<div class="desc"><p>Marquage courant : list(int)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.P"><code class="name">var <span class="ident">P</span></code></dt>
+<dd>
+<div class="desc"><p>Liste des places : list(str)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.Pr"><code class="name">var <span class="ident">Pr</span></code></dt>
+<dd>
+<div class="desc"><p>Priorité des transitions : list(int)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.T"><code class="name">var <span class="ident">T</span></code></dt>
+<dd>
+<div class="desc"><p>Liste des transitions : list(str)</p></div>
+</dd>
+<dt id="pyPeNet.PeNet.W"><code class="name">var <span class="ident">W</span></code></dt>
+<dd>
+<div class="desc"><p>Poids des arcs : list(int)</p></div>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="pyPeNet.PeNet.MODE_ALEATOIRE"><code class="name flex">
@@ -968,7 +965,6 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def _choixAleatoire(lde, cpt, seq, pr) :
-    #print(&#39;--&gt; aleatoire :&#39;,lde)
     if len(lde) == 1 :
         return lde[0]
     else :
@@ -1539,8 +1535,8 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
         super().load(P, T, A, W, M0)
         self._setInhibitorMatrix()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         if ok :
             self._setInhibitorMatrix()
         return ok
@@ -1573,6 +1569,13 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
 <ul class="hlist">
 <li><code><b><a title="pyPeNet.PeNet" href="#pyPeNet.PeNet">PeNet</a></b></code>:
 <ul class="hlist">
+<li><code><a title="pyPeNet.PeNet.A" href="#pyPeNet.PeNet.A">A</a></code></li>
+<li><code><a title="pyPeNet.PeNet.M0" href="#pyPeNet.PeNet.M0">M0</a></code></li>
+<li><code><a title="pyPeNet.PeNet.Mi" href="#pyPeNet.PeNet.Mi">Mi</a></code></li>
+<li><code><a title="pyPeNet.PeNet.P" href="#pyPeNet.PeNet.P">P</a></code></li>
+<li><code><a title="pyPeNet.PeNet.Pr" href="#pyPeNet.PeNet.Pr">Pr</a></code></li>
+<li><code><a title="pyPeNet.PeNet.T" href="#pyPeNet.PeNet.T">T</a></code></li>
+<li><code><a title="pyPeNet.PeNet.W" href="#pyPeNet.PeNet.W">W</a></code></li>
 <li><code><a title="pyPeNet.PeNet.init" href="#pyPeNet.PeNet.init">init</a></code></li>
 <li><code><a title="pyPeNet.PeNet.load" href="#pyPeNet.PeNet.load">load</a></code></li>
 <li><code><a title="pyPeNet.PeNet.loadCSVFile" href="#pyPeNet.PeNet.loadCSVFile">loadCSVFile</a></code></li>
@@ -1598,6 +1601,8 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
 <li>
 <h4><code><a title="pyPeNet.PeNet" href="#pyPeNet.PeNet">PeNet</a></code></h4>
 <ul class="">
+<li><code><a title="pyPeNet.PeNet.A" href="#pyPeNet.PeNet.A">A</a></code></li>
+<li><code><a title="pyPeNet.PeNet.M0" href="#pyPeNet.PeNet.M0">M0</a></code></li>
 <li><code><a title="pyPeNet.PeNet.MODE_ALEATOIRE" href="#pyPeNet.PeNet.MODE_ALEATOIRE">MODE_ALEATOIRE</a></code></li>
 <li><code><a title="pyPeNet.PeNet.MODE_MOINSFREQUENT" href="#pyPeNet.PeNet.MODE_MOINSFREQUENT">MODE_MOINSFREQUENT</a></code></li>
 <li><code><a title="pyPeNet.PeNet.MODE_MOINSPRIORITAIRE" href="#pyPeNet.PeNet.MODE_MOINSPRIORITAIRE">MODE_MOINSPRIORITAIRE</a></code></li>
@@ -1605,6 +1610,11 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
 <li><code><a title="pyPeNet.PeNet.MODE_PLUSFREQUENT" href="#pyPeNet.PeNet.MODE_PLUSFREQUENT">MODE_PLUSFREQUENT</a></code></li>
 <li><code><a title="pyPeNet.PeNet.MODE_PLUSPRIORITAIRE" href="#pyPeNet.PeNet.MODE_PLUSPRIORITAIRE">MODE_PLUSPRIORITAIRE</a></code></li>
 <li><code><a title="pyPeNet.PeNet.MODE_PLUSRECENT" href="#pyPeNet.PeNet.MODE_PLUSRECENT">MODE_PLUSRECENT</a></code></li>
+<li><code><a title="pyPeNet.PeNet.Mi" href="#pyPeNet.PeNet.Mi">Mi</a></code></li>
+<li><code><a title="pyPeNet.PeNet.P" href="#pyPeNet.PeNet.P">P</a></code></li>
+<li><code><a title="pyPeNet.PeNet.Pr" href="#pyPeNet.PeNet.Pr">Pr</a></code></li>
+<li><code><a title="pyPeNet.PeNet.T" href="#pyPeNet.PeNet.T">T</a></code></li>
+<li><code><a title="pyPeNet.PeNet.W" href="#pyPeNet.PeNet.W">W</a></code></li>
 <li><code><a title="pyPeNet.PeNet.init" href="#pyPeNet.PeNet.init">init</a></code></li>
 <li><code><a title="pyPeNet.PeNet.load" href="#pyPeNet.PeNet.load">load</a></code></li>
 <li><code><a title="pyPeNet.PeNet.loadCSVFile" href="#pyPeNet.PeNet.loadCSVFile">loadCSVFile</a></code></li>

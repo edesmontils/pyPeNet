@@ -30,9 +30,7 @@
 <pre><code class="python">#!/usr/bin/env python3.7
 # coding: utf8
 
-&#34;&#34;&#34;
-    Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter.
-&#34;&#34;&#34;
+&#34;&#34;&#34; Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter. &#34;&#34;&#34;
 
 from pyPeNet import *
 import argparse
@@ -46,16 +44,12 @@ import time
 
 
 class Event(object):
-    &#34;&#34;&#34;
-        Classe type pour les évnements produits ou récupérés par le RdP.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe type pour les évnements produits ou récupérés par le RdP. &#34;&#34;&#34;
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
-        &#34;&#34;&#34;
-            Méthode appelée lorsque l&#39;événement est exécuté.
-        &#34;&#34;&#34;
+        &#34;&#34;&#34; Méthode appelée lorsque l&#39;événement est exécuté. &#34;&#34;&#34;
         pass
 # ==================================================
 # OUT
@@ -63,25 +57,34 @@ class Event(object):
 
 
 class OutEvent(Event):
-    &#34;&#34;&#34;
-        Classe représentant un événement &#34;produit&#34; par une transition.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe représentant un événement &#34;produit&#34; par une transition. &#34;&#34;&#34;
     def __init__(self):
         super(OutEvent, self).__init__()
 
 # ==================================================
 
 class DisplayEvent(OutEvent):
+    &#34;&#34;&#34; Classe permettant l&#39;affichage d&#39;informations &#34;&#34;&#34;
     def __init__(self):
         super(DisplayEvent, self).__init__()
 
 
 class StdoutDisplayEvent(DisplayEvent):
+    &#34;&#34;&#34;
+        Classe permettant l&#39;affichage d&#39;un texte sur la sortie standard.
+
+        Parameters
+        ----------
+        cdc : str
+            La chaine à afficher (None par défaut)
+    &#34;&#34;&#34;
     def __init__(self, cdc=None):
         super(StdoutDisplayEvent, self).__init__()
         self.cdc = cdc
+        &#34;&#34;&#34; Chaine de caractères à afficher : str &#34;&#34;&#34;
 
     def declencher(self) :
+        &#34;&#34;&#34; Affiche la chaine sur la sortie standard &#34;&#34;&#34;
         print(self.cdc)
 
 # ==================================================
@@ -90,20 +93,20 @@ class StdoutDisplayEvent(DisplayEvent):
 
 
 class InEvent(Event):
-    &#34;&#34;&#34;
-        Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition. &#34;&#34;&#34;
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
         &#34;&#34;&#34;
             Méthode permettant de déterminer si un événement est arrivé.
+
+            Returns
+            -------
+            boolean 
+                True si l&#39;événement est arrivé, False sinon
         &#34;&#34;&#34;
         return False
-
-    def declencher(self) :
-        pass
 
 # ==================================================
 # ==================================================
@@ -111,10 +114,13 @@ class InEvent(Event):
 
 
 class DynaPeNet(PeNet_I):
+    &#34;&#34;&#34; Classe permettant d&#39;exécuter un RdP &#34;&#34;&#34;
     def __init__(self):
         PeNet_I.__init__(self)
         self.F_In = [list() for i in range(self.nbt)]
+        &#34;&#34;&#34; Liste des événements en entrée associés à chaque transition : list(`InEvent`) &#34;&#34;&#34;
         self.F_Out = [list() for i in range(self.nbt)]
+        &#34;&#34;&#34; Liste des événements en sortie associés à chaque transition : list(`OutEvent`) &#34;&#34;&#34;
 
     def _eventsBuilding(self, FI = None, FO = None):
         if FI == None :
@@ -132,8 +138,8 @@ class DynaPeNet(PeNet_I):
         super().load(P, T, A, W, M0)
         self._eventsBuilding()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         print(ok)
         if ok :
             self._eventsBuilding()
@@ -143,6 +149,16 @@ class DynaPeNet(PeNet_I):
             return False
 
     def setInEvent(self, t, inEvt) :
+        &#34;&#34;&#34; 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l&#39;événement est rattaché
+            inEvt : InEvent
+                L&#39;événement rattaché
+        &#34;&#34;&#34;
         assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
         if t in self.T:
             i = self.T.index(t)
@@ -151,6 +167,16 @@ class DynaPeNet(PeNet_I):
             pass
 
     def setOutEvent(self, t, outEvt):
+        &#34;&#34;&#34; 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l&#39;événement est rattaché
+            outEvt : OutEvent
+                L&#39;événement rattaché
+        &#34;&#34;&#34;
         assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
         if t in self.T:
             i = self.T.index(t)
@@ -181,6 +207,14 @@ class DynaPeNet(PeNet_I):
                     a.declencher()
 
     def run(self,delay=1):
+        &#34;&#34;&#34;
+            Lance l&#39;exécution du RdP. L&#39;arrêt s&#39;effectue par un Ctrl-C
+
+            Parameters
+            ----------
+            delay : int
+                temporisation entre deux déclenchement de transition (en secondes)
+        &#34;&#34;&#34;
         t = -1
         try:
             while(1):
@@ -226,7 +260,7 @@ if __name__ == &#39;__main__&#39;:
     args = parser.parse_args()
 
     rdp1 = DynaPeNet()
-    if rdp1.loadPIPEFile(args.file) :
+    if rdp1.loadCSVFile(args.file) :
 
         if args.aleatoire :
             rdp1.init(mode=PeNet.ALEATOIRE)
@@ -263,12 +297,13 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">DisplayEvent</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
+<div class="desc"><p>Classe permettant l'affichage d'informations</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class DisplayEvent(OutEvent):
+    &#34;&#34;&#34; Classe permettant l&#39;affichage d&#39;informations &#34;&#34;&#34;
     def __init__(self):
         super(DisplayEvent, self).__init__()</code></pre>
 </details>
@@ -296,16 +331,19 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">DynaPeNet</span></span>
 </code></dt>
 <dd>
-<div class="desc"><p>RdP avec arcs inhibiteurs possibles. Les arcs inhibiteurs sont identifiés par un poids de 0.</p></div>
+<div class="desc"><p>Classe permettant d'exécuter un RdP</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class DynaPeNet(PeNet_I):
+    &#34;&#34;&#34; Classe permettant d&#39;exécuter un RdP &#34;&#34;&#34;
     def __init__(self):
         PeNet_I.__init__(self)
         self.F_In = [list() for i in range(self.nbt)]
+        &#34;&#34;&#34; Liste des événements en entrée associés à chaque transition : list(`InEvent`) &#34;&#34;&#34;
         self.F_Out = [list() for i in range(self.nbt)]
+        &#34;&#34;&#34; Liste des événements en sortie associés à chaque transition : list(`OutEvent`) &#34;&#34;&#34;
 
     def _eventsBuilding(self, FI = None, FO = None):
         if FI == None :
@@ -323,8 +361,8 @@ if __name__ == &#39;__main__&#39;:
         super().load(P, T, A, W, M0)
         self._eventsBuilding()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         print(ok)
         if ok :
             self._eventsBuilding()
@@ -334,6 +372,16 @@ if __name__ == &#39;__main__&#39;:
             return False
 
     def setInEvent(self, t, inEvt) :
+        &#34;&#34;&#34; 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l&#39;événement est rattaché
+            inEvt : InEvent
+                L&#39;événement rattaché
+        &#34;&#34;&#34;
         assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
         if t in self.T:
             i = self.T.index(t)
@@ -342,6 +390,16 @@ if __name__ == &#39;__main__&#39;:
             pass
 
     def setOutEvent(self, t, outEvt):
+        &#34;&#34;&#34; 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l&#39;événement est rattaché
+            outEvt : OutEvent
+                L&#39;événement rattaché
+        &#34;&#34;&#34;
         assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
         if t in self.T:
             i = self.T.index(t)
@@ -372,6 +430,14 @@ if __name__ == &#39;__main__&#39;:
                     a.declencher()
 
     def run(self,delay=1):
+        &#34;&#34;&#34;
+            Lance l&#39;exécution du RdP. L&#39;arrêt s&#39;effectue par un Ctrl-C
+
+            Parameters
+            ----------
+            delay : int
+                temporisation entre deux déclenchement de transition (en secondes)
+        &#34;&#34;&#34;
         t = -1
         try:
             while(1):
@@ -392,18 +458,42 @@ if __name__ == &#39;__main__&#39;:
 <ul class="hlist">
 <li><a title="pyEV3PeNet.EV3PeNet" href="pyEV3PeNet.html#pyEV3PeNet.EV3PeNet">EV3PeNet</a></li>
 </ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyDynaPeNet.DynaPeNet.F_In"><code class="name">var <span class="ident">F_In</span></code></dt>
+<dd>
+<div class="desc"><p>Liste des événements en entrée associés à chaque transition : list(<code><a title="pyDynaPeNet.InEvent" href="#pyDynaPeNet.InEvent">InEvent</a></code>)</p></div>
+</dd>
+<dt id="pyDynaPeNet.DynaPeNet.F_Out"><code class="name">var <span class="ident">F_Out</span></code></dt>
+<dd>
+<div class="desc"><p>Liste des événements en sortie associés à chaque transition : list(<code><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></code>)</p></div>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="pyDynaPeNet.DynaPeNet.run"><code class="name flex">
 <span>def <span class="ident">run</span></span>(<span>self, delay=1)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Lance l'exécution du RdP. L'arrêt s'effectue par un Ctrl-C</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>delay</code></strong> :&ensp;<code>int</code></dt>
+<dd>temporisation entre deux déclenchement de transition (en secondes)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def run(self,delay=1):
+    &#34;&#34;&#34;
+        Lance l&#39;exécution du RdP. L&#39;arrêt s&#39;effectue par un Ctrl-C
+
+        Parameters
+        ----------
+        delay : int
+            temporisation entre deux déclenchement de transition (en secondes)
+    &#34;&#34;&#34;
     t = -1
     try:
         while(1):
@@ -420,12 +510,29 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">setInEvent</span></span>(<span>self, t, inEvt)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Attribue un événement en entrée à une transition </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>t</code></strong> :&ensp;<code>int</code></dt>
+<dd>La transition à laquelle l'événement est rattaché</dd>
+<dt><strong><code>inEvt</code></strong> :&ensp;<code><a title="pyDynaPeNet.InEvent" href="#pyDynaPeNet.InEvent">InEvent</a></code></dt>
+<dd>L'événement rattaché</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def setInEvent(self, t, inEvt) :
+    &#34;&#34;&#34; 
+        Attribue un événement en entrée à une transition 
+
+        Parameters
+        ----------
+        t : int
+            La transition à laquelle l&#39;événement est rattaché
+        inEvt : InEvent
+            L&#39;événement rattaché
+    &#34;&#34;&#34;
     assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
     if t in self.T:
         i = self.T.index(t)
@@ -438,12 +545,29 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">setOutEvent</span></span>(<span>self, t, outEvt)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Attribue un événement en entrée à une transition </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>t</code></strong> :&ensp;<code>int</code></dt>
+<dd>La transition à laquelle l'événement est rattaché</dd>
+<dt><strong><code>outEvt</code></strong> :&ensp;<code><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></code></dt>
+<dd>L'événement rattaché</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def setOutEvent(self, t, outEvt):
+    &#34;&#34;&#34; 
+        Attribue un événement en entrée à une transition 
+
+        Parameters
+        ----------
+        t : int
+            La transition à laquelle l&#39;événement est rattaché
+        outEvt : OutEvent
+            L&#39;événement rattaché
+    &#34;&#34;&#34;
     assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
     if t in self.T:
         i = self.T.index(t)
@@ -457,6 +581,13 @@ if __name__ == &#39;__main__&#39;:
 <ul class="hlist">
 <li><code><b><a title="pyPeNet.PeNet_I" href="pyPeNet.html#pyPeNet.PeNet_I">PeNet_I</a></b></code>:
 <ul class="hlist">
+<li><code><a title="pyPeNet.PeNet_I.A" href="pyPeNet.html#pyPeNet.PeNet.A">A</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.M0" href="pyPeNet.html#pyPeNet.PeNet.M0">M0</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.Mi" href="pyPeNet.html#pyPeNet.PeNet.Mi">Mi</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.P" href="pyPeNet.html#pyPeNet.PeNet.P">P</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.Pr" href="pyPeNet.html#pyPeNet.PeNet.Pr">Pr</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.T" href="pyPeNet.html#pyPeNet.PeNet.T">T</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.W" href="pyPeNet.html#pyPeNet.PeNet.W">W</a></code></li>
 <li><code><a title="pyPeNet.PeNet_I.init" href="pyPeNet.html#pyPeNet.PeNet.init">init</a></code></li>
 <li><code><a title="pyPeNet.PeNet_I.load" href="pyPeNet.html#pyPeNet.PeNet.load">load</a></code></li>
 <li><code><a title="pyPeNet.PeNet_I.loadCSVFile" href="pyPeNet.html#pyPeNet.PeNet.loadCSVFile">loadCSVFile</a></code></li>
@@ -478,16 +609,12 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Event(object):
-    &#34;&#34;&#34;
-        Classe type pour les évnements produits ou récupérés par le RdP.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe type pour les évnements produits ou récupérés par le RdP. &#34;&#34;&#34;
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
-        &#34;&#34;&#34;
-            Méthode appelée lorsque l&#39;événement est exécuté.
-        &#34;&#34;&#34;
+        &#34;&#34;&#34; Méthode appelée lorsque l&#39;événement est exécuté. &#34;&#34;&#34;
         pass</code></pre>
 </details>
 <h3>Subclasses</h3>
@@ -507,9 +634,7 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def declencher(self) :
-    &#34;&#34;&#34;
-        Méthode appelée lorsque l&#39;événement est exécuté.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Méthode appelée lorsque l&#39;événement est exécuté. &#34;&#34;&#34;
     pass</code></pre>
 </details>
 </dd>
@@ -525,20 +650,20 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class InEvent(Event):
-    &#34;&#34;&#34;
-        Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition. &#34;&#34;&#34;
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
         &#34;&#34;&#34;
             Méthode permettant de déterminer si un événement est arrivé.
-        &#34;&#34;&#34;
-        return False
 
-    def declencher(self) :
-        pass</code></pre>
+            Returns
+            -------
+            boolean 
+                True si l&#39;événement est arrivé, False sinon
+        &#34;&#34;&#34;
+        return False</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -556,7 +681,12 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Méthode permettant de déterminer si un événement est arrivé.</p></div>
+<div class="desc"><p>Méthode permettant de déterminer si un événement est arrivé.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>boolean </code></dt>
+<dd>True si l'événement est arrivé, False sinon</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -564,6 +694,11 @@ if __name__ == &#39;__main__&#39;:
 <pre><code class="python">def estDeclenchable(self) :
     &#34;&#34;&#34;
         Méthode permettant de déterminer si un événement est arrivé.
+
+        Returns
+        -------
+        boolean 
+            True si l&#39;événement est arrivé, False sinon
     &#34;&#34;&#34;
     return False</code></pre>
 </details>
@@ -588,9 +723,7 @@ if __name__ == &#39;__main__&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class OutEvent(Event):
-    &#34;&#34;&#34;
-        Classe représentant un événement &#34;produit&#34; par une transition.
-    &#34;&#34;&#34;
+    &#34;&#34;&#34; Classe représentant un événement &#34;produit&#34; par une transition. &#34;&#34;&#34;
     def __init__(self):
         super(OutEvent, self).__init__()</code></pre>
 </details>
@@ -620,17 +753,32 @@ if __name__ == &#39;__main__&#39;:
 <span>(</span><span>cdc=None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
+<div class="desc"><p>Classe permettant l'affichage d'un texte sur la sortie standard.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>cdc</code></strong> :&ensp;<code>str</code></dt>
+<dd>La chaine à afficher (None par défaut)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class StdoutDisplayEvent(DisplayEvent):
+    &#34;&#34;&#34;
+        Classe permettant l&#39;affichage d&#39;un texte sur la sortie standard.
+
+        Parameters
+        ----------
+        cdc : str
+            La chaine à afficher (None par défaut)
+    &#34;&#34;&#34;
     def __init__(self, cdc=None):
         super(StdoutDisplayEvent, self).__init__()
         self.cdc = cdc
+        &#34;&#34;&#34; Chaine de caractères à afficher : str &#34;&#34;&#34;
 
     def declencher(self) :
+        &#34;&#34;&#34; Affiche la chaine sur la sortie standard &#34;&#34;&#34;
         print(self.cdc)</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -639,14 +787,30 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="pyDynaPeNet.DisplayEvent" href="#pyDynaPeNet.DisplayEvent">DisplayEvent</a></b></code>:
-<ul class="hlist">
-<li><code><a title="pyDynaPeNet.DisplayEvent.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
-</ul>
-</li>
-</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyDynaPeNet.StdoutDisplayEvent.cdc"><code class="name">var <span class="ident">cdc</span></code></dt>
+<dd>
+<div class="desc"><p>Chaine de caractères à afficher : str</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyDynaPeNet.StdoutDisplayEvent.declencher"><code class="name flex">
+<span>def <span class="ident">declencher</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Affiche la chaine sur la sortie standard</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def declencher(self) :
+    &#34;&#34;&#34; Affiche la chaine sur la sortie standard &#34;&#34;&#34;
+    print(self.cdc)</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -665,6 +829,8 @@ if __name__ == &#39;__main__&#39;:
 <li>
 <h4><code><a title="pyDynaPeNet.DynaPeNet" href="#pyDynaPeNet.DynaPeNet">DynaPeNet</a></code></h4>
 <ul class="">
+<li><code><a title="pyDynaPeNet.DynaPeNet.F_In" href="#pyDynaPeNet.DynaPeNet.F_In">F_In</a></code></li>
+<li><code><a title="pyDynaPeNet.DynaPeNet.F_Out" href="#pyDynaPeNet.DynaPeNet.F_Out">F_Out</a></code></li>
 <li><code><a title="pyDynaPeNet.DynaPeNet.run" href="#pyDynaPeNet.DynaPeNet.run">run</a></code></li>
 <li><code><a title="pyDynaPeNet.DynaPeNet.setInEvent" href="#pyDynaPeNet.DynaPeNet.setInEvent">setInEvent</a></code></li>
 <li><code><a title="pyDynaPeNet.DynaPeNet.setOutEvent" href="#pyDynaPeNet.DynaPeNet.setOutEvent">setOutEvent</a></code></li>
@@ -687,6 +853,10 @@ if __name__ == &#39;__main__&#39;:
 </li>
 <li>
 <h4><code><a title="pyDynaPeNet.StdoutDisplayEvent" href="#pyDynaPeNet.StdoutDisplayEvent">StdoutDisplayEvent</a></code></h4>
+<ul class="">
+<li><code><a title="pyDynaPeNet.StdoutDisplayEvent.cdc" href="#pyDynaPeNet.StdoutDisplayEvent.cdc">cdc</a></code></li>
+<li><code><a title="pyDynaPeNet.StdoutDisplayEvent.declencher" href="#pyDynaPeNet.StdoutDisplayEvent.declencher">declencher</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

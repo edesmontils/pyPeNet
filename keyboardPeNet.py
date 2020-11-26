@@ -1,19 +1,23 @@
 #!/usr/bin/env python3.7
 # coding: utf8
 
+""" Exécution d'un RdP "piloté" par le clavier """
+
 # https://pythonhosted.org/pynput/keyboard.html & https://pythonhosted.org/pynput/mouse.html
 from pynput.keyboard import Key, Listener
 from pyDynaPeNet import *
 
 keysDict = dict()
+""" Tableau de caractères jouant le rôle de mémoire des touches utilisées : dict(str:int)"""
 
-def _runListener():
-    print('Start KeyboardListener')
-    try:
-        with Listener(on_press=_on_press, on_release=_on_release) as listener:
-            listener.join()
-    except KeyboardInterrupt:
-        print('End KeyboardListener')
+
+# def _runListener():
+#     print('Start KeyboardListener')
+#     try:
+#         with Listener(on_press=_on_press, on_release=_on_release) as listener:
+#             listener.join()
+#     except KeyboardInterrupt:
+#         print('End KeyboardListener')
 
 def _on_press(key):
     pass  # print('{0} pressed'.format(key))
@@ -28,9 +32,18 @@ def _on_release(key):
 
 
 class KeyboardEvent(InEvent):
+    """
+        Classe permettant de gérer un événement clavier. Toutes les actions sont mémorisées.
+
+        Parameters
+        ----------
+        c : str
+            Touche associée à cet événement (espace par défaut)
+    """
     def __init__(self, c = ' '):
         InEvent.__init__(self)
         self.c = "'"+str(c)+"'"
+        """ La touche gérée par cet événement : str """
 
     def estDeclenchable(self) :
         return keysDict.get(self.c, 0) > 0
@@ -40,6 +53,9 @@ class KeyboardEvent(InEvent):
 
 
 class KeyboardEventOnlyOne(KeyboardEvent):
+    """
+        Classe permettant de gérer un événement clavier. Toutes les actions d'un caractère sont vidées lors d'une exécution.
+    """
     def __init__(self, c = ' '):
         KeyboardEvent.__init__(self,c)
 

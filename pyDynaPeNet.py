@@ -1,9 +1,7 @@
 #!/usr/bin/env python3.7
 # coding: utf8
 
-"""
-    Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter.
-"""
+""" Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter. """
 
 from pyPeNet import *
 import argparse
@@ -17,16 +15,12 @@ import time
 
 
 class Event(object):
-    """
-        Classe type pour les évnements produits ou récupérés par le RdP.
-    """
+    """ Classe type pour les évnements produits ou récupérés par le RdP. """
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
-        """
-            Méthode appelée lorsque l'événement est exécuté.
-        """
+        """ Méthode appelée lorsque l'événement est exécuté. """
         pass
 # ==================================================
 # OUT
@@ -34,25 +28,34 @@ class Event(object):
 
 
 class OutEvent(Event):
-    """
-        Classe représentant un événement "produit" par une transition.
-    """
+    """ Classe représentant un événement "produit" par une transition. """
     def __init__(self):
         super(OutEvent, self).__init__()
 
 # ==================================================
 
 class DisplayEvent(OutEvent):
+    """ Classe permettant l'affichage d'informations """
     def __init__(self):
         super(DisplayEvent, self).__init__()
 
 
 class StdoutDisplayEvent(DisplayEvent):
+    """
+        Classe permettant l'affichage d'un texte sur la sortie standard.
+
+        Parameters
+        ----------
+        cdc : str
+            La chaine à afficher (None par défaut)
+    """
     def __init__(self, cdc=None):
         super(StdoutDisplayEvent, self).__init__()
         self.cdc = cdc
+        """ Chaine de caractères à afficher : str """
 
     def declencher(self) :
+        """ Affiche la chaine sur la sortie standard """
         print(self.cdc)
 
 # ==================================================
@@ -61,20 +64,20 @@ class StdoutDisplayEvent(DisplayEvent):
 
 
 class InEvent(Event):
-    """
-        Classe représentant un événement "en entrée", permettant de déclencher une transition.
-    """
+    """ Classe représentant un événement "en entrée", permettant de déclencher une transition. """
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
         """
             Méthode permettant de déterminer si un événement est arrivé.
+
+            Returns
+            -------
+            boolean 
+                True si l'événement est arrivé, False sinon
         """
         return False
-
-    def declencher(self) :
-        pass
 
 # ==================================================
 # ==================================================
@@ -82,10 +85,13 @@ class InEvent(Event):
 
 
 class DynaPeNet(PeNet_I):
+    """ Classe permettant d'exécuter un RdP """
     def __init__(self):
         PeNet_I.__init__(self)
         self.F_In = [list() for i in range(self.nbt)]
+        """ Liste des événements en entrée associés à chaque transition : list(`InEvent`) """
         self.F_Out = [list() for i in range(self.nbt)]
+        """ Liste des événements en sortie associés à chaque transition : list(`OutEvent`) """
 
     def _eventsBuilding(self, FI = None, FO = None):
         if FI == None :
@@ -103,8 +109,8 @@ class DynaPeNet(PeNet_I):
         super().load(P, T, A, W, M0)
         self._eventsBuilding()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         print(ok)
         if ok :
             self._eventsBuilding()
@@ -114,6 +120,16 @@ class DynaPeNet(PeNet_I):
             return False
 
     def setInEvent(self, t, inEvt) :
+        """ 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l'événement est rattaché
+            inEvt : InEvent
+                L'événement rattaché
+        """
         assert isinstance(inEvt, InEvent), "[setInEvent] mauvais type d'event"
         if t in self.T:
             i = self.T.index(t)
@@ -122,6 +138,16 @@ class DynaPeNet(PeNet_I):
             pass
 
     def setOutEvent(self, t, outEvt):
+        """ 
+            Attribue un événement en entrée à une transition 
+
+            Parameters
+            ----------
+            t : int
+                La transition à laquelle l'événement est rattaché
+            outEvt : OutEvent
+                L'événement rattaché
+        """
         assert isinstance(outEvt, OutEvent), "[setOutEvent] mauvais type d'event"
         if t in self.T:
             i = self.T.index(t)
@@ -152,6 +178,14 @@ class DynaPeNet(PeNet_I):
                     a.declencher()
 
     def run(self,delay=1):
+        """
+            Lance l'exécution du RdP. L'arrêt s'effectue par un Ctrl-C
+
+            Parameters
+            ----------
+            delay : int
+                temporisation entre deux déclenchement de transition (en secondes)
+        """
         t = -1
         try:
             while(1):
@@ -197,7 +231,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     rdp1 = DynaPeNet()
-    if rdp1.loadPIPEFile(args.file) :
+    if rdp1.loadCSVFile(args.file) :
 
         if args.aleatoire :
             rdp1.init(mode=PeNet.ALEATOIRE)

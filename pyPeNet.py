@@ -69,7 +69,6 @@ def _addVector(v,w) :
 # ==================================================
 
 def _choixAleatoire(lde, cpt, seq, pr) :
-    #print('--> aleatoire :',lde)
     if len(lde) == 1 :
         return lde[0]
     else :
@@ -172,26 +171,7 @@ def _choixMRecent(lde, cpt, seq, pr) :
 # ==================================================
 
 class PeNet(object):
-    """ 
-        Description d'un RdP de base 
-
-        Attributes
-        ----------
-        P : list(str)
-            Liste des places
-        T : list(str)
-            Liste des transitions
-        Pr : list(int)
-            Priorité des transitions
-        A : list(str)
-            Liste des arcs
-        W : list(str)
-            poids des arcs
-        M0 : list(int)
-            Marquage initial
-        Mi : list(int)
-            Marquage courant
-    """
+    """ Description d'un RdP de base """
 
     MODE_ALEATOIRE = _choixAleatoire
     MODE_PLUSFREQUENT = _choixPFreq
@@ -203,21 +183,32 @@ class PeNet(object):
 
     def __init__(self):
         self.P = list() # liste des places
+        """ Liste des places : list(str) """
         self.nbp = 0 # nombre de places
+
         self.T = list() # liste des transitions
+        """ Liste des transitions : list(str) """
         self.nbt = 0 # nombre de transitions
+
         self.A = list() # liste des arcs
+        """ Liste des arcs : list(str) """
         self.nba = 0 # nombre d'arcs
+
         self.W = list() # poids des arcs
+        """ Poids des arcs : list(int) """
+        self.Pr = None # priorité des transitions
+        """ Priorité des transitions : list(int) """
+
         self.M0 = None # marquage initial
+        """ Marquage initial : list(int) """
         self.Mi = None # marquage courant
+        """ Marquage courant : list(int) """
+
         self.Us = None  # U+
         self.Ue = None  # U-
         self.U = None  # U
         self.v_count = None # vecteur de comptage
         self.lastT = None # dernière transition empruntée
-        self.Pr = None # priorité des transitions
-
         self._choix = self.MODE_ALEATOIRE
         self.sequence=list()
 
@@ -518,8 +509,8 @@ class PeNet_I(PeNet):
         super().load(P, T, A, W, M0)
         self._setInhibitorMatrix()
 
-    def loadPIPEFile(self, f) :
-        ok = super().loadPIPEFile(f)
+    def loadCSVFile(self, f) :
+        ok = super().loadCSVFile(f)
         if ok :
             self._setInhibitorMatrix()
         return ok
