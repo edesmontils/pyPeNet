@@ -7,18 +7,18 @@ from pyDynaPeNet import *
 
 keysDict = dict()
 
-def runListener():
+def _runListener():
     print('Start KeyboardListener')
     try:
-        with Listener(on_press=on_press, on_release=on_release) as listener:
+        with Listener(on_press=_on_press, on_release=_on_release) as listener:
             listener.join()
     except KeyboardInterrupt:
         print('End KeyboardListener')
 
-def on_press(key):
+def _on_press(key):
     pass  # print('{0} pressed'.format(key))
 
-def on_release(key):
+def _on_release(key):
     k = str(key)
     keysDict[k] = keysDict.get(k, 0) + 1
     #print(k,type(k))
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     rdp2.setOutEvent("t0", StdoutDisplayEvent("====> new c !"))
     rdp2.setOutEvent("t1", StdoutDisplayEvent("T1 go !"))
     rdp2.setOutEvent("t2", StdoutDisplayEvent("T2 go !"))
-    l = Listener(on_press=on_press, on_release=on_release)
+    l = Listener(on_press=_on_press, on_release=_on_release)
     l.start()
     rdp2.run()
     l.stop()

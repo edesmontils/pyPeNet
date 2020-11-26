@@ -3,61 +3,60 @@
 
 """
     Bibliothèque pour représenter les Réseaux de Pétri (RdP) classiques.
-    TODO :
-    - ...
 """
 
 import random
+
 #from lxml import etree
+#from xml.dom.minidom import Node, Element, parse, parseString
+
 import os
 import csv
-
-import pdb
 
 #==================================================
 #============ Tools ===============================
 #==================================================
 
-def existFile(f):
+def _existFile(f):
     return os.path.isfile(f)
 
-def existDir(d):
+def _existDir(d):
     return os.path.exists(d)
 
 # pour ne pas utiliser numpy...
 
-def setIntMatrix(l,c):
+def _setIntMatrix(l,c):
     return [ [0] * c for i in range(l) ]
 
-def transposeIntMatrix(m) :
+def _transposeIntMatrix(m) :
     l = len(m)
     c = len(m[0])
-    n = setIntMatrix(c,l)
+    n = _setIntMatrix(c,l)
     for i in range(l) :
         for j in range(c) :
             n[j][i] = m[i][j]
     return n
 
-def diffIntMatrix(m,n) :
+def _diffIntMatrix(m,n) :
     l = len(m)
     c = len(m[0])
-    d = setIntMatrix(l, c)
+    d = _setIntMatrix(l, c)
     for i in range(l):
         for j in range(c) :
             d[i][j] = m[i][j]-n[i][j]
     return d
 
-def setIntVector(n):
+def _setIntVector(n):
     return [0]*n
 
-def copyIntVector(v):
+def _copyIntVector(v):
     l = len(v)
     w = [0]*l
     for i in range(l):
         w[i] = v[i]
     return v
 
-def addVector(v,w) :
+def _addVector(v,w) :
     l = len(v)
     z = [0]*l
     for i in range(l):
@@ -69,15 +68,14 @@ def addVector(v,w) :
 # ==================================================
 # ==================================================
 
-
-def choixAleatoire(lde, cpt, seq, pr) :
+def _choixAleatoire(lde, cpt, seq, pr) :
     #print('--> aleatoire :',lde)
     if len(lde) == 1 :
         return lde[0]
     else :
         return random.choice(lde)
 
-def choixPFreq(lde, cpt, seq, pr) :
+def _choixPFreq(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = cpt[lde[0]]
     for t in lde[1:] :
@@ -86,9 +84,9 @@ def choixPFreq(lde, cpt, seq, pr) :
             c = [t]
         elif nb == cpt[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq, pr)
+    return _choixAleatoire(c, cpt, seq, pr)
 
-def choixMFreq(lde, cpt, seq, pr) :
+def _choixMFreq(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = cpt[lde[0]]
     for t in lde[1:] :
@@ -97,9 +95,9 @@ def choixMFreq(lde, cpt, seq, pr) :
             c = [t]
         elif nb == cpt[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq, pr)
+    return _choixAleatoire(c, cpt, seq, pr)
 
-def choixPPrio(lde, cpt, seq, pr) :
+def _choixPPrio(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = pr[lde[0]]
     for t in lde[1:] :
@@ -108,9 +106,9 @@ def choixPPrio(lde, cpt, seq, pr) :
             c = [t]
         elif nb == pr[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq, pr)
+    return _choixAleatoire(c, cpt, seq, pr)
 
-def choixMPrio(lde, cpt, seq, pr) :
+def _choixMPrio(lde, cpt, seq, pr) :
     c = [ lde[0] ]
     nb = pr[lde[0]]
     for t in lde[1:] :
@@ -119,12 +117,12 @@ def choixMPrio(lde, cpt, seq, pr) :
             c = [t]
         elif nb == pr[t]:
             c.append(t)
-    return choixAleatoire(c, cpt, seq, pr)
+    return __choixAleatoire(c, cpt, seq, pr)
 
-def choixPRecent(lde, cpt, seq, pr) :
+def _choixPRecent(lde, cpt, seq, pr) :
     l = len(seq)
     if l ==0 :
-        return choixAleatoire(lde, cpt, seq, pr)
+        return _choixAleatoire(lde, cpt, seq, pr)
     else :
         seqR = seq[::-1]
         t = lde[0]
@@ -143,12 +141,12 @@ def choixPRecent(lde, cpt, seq, pr) :
                 c = [t]
             elif  nb == i: 
                 c.append(t) 
-        return choixAleatoire(c, cpt, seq, pr) 
+        return _choixAleatoire(c, cpt, seq, pr) 
 
-def choixMRecent(lde, cpt, seq, pr) :
+def _choixMRecent(lde, cpt, seq, pr) :
     l = len(seq)
     if l == 0 :
-        return choixAleatoire(lde, cpt, seq, pr)
+        return _choixAleatoire(lde, cpt, seq, pr)
     else :
         seqR = seq[::-1]
 
@@ -167,20 +165,41 @@ def choixMRecent(lde, cpt, seq, pr) :
             else : 
                 if nb == i:
                     c.append(t)    
-        return choixAleatoire(c, cpt, seq, pr) 
+        return _choixAleatoire(c, cpt, seq, pr) 
 
-
+# ==================================================
+# ==================================================
+# ==================================================
 
 class PeNet(object):
-    """ RdP de base """
+    """ 
+        Description d'un RdP de base 
 
-    MODE_ALEATOIRE = choixAleatoire
-    MODE_PLUSFREQUENT = choixPFreq
-    MODE_MOINSFREQUENT = choixMFreq
-    MODE_PLUSRECENT = choixPRecent
-    MODE_MOINSRECENT = choixMRecent
-    MODE_PLUSPRIORITAIRE = choixPPrio
-    MODE_MOINSPRIORITAIRE = choixMPrio
+        Attributes
+        ----------
+        P : list(str)
+            Liste des places
+        T : list(str)
+            Liste des transitions
+        Pr : list(int)
+            Priorité des transitions
+        A : list(str)
+            Liste des arcs
+        W : list(str)
+            poids des arcs
+        M0 : list(int)
+            Marquage initial
+        Mi : list(int)
+            Marquage courant
+    """
+
+    MODE_ALEATOIRE = _choixAleatoire
+    MODE_PLUSFREQUENT = _choixPFreq
+    MODE_MOINSFREQUENT = _choixMFreq
+    MODE_PLUSRECENT = _choixPRecent
+    MODE_MOINSRECENT = _choixMRecent
+    MODE_PLUSPRIORITAIRE = _choixPPrio
+    MODE_MOINSPRIORITAIRE = _choixMPrio
 
     def __init__(self):
         self.P = list() # liste des places
@@ -199,7 +218,7 @@ class PeNet(object):
         self.lastT = None # dernière transition empruntée
         self.Pr = None # priorité des transitions
 
-        self.choix = self.MODE_ALEATOIRE
+        self._choix = self.MODE_ALEATOIRE
         self.sequence=list()
 
     def __str__(self):
@@ -207,9 +226,9 @@ class PeNet(object):
                            ", ".join([str(i)+'/'+str(t)+'/'+str(self.Pr[i]) for (i,t) in enumerate(self.T)]),
                            ", ".join([str(i)+'/'+str(a)+'/'+str(self.W[i])  for (i,a) in enumerate(self.A)]) ])
 
-    def setU(self):
-        self.Us = setIntMatrix(self.nbp,self.nbt) 
-        self.Ue = setIntMatrix(self.nbp,self.nbt)
+    def _setU(self):
+        self.Us = _setIntMatrix(self.nbp,self.nbt) 
+        self.Ue = _setIntMatrix(self.nbp,self.nbt)
 
         for (i,p) in enumerate(self.P):
             for (j,t) in enumerate(self.T):
@@ -223,13 +242,29 @@ class PeNet(object):
                 self.Us[i][j]=ws
                 self.Ue[i][j]=we
 
-        self.U = diffIntMatrix(self.Us, self.Ue)  # U = U+ - U-
+        self.U = _diffIntMatrix(self.Us, self.Ue)  # U = U+ - U-
 
-        self.UeT = transposeIntMatrix(self.Ue)
-        self.UsT = transposeIntMatrix(self.Us)
-        self.UT = transposeIntMatrix(self.U)
+        self.UeT = _transposeIntMatrix(self.Ue)
+        self.UsT = _transposeIntMatrix(self.Us)
+        self.UT = _transposeIntMatrix(self.U)
 
     def load(self, P, T, A, W, M0):
+        """
+            Chargement d'un RdP décrit par ses différents ensembles
+
+            Parameters
+            ----------
+            P : list(str)
+                Liste des places
+            T : list(str)
+                Liste des transitions
+            A : list(str)
+                Liste des arcs
+            W : list(str)
+                poids des arcs
+            M0 : list(int)
+                Marquage initial
+        """
         self.nbp = len(P)
         self.P = list(P)
         self.nbt = len(T)
@@ -244,9 +279,58 @@ class PeNet(object):
         self.M0 = list(M0)
         self.init()
 
-    
     def loadPIPEFile(self, f) :
-        if existFile(f) :
+        """
+            Chargement d'un RdP décrit dans un fichier CSV
+
+            Parameters
+            ----------
+            f : str
+                Nom du fichier CSV
+
+            .. warning:: Méthode dépréciée -> utiliser `PeNet.loadCSVFile`
+        """
+        self.loadCSVFile(f)
+
+    def loadCSVFile(self, f) :
+        """
+            Chargement d'un RdP décrit dans un fichier CSV
+
+            Parameters
+            ----------
+            f : str
+                Nom du fichier CSV
+
+            Notes
+            -----
+            '''
+            name;type;v1;v2;v3
+            P0;place;10;;
+            P1;place;0;;
+            P2;place;0;;
+            P3;place;4;;
+            P4;place;0;;
+            T0;transition;1;;
+            T1;transition;1;;
+            T2;transition;1;;
+            T3;transition;1;;
+            T4;transition;1;;
+            P0 to T0;normal;P0;T0;1
+            P1 to T1;normal;P1;T1;1
+            P1 to T3;normal;P1;T3;1
+            P2 to T2;normal;P2;T2;1
+            P3 to T1;normal;P3;T1;1
+            P4 to T4;normal;P4;T4;2
+            T0 to P1;normal;T0;P1;1
+            T0 to P4;normal;T0;P4;1
+            T1 to P2;normal;T1;P2;1
+            T2 to P1;normal;T2;P1;1
+            T2 to P3;normal;T2;P3;1
+            T3 to P4;normal;T3;P4;1
+            T4 to P0;normal;T4;P0;1
+            '''
+        """
+        if _existFile(f) :
             self.P = list()
             self.M0 = list()
             self.T = list()
@@ -288,77 +372,109 @@ class PeNet(object):
             print('File ',f,' doesn''t exist')
             return False
 
-    # def loadPIPEFile(self, f : str) -> None :
-    #     if existFile(f) :
-    #         XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
-    #         tree = etree.parse(f, XMLparser)
-    #         self.P = list()
-    #         M0 = list()
-    #         for p in tree.getroot().iter('place'):
-    #             self.P.append(p.get('id'))
-    #             contains = p[2][0].text.split(',')[1]
-    #             M0.append(int(contains))
-    #         self.nbp = len(self.P)
-    #         self.M0 = list(M0)
+    def loadXMLPIPEFile(self, f : str) -> None :
+        """
+            Chargement d'un RdP décrit dans un fichier XML au format de l'application PIPE.
 
-    #         self.T = list()
-    #         for t in tree.getroot().iter('transition'):
-    #             self.T.append(t.get('id'))
-    #         self.nbt = len(self.T)
+            .. warning:: méthode à implémenter
 
-    #         self.W = list()
-    #         self.A = list()
-    #         for a in tree.getroot().iter('arc'):
-    #             source = a.get('source')
-    #             target = a.get('target')
-    #             w = a[1][0].text
-    #             atype = a[-1].get('value')
-    #             if (w is not None) and (atype == 'normal') :
-    #                 w = w.split(',')[1]
-    #                 self.W.append(int(w))
-    #             elif (w is None) and (atype == 'inhibitor') :
-    #                 self.W.append(0)
-    #             else :
-    #                 self.W.append(1)
-    #             self.A.append( (source,target) )
-    #         self.nba = len(self.A)
+            Parameters
+            ----------
+            f : str
+                Nom du fichier XML
+        """
+        if _existFile(f) :
+            pass
+            # XMLparser = etree.XMLParser(recover=True, strip_cdata=True)
+            # tree = etree.parse(f, XMLparser)
+            # self.P = list()
+            # M0 = list()
+            # for p in tree.getroot().iter('place'):
+            #     self.P.append(p.get('id'))
+            #     contains = p[2][0].text.split(',')[1]
+            #     M0.append(int(contains))
+            # self.nbp = len(self.P)
+            # self.M0 = list(M0)
 
-    #         self.init()
-    #     else:
-    #         pass
+            # self.T = list()
+            # for t in tree.getroot().iter('transition'):
+            #     self.T.append(t.get('id'))
+            # self.nbt = len(self.T)
+
+            # self.W = list()
+            # self.A = list()
+            # for a in tree.getroot().iter('arc'):
+            #     source = a.get('source')
+            #     target = a.get('target')
+            #     w = a[1][0].text
+            #     atype = a[-1].get('value')
+            #     if (w is not None) and (atype == 'normal') :
+            #         w = w.split(',')[1]
+            #         self.W.append(int(w))
+            #     elif (w is None) and (atype == 'inhibitor') :
+            #         self.W.append(0)
+            #     else :
+            #         self.W.append(1)
+            #     self.A.append( (source,target) )
+            # self.nba = len(self.A)
+
+            # self.init()
+        else:
+            pass
 
     def init(self, mode : int = MODE_ALEATOIRE) -> None :
-        self.Mi = copyIntVector(self.M0)
+        """
+            Initialise le RdP pour une exécution. 
+            Il est possible de spécifier la stratégie de choix des transitions déclenchables.
+
+            Parameters
+            ----------
+            mode : {MODE_ALEATOIRE, MODE_PLUSFREQUENT, MODE_MOINSFREQUENT, MODE_PLUSRECENT, MODE_MOINSRECENT, MODE_PLUSPRIORITAIRE, MODE_MOINSPRIORITAIRE}, optional
+                Mode de choix à sélectionner (MODE_ALEATOIRE par défaut)
+        """
+        self.Mi = _copyIntVector(self.M0)
         self.v_count = [0]*self.nbt
         self.sequence = list()
-        self.choix = mode
+        self._choix = mode
         self.lastT = None
-        self.setU()
+        self._setU()
         print('M0:',self.Mi, ' ; Pr:', self.Pr)
 
-    def setMi(self, m : list ) -> None :
-        assert isinstance(m, list), "[setMi] Pb m (1)"
-        self.Mi = copyIntVector(m)
 
-    def estDeclenchable(self, t):
+    def setM0(self, m : list ) -> None :
+        """
+            Modification du mrquage initial
+
+            Parameters
+            ----------
+            m : list(int)
+                Nouvelles valeurs pour les différentes places
+        """
+        assert isinstance(m, list), "[setM0] Pb m (1)"
+        self.Mi = _copyIntVector(m)
+
+    def _estDeclenchable(self, t):
         ok = True
         for p in range(self.nbp):
             if self.UeT[t][p] > 0 : ok = ok and (self.UeT[t][p] <= self.Mi[p])
         return ok
 
-    def declencher(self, t):
+    def _declencher(self, t):
         self.v_count[t] += 1
-        self.Mi = addVector(self.Mi, self.UT[t])
+        self.Mi = _addVector(self.Mi, self.UT[t])
 
     def next(self):
+        """
+            Permet d'avancer d'une étape dans l'exécution du RdP
+        """
         lDeclenchables = list()
         for t in range(self.nbt):
-            if self.estDeclenchable(t):
+            if self._estDeclenchable(t):
                 lDeclenchables.append(t)
 
         if len(lDeclenchables) > 0:
-            t = self.choix(lDeclenchables, self.v_count, self.sequence, self.Pr)
-            self.declencher(t)
+            t = self._choix(lDeclenchables, self.v_count, self.sequence, self.Pr)
+            self._declencher(t)
             self.sequence.append(t)
             self.lastT = t
             print(lDeclenchables,  ' -> ', t, '/',self.T[t], ' Mi:',self.Mi, ' count:', self.v_count)
@@ -372,15 +488,14 @@ class PeNet(object):
 
 
 class PeNet_I(PeNet):
-    """ RdP avec arcs inhibiteurs possibles """
+    """ RdP avec arcs inhibiteurs possibles. Les arcs inhibiteurs sont identifiés par un poids de 0. """
 
     def __init__(self):
-        #super(PeNet, self).__init__()
         PeNet.__init__(self)
         self.I = list()
 
-    def setInhibitorMatrix(self) :
-        self.I = setIntMatrix(self.nbp,self.nbt)
+    def _setInhibitorMatrix(self) :
+        self.I = _setIntMatrix(self.nbp,self.nbt)
         for (i,p) in enumerate(self.P):
             for (j,t) in enumerate(self.T):
                 w = 0
@@ -390,21 +505,27 @@ class PeNet_I(PeNet):
                         break
                 self.I[i][j] = w
 
-        self.IT = transposeIntMatrix(self.I)
+        self.IT = _transposeIntMatrix(self.I)
         print('I:',self.I)
 
 
     def load(self, P, T, A, W, M0):
         super().load(P, T, A, W, M0)
-        self.setInhibitorMatrix()
+        self._setInhibitorMatrix()
 
     def loadPIPEFile(self, f) :
         ok = super().loadPIPEFile(f)
         if ok :
-            self.setInhibitorMatrix()
+            self._setInhibitorMatrix()
         return ok
 
-    def estDeclenchable(self, t):
+    def loadXMLPIPEFile(self, f) :
+        ok = super().loadXMLPIPEFile(f)
+        if ok :
+            self._setInhibitorMatrix()
+        return ok
+
+    def _estDeclenchable(self, t):
         ok = True
         for p in range(self.nbp):
             if self.IT[t][p] == 0:

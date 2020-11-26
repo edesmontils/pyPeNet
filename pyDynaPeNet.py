@@ -72,7 +72,7 @@ class DynaPeNet(PeNet_I):
         self.F_In = [list() for i in range(self.nbt)]
         self.F_Out = [list() for i in range(self.nbt)]
 
-    def eventsBuilding(self, FI = None, FO = None):
+    def _eventsBuilding(self, FI = None, FO = None):
         if FI == None :
             self.F_In = [list() for i in range(self.nbt)]
         else:
@@ -86,13 +86,13 @@ class DynaPeNet(PeNet_I):
 
     def load(self, P, T, A, W, M0, FI = None, FO = None):
         super().load(P, T, A, W, M0)
-        self.eventsBuilding()
+        self._eventsBuilding()
 
     def loadPIPEFile(self, f) :
         ok = super().loadPIPEFile(f)
         print(ok)
         if ok :
-            self.eventsBuilding()
+            self._eventsBuilding()
             return True
         else: 
             print('pb')
@@ -114,8 +114,8 @@ class DynaPeNet(PeNet_I):
         else:
             pass
 
-    def estDeclenchable(self, t):
-        dec = super().estDeclenchable(t)
+    def _estDeclenchable(self, t):
+        dec = super()._estDeclenchable(t)
         la = self.F_In[t]
         if dec and (la != []) :
             for a in la :
@@ -123,8 +123,8 @@ class DynaPeNet(PeNet_I):
                     dec = dec and a.estDeclenchable()            
         return dec
 
-    def declencher(self, t):
-        super().declencher(t)
+    def _declencher(self, t):
+        super()._declencher(t)
         la = self.F_In[t]
         if la != None :
             for a in la :

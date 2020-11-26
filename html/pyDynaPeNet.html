@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>pyDynaPeNet API documentation</title>
+<meta name="description" content="Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyDynaPeNet</code></h1>
+</header>
+<section id="section-intro">
+<p>Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3.7
+# coding: utf8
+
+&#34;&#34;&#34;
+    Bibliothèque pour représenter les Réseaux de Pétri (RdP) à exécuter.
+&#34;&#34;&#34;
+
+from pyPeNet import *
+import argparse
+
+import time
+
+
+# ==================================================
+# ==================================================
+# ==================================================
+
+
+class Event(object):
+    def __init__(self):
+        super(Event, self).__init__()
+
+    def declencher(self) :
+        pass
+# ==================================================
+# OUT
+# ==================================================
+
+
+class OutEvent(Event):
+    def __init__(self):
+        super(OutEvent, self).__init__()
+
+# ==================================================
+
+class DisplayEvent(OutEvent):
+    def __init__(self):
+        super(DisplayEvent, self).__init__()
+
+
+class StdoutDisplayEvent(DisplayEvent):
+    def __init__(self, cdc=None):
+        super(StdoutDisplayEvent, self).__init__()
+        self.cdc = cdc
+
+    def declencher(self) :
+        print(self.cdc)
+
+# ==================================================
+# IN
+# ==================================================
+
+
+class InEvent(Event):
+    def __init__(self):
+        super(InEvent, self).__init__()
+
+    def estDeclenchable(self) :
+        return False
+
+    def declencher(self) :
+        pass
+
+# ==================================================
+# ==================================================
+# ==================================================
+
+
+class DynaPeNet(PeNet_I):
+    def __init__(self):
+        PeNet_I.__init__(self)
+        self.F_In = [list() for i in range(self.nbt)]
+        self.F_Out = [list() for i in range(self.nbt)]
+
+    def _eventsBuilding(self, FI = None, FO = None):
+        if FI == None :
+            self.F_In = [list() for i in range(self.nbt)]
+        else:
+            self.F_In = FI
+        assert self.nbt == len(self.F_In), &#34;[load] incohérence entre F_In et T&#34;
+        if FO == None :
+            self.F_Out = [list() for i in range(self.nbt)]
+        else:
+            self.F_Out = FO
+        assert self.nbt == len(self.F_Out), &#34;[load] incohérence entre F_Out et T&#34;
+
+    def load(self, P, T, A, W, M0, FI = None, FO = None):
+        super().load(P, T, A, W, M0)
+        self._eventsBuilding()
+
+    def loadPIPEFile(self, f) :
+        ok = super().loadPIPEFile(f)
+        print(ok)
+        if ok :
+            self._eventsBuilding()
+            return True
+        else: 
+            print(&#39;pb&#39;)
+            return False
+
+    def setInEvent(self, t, inEvt) :
+        assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
+        if t in self.T:
+            i = self.T.index(t)
+            self.F_In[i].append(inEvt)
+        else:
+            pass
+
+    def setOutEvent(self, t, outEvt):
+        assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
+        if t in self.T:
+            i = self.T.index(t)
+            self.F_Out[i].append(outEvt)
+        else:
+            pass
+
+    def _estDeclenchable(self, t):
+        dec = super()._estDeclenchable(t)
+        la = self.F_In[t]
+        if dec and (la != []) :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    dec = dec and a.estDeclenchable()            
+        return dec
+
+    def _declencher(self, t):
+        super()._declencher(t)
+        la = self.F_In[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    a.declencher()
+        la = self.F_Out[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, OutEvent) :
+                    a.declencher()
+
+    def run(self,delay=1):
+        t = -1
+        try:
+            while(1):
+                t = self.next()
+                time.sleep(delay)
+        except KeyboardInterrupt:
+            print(&#34;Fin du RdP par interruption clavier&#34;)
+        finally:
+            print(self.Mi)
+            print(self.v_count)
+
+
+# ==================================================
+# ==================================================
+# ==================================================
+
+
+if __name__ == &#39;__main__&#39;:
+
+    # rdp2 = DynaPeNet()
+    # rdp2.load((&#34;p0&#34;,&#34;p1&#34;, &#34;p2&#34;), (&#34;t0&#34;,&#34;t1&#34;, &#34;t2&#34;), 
+    #           ((&#34;t0&#34;,&#34;p0&#34;),(&#34;p0&#34;,&#34;t1&#34;), (&#34;p1&#34;, &#34;t1&#34;), (&#34;t1&#34;, &#34;p2&#34;), (&#34;p2&#34;, &#34;t2&#34;)),
+    #           (1, 1, 1, 1, 1),
+    #           (0, 2, 0))
+    # rdp2.setOutEvent(&#34;t0&#34;, StdoutDisplayEvent(&#34;====&gt; new c !&#34;))
+    # rdp2.setOutEvent(&#34;t1&#34;, StdoutDisplayEvent(&#34;T1 go !&#34;))
+    # rdp2.setOutEvent(&#34;t1&#34;, StdoutDisplayEvent(&#34;T1 gone !&#34;))
+    # rdp2.setOutEvent(&#34;t2&#34;, StdoutDisplayEvent(&#34;T2 go !&#34;))
+    # rdp2.run()
+
+    parser = argparse.ArgumentParser(description=&#39;pyDynaPeNet&#39;)
+    parser.add_argument(&#34;-f&#34;, &#34;--file&#34;, default=&#39;&#39;, dest=&#34;file&#34;, help=&#34;Nom du fichier CSV contenant le RdP&#34;)
+    group = parser.add_mutually_exclusive_group()
+
+    group.add_argument(&#34;-a&#34;, &#34;--aleatoire&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-pf&#34;, &#34;--plusfrequent&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-mf&#34;, &#34;--moinsfrequent&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-pr&#34;, &#34;--plusrecent&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-mr&#34;, &#34;--moinsrecent&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-pp&#34;, &#34;--plusprioritaire&#34;, action=&#34;store_true&#34;)
+    group.add_argument(&#34;-mp&#34;, &#34;--moinsprioritaire&#34;, action=&#34;store_true&#34;)
+
+    args = parser.parse_args()
+
+    rdp1 = DynaPeNet()
+    if rdp1.loadPIPEFile(args.file) :
+
+        if args.aleatoire :
+            rdp1.init(mode=PeNet.ALEATOIRE)
+        elif args.plusfrequent :
+            rdp1.init(mode=PeNet.MODE_PLUSFREQUENT)
+        elif args.moinsfrequent :
+            rdp1.init(mode=PeNet.MODE_MOINSFREQUENT)
+        elif args.plusrecent :
+            rdp1.init(mode=PeNet.MODE_PLUSRECENT)
+        elif args.moinsrecent :
+            rdp1.init(mode=PeNet.MODE_MOINSRECENT)
+        elif args.plusprioritaire :
+            rdp1.init(mode=PeNet.MODE_PLUSPRIORITAIRE)
+        elif args.moinsprioritaire :
+            rdp1.init(mode=PeNet.MODE_MOINSPRIORITAIRE)
+        else:
+            rdp1.init()
+
+
+        print(rdp1)
+        rdp1.run()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyDynaPeNet.DisplayEvent"><code class="flex name class">
+<span>class <span class="ident">DisplayEvent</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DisplayEvent(OutEvent):
+    def __init__(self):
+        super(DisplayEvent, self).__init__()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></li>
+<li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.StdoutDisplayEvent" href="#pyDynaPeNet.StdoutDisplayEvent">StdoutDisplayEvent</a></li>
+<li><a title="pyEV3PeNet.EV3StdoutClear" href="pyEV3PeNet.html#pyEV3PeNet.EV3StdoutClear">EV3StdoutClear</a></li>
+<li><a title="pyEV3PeNet.EV3StdoutDisplay" href="pyEV3PeNet.html#pyEV3PeNet.EV3StdoutDisplay">EV3StdoutDisplay</a></li>
+</ul>
+</dd>
+<dt id="pyDynaPeNet.DynaPeNet"><code class="flex name class">
+<span>class <span class="ident">DynaPeNet</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>RdP avec arcs inhibiteurs possibles. Les arcs inhibiteurs sont identifiés par un poids de 0.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DynaPeNet(PeNet_I):
+    def __init__(self):
+        PeNet_I.__init__(self)
+        self.F_In = [list() for i in range(self.nbt)]
+        self.F_Out = [list() for i in range(self.nbt)]
+
+    def _eventsBuilding(self, FI = None, FO = None):
+        if FI == None :
+            self.F_In = [list() for i in range(self.nbt)]
+        else:
+            self.F_In = FI
+        assert self.nbt == len(self.F_In), &#34;[load] incohérence entre F_In et T&#34;
+        if FO == None :
+            self.F_Out = [list() for i in range(self.nbt)]
+        else:
+            self.F_Out = FO
+        assert self.nbt == len(self.F_Out), &#34;[load] incohérence entre F_Out et T&#34;
+
+    def load(self, P, T, A, W, M0, FI = None, FO = None):
+        super().load(P, T, A, W, M0)
+        self._eventsBuilding()
+
+    def loadPIPEFile(self, f) :
+        ok = super().loadPIPEFile(f)
+        print(ok)
+        if ok :
+            self._eventsBuilding()
+            return True
+        else: 
+            print(&#39;pb&#39;)
+            return False
+
+    def setInEvent(self, t, inEvt) :
+        assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
+        if t in self.T:
+            i = self.T.index(t)
+            self.F_In[i].append(inEvt)
+        else:
+            pass
+
+    def setOutEvent(self, t, outEvt):
+        assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
+        if t in self.T:
+            i = self.T.index(t)
+            self.F_Out[i].append(outEvt)
+        else:
+            pass
+
+    def _estDeclenchable(self, t):
+        dec = super()._estDeclenchable(t)
+        la = self.F_In[t]
+        if dec and (la != []) :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    dec = dec and a.estDeclenchable()            
+        return dec
+
+    def _declencher(self, t):
+        super()._declencher(t)
+        la = self.F_In[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, InEvent) :
+                    a.declencher()
+        la = self.F_Out[t]
+        if la != None :
+            for a in la :
+                if isinstance(a, OutEvent) :
+                    a.declencher()
+
+    def run(self,delay=1):
+        t = -1
+        try:
+            while(1):
+                t = self.next()
+                time.sleep(delay)
+        except KeyboardInterrupt:
+            print(&#34;Fin du RdP par interruption clavier&#34;)
+        finally:
+            print(self.Mi)
+            print(self.v_count)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyPeNet.PeNet_I" href="pyPeNet.html#pyPeNet.PeNet_I">PeNet_I</a></li>
+<li><a title="pyPeNet.PeNet" href="pyPeNet.html#pyPeNet.PeNet">PeNet</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyEV3PeNet.EV3PeNet" href="pyEV3PeNet.html#pyEV3PeNet.EV3PeNet">EV3PeNet</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyDynaPeNet.DynaPeNet.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, delay=1)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self,delay=1):
+    t = -1
+    try:
+        while(1):
+            t = self.next()
+            time.sleep(delay)
+    except KeyboardInterrupt:
+        print(&#34;Fin du RdP par interruption clavier&#34;)
+    finally:
+        print(self.Mi)
+        print(self.v_count)</code></pre>
+</details>
+</dd>
+<dt id="pyDynaPeNet.DynaPeNet.setInEvent"><code class="name flex">
+<span>def <span class="ident">setInEvent</span></span>(<span>self, t, inEvt)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setInEvent(self, t, inEvt) :
+    assert isinstance(inEvt, InEvent), &#34;[setInEvent] mauvais type d&#39;event&#34;
+    if t in self.T:
+        i = self.T.index(t)
+        self.F_In[i].append(inEvt)
+    else:
+        pass</code></pre>
+</details>
+</dd>
+<dt id="pyDynaPeNet.DynaPeNet.setOutEvent"><code class="name flex">
+<span>def <span class="ident">setOutEvent</span></span>(<span>self, t, outEvt)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setOutEvent(self, t, outEvt):
+    assert isinstance(outEvt, OutEvent), &#34;[setOutEvent] mauvais type d&#39;event&#34;
+    if t in self.T:
+        i = self.T.index(t)
+        self.F_Out[i].append(outEvt)
+    else:
+        pass</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyPeNet.PeNet_I" href="pyPeNet.html#pyPeNet.PeNet_I">PeNet_I</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyPeNet.PeNet_I.init" href="pyPeNet.html#pyPeNet.PeNet.init">init</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.load" href="pyPeNet.html#pyPeNet.PeNet.load">load</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.loadCSVFile" href="pyPeNet.html#pyPeNet.PeNet.loadCSVFile">loadCSVFile</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.loadPIPEFile" href="pyPeNet.html#pyPeNet.PeNet.loadPIPEFile">loadPIPEFile</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.loadXMLPIPEFile" href="pyPeNet.html#pyPeNet.PeNet.loadXMLPIPEFile">loadXMLPIPEFile</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.next" href="pyPeNet.html#pyPeNet.PeNet.next">next</a></code></li>
+<li><code><a title="pyPeNet.PeNet_I.setM0" href="pyPeNet.html#pyPeNet.PeNet.setM0">setM0</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pyDynaPeNet.Event"><code class="flex name class">
+<span>class <span class="ident">Event</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Event(object):
+    def __init__(self):
+        super(Event, self).__init__()
+
+    def declencher(self) :
+        pass</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.InEvent" href="#pyDynaPeNet.InEvent">InEvent</a></li>
+<li><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyDynaPeNet.Event.declencher"><code class="name flex">
+<span>def <span class="ident">declencher</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def declencher(self) :
+    pass</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pyDynaPeNet.InEvent"><code class="flex name class">
+<span>class <span class="ident">InEvent</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InEvent(Event):
+    def __init__(self):
+        super(InEvent, self).__init__()
+
+    def estDeclenchable(self) :
+        return False
+
+    def declencher(self) :
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="keyboardPeNet.KeyboardEvent" href="keyboardPeNet.html#keyboardPeNet.KeyboardEvent">KeyboardEvent</a></li>
+<li><a title="pyEV3PeNet.EV3Button" href="pyEV3PeNet.html#pyEV3PeNet.EV3Button">EV3Button</a></li>
+<li><a title="pyEV3PeNet.EV3Sensor" href="pyEV3PeNet.html#pyEV3PeNet.EV3Sensor">EV3Sensor</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyDynaPeNet.InEvent.declencher"><code class="name flex">
+<span>def <span class="ident">declencher</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def declencher(self) :
+    pass</code></pre>
+</details>
+</dd>
+<dt id="pyDynaPeNet.InEvent.estDeclenchable"><code class="name flex">
+<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def estDeclenchable(self) :
+    return False</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pyDynaPeNet.OutEvent"><code class="flex name class">
+<span>class <span class="ident">OutEvent</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class OutEvent(Event):
+    def __init__(self):
+        super(OutEvent, self).__init__()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.DisplayEvent" href="#pyDynaPeNet.DisplayEvent">DisplayEvent</a></li>
+<li><a title="pyEV3PeNet.EV3LightOff" href="pyEV3PeNet.html#pyEV3PeNet.EV3LightOff">EV3LightOff</a></li>
+<li><a title="pyEV3PeNet.EV3LightOn" href="pyEV3PeNet.html#pyEV3PeNet.EV3LightOn">EV3LightOn</a></li>
+<li><a title="pyEV3PeNet.EV3Motor" href="pyEV3PeNet.html#pyEV3PeNet.EV3Motor">EV3Motor</a></li>
+<li><a title="pyEV3PeNet.EV3Say" href="pyEV3PeNet.html#pyEV3PeNet.EV3Say">EV3Say</a></li>
+</ul>
+</dd>
+<dt id="pyDynaPeNet.StdoutDisplayEvent"><code class="flex name class">
+<span>class <span class="ident">StdoutDisplayEvent</span></span>
+<span>(</span><span>cdc=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StdoutDisplayEvent(DisplayEvent):
+    def __init__(self, cdc=None):
+        super(StdoutDisplayEvent, self).__init__()
+        self.cdc = cdc
+
+    def declencher(self) :
+        print(self.cdc)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyDynaPeNet.DisplayEvent" href="#pyDynaPeNet.DisplayEvent">DisplayEvent</a></li>
+<li><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></li>
+<li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyDynaPeNet.StdoutDisplayEvent.declencher"><code class="name flex">
+<span>def <span class="ident">declencher</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def declencher(self) :
+    print(self.cdc)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyDynaPeNet.DisplayEvent" href="#pyDynaPeNet.DisplayEvent">DisplayEvent</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyDynaPeNet.DynaPeNet" href="#pyDynaPeNet.DynaPeNet">DynaPeNet</a></code></h4>
+<ul class="">
+<li><code><a title="pyDynaPeNet.DynaPeNet.run" href="#pyDynaPeNet.DynaPeNet.run">run</a></code></li>
+<li><code><a title="pyDynaPeNet.DynaPeNet.setInEvent" href="#pyDynaPeNet.DynaPeNet.setInEvent">setInEvent</a></code></li>
+<li><code><a title="pyDynaPeNet.DynaPeNet.setOutEvent" href="#pyDynaPeNet.DynaPeNet.setOutEvent">setOutEvent</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></code></h4>
+<ul class="">
+<li><code><a title="pyDynaPeNet.Event.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyDynaPeNet.InEvent" href="#pyDynaPeNet.InEvent">InEvent</a></code></h4>
+<ul class="">
+<li><code><a title="pyDynaPeNet.InEvent.declencher" href="#pyDynaPeNet.InEvent.declencher">declencher</a></code></li>
+<li><code><a title="pyDynaPeNet.InEvent.estDeclenchable" href="#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyDynaPeNet.StdoutDisplayEvent" href="#pyDynaPeNet.StdoutDisplayEvent">StdoutDisplayEvent</a></code></h4>
+<ul class="">
+<li><code><a title="pyDynaPeNet.StdoutDisplayEvent.declencher" href="#pyDynaPeNet.StdoutDisplayEvent.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+</body>
+</html>
