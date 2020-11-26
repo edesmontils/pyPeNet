@@ -466,6 +466,11 @@ class PeNet(object):
     def next(self):
         """
             Permet d'avancer d'une étape dans l'exécution du RdP
+
+            Returns
+            -------
+            int
+                La transition sélectionnée
         """
         lDeclenchables = list()
         for t in range(self.nbt):

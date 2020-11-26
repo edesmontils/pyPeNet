@@ -495,6 +495,11 @@ class PeNet(object):
     def next(self):
         &#34;&#34;&#34;
             Permet d&#39;avancer d&#39;une étape dans l&#39;exécution du RdP
+
+            Returns
+            -------
+            int
+                La transition sélectionnée
         &#34;&#34;&#34;
         lDeclenchables = list()
         for t in range(self.nbt):
@@ -926,6 +931,11 @@ if __name__ == &#39;__main__&#39;:
     def next(self):
         &#34;&#34;&#34;
             Permet d&#39;avancer d&#39;une étape dans l&#39;exécution du RdP
+
+            Returns
+            -------
+            int
+                La transition sélectionnée
         &#34;&#34;&#34;
         lDeclenchables = list()
         for t in range(self.nbt):
@@ -1430,7 +1440,12 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
 <span>def <span class="ident">next</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Permet d'avancer d'une étape dans l'exécution du RdP</p></div>
+<div class="desc"><p>Permet d'avancer d'une étape dans l'exécution du RdP</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>La transition sélectionnée</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1438,6 +1453,11 @@ Il est possible de spécifier la stratégie de choix des transitions déclenchab
 <pre><code class="python">def next(self):
     &#34;&#34;&#34;
         Permet d&#39;avancer d&#39;une étape dans l&#39;exécution du RdP
+
+        Returns
+        -------
+        int
+            La transition sélectionnée
     &#34;&#34;&#34;
     lDeclenchables = list()
     for t in range(self.nbt):

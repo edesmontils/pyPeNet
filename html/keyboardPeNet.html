@@ -110,7 +110,7 @@ if __name__ == &#39;__main__&#39;:
 <span>(</span><span>c=' ')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -135,42 +135,22 @@ if __name__ == &#39;__main__&#39;:
 <ul class="hlist">
 <li><a title="keyboardPeNet.KeyboardEventOnlyOne" href="#keyboardPeNet.KeyboardEventOnlyOne">KeyboardEventOnlyOne</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="keyboardPeNet.KeyboardEvent.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    keysDict[self.c] = keysDict[self.c] - 1</code></pre>
-</details>
-</dd>
-<dt id="keyboardPeNet.KeyboardEvent.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self) :
-    return keysDict.get(self.c, 0) &gt; 0</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.InEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyDynaPeNet.InEvent.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="keyboardPeNet.KeyboardEventOnlyOne"><code class="flex name class">
 <span>class <span class="ident">KeyboardEventOnlyOne</span></span>
 <span>(</span><span>c=' ')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -188,22 +168,15 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="keyboardPeNet.KeyboardEventOnlyOne.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    keysDict[self.c] = 0</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="keyboardPeNet.KeyboardEvent" href="#keyboardPeNet.KeyboardEvent">KeyboardEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="keyboardPeNet.KeyboardEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="keyboardPeNet.KeyboardEvent.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -218,16 +191,9 @@ if __name__ == &#39;__main__&#39;:
 <ul>
 <li>
 <h4><code><a title="keyboardPeNet.KeyboardEvent" href="#keyboardPeNet.KeyboardEvent">KeyboardEvent</a></code></h4>
-<ul class="">
-<li><code><a title="keyboardPeNet.KeyboardEvent.declencher" href="#keyboardPeNet.KeyboardEvent.declencher">declencher</a></code></li>
-<li><code><a title="keyboardPeNet.KeyboardEvent.estDeclenchable" href="#keyboardPeNet.KeyboardEvent.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="keyboardPeNet.KeyboardEventOnlyOne" href="#keyboardPeNet.KeyboardEventOnlyOne">KeyboardEventOnlyOne</a></code></h4>
-<ul class="">
-<li><code><a title="keyboardPeNet.KeyboardEventOnlyOne.declencher" href="#keyboardPeNet.KeyboardEventOnlyOne.declencher">declencher</a></code></li>
-</ul>
 </li>
 </ul>
 </li>

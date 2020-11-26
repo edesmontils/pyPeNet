@@ -17,10 +17,16 @@ import time
 
 
 class Event(object):
+    """
+        Classe type pour les évnements produits ou récupérés par le RdP.
+    """
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
+        """
+            Méthode appelée lorsque l'événement est exécuté.
+        """
         pass
 # ==================================================
 # OUT
@@ -28,6 +34,9 @@ class Event(object):
 
 
 class OutEvent(Event):
+    """
+        Classe représentant un événement "produit" par une transition.
+    """
     def __init__(self):
         super(OutEvent, self).__init__()
 
@@ -52,10 +61,16 @@ class StdoutDisplayEvent(DisplayEvent):
 
 
 class InEvent(Event):
+    """
+        Classe représentant un événement "en entrée", permettant de déclencher une transition.
+    """
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
+        """
+            Méthode permettant de déterminer si un événement est arrivé.
+        """
         return False
 
     def declencher(self) :

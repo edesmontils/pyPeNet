@@ -288,7 +288,7 @@ if __name__ == &#39;__main__&#39;:
 <span>(</span><span>ev3, btn)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -317,29 +317,22 @@ if __name__ == &#39;__main__&#39;:
 <div class="desc"></div>
 </dd>
 </dl>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3Button.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.button in self.ev3.buttons.pressed()</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.InEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyDynaPeNet.InEvent.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3ColorSensor"><code class="flex name class">
 <span>class <span class="ident">EV3ColorSensor</span></span>
 <span>(</span><span>port)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -362,13 +355,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyEV3PeNet.EV3ColorSensorRGB" href="#pyEV3PeNet.EV3ColorSensorRGB">EV3ColorSensorRGB</a></li>
 <li><a title="pyEV3PeNet.EV3ColorSensorReflection" href="#pyEV3PeNet.EV3ColorSensorReflection">EV3ColorSensorReflection</a></li>
 </ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3Sensor" href="#pyEV3PeNet.EV3Sensor">EV3Sensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3Sensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3Sensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3ColorSensorAmbient"><code class="flex name class">
 <span>class <span class="ident">EV3ColorSensorAmbient</span></span>
 <span>(</span><span>port, ambient)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -388,29 +390,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3ColorSensorAmbient.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.ambient() == self.ambient</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3ColorSensor" href="#pyEV3PeNet.EV3ColorSensor">EV3ColorSensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3ColorSensorColor"><code class="flex name class">
 <span>class <span class="ident">EV3ColorSensorColor</span></span>
 <span>(</span><span>port, color)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -440,29 +435,22 @@ if __name__ == &#39;__main__&#39;:
 <div class="desc"></div>
 </dd>
 </dl>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3ColorSensorColor.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.color() == self.color</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3ColorSensor" href="#pyEV3PeNet.EV3ColorSensor">EV3ColorSensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3ColorSensorRGB"><code class="flex name class">
 <span>class <span class="ident">EV3ColorSensorRGB</span></span>
 <span>(</span><span>port, r, g, b)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -485,30 +473,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3ColorSensorRGB.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    (r,g,b) = self.sensor.rgb()
-    return (r==self.r) and (g==self.g) and (b==self.b)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3ColorSensor" href="#pyEV3PeNet.EV3ColorSensor">EV3ColorSensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3ColorSensorReflection"><code class="flex name class">
 <span>class <span class="ident">EV3ColorSensorReflection</span></span>
 <span>(</span><span>port, reflection)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -528,29 +508,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3ColorSensorReflection.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.reflection() == self.reflection</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3ColorSensor" href="#pyEV3PeNet.EV3ColorSensor">EV3ColorSensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3ColorSensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3GyroscopicSensor"><code class="flex name class">
 <span>class <span class="ident">EV3GyroscopicSensor</span></span>
 <span>(</span><span>port, angle, startAngle=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -566,29 +539,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3GyroscopicSensor.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.angle() == self.angle # en deg</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3Sensor" href="#pyEV3PeNet.EV3Sensor">EV3Sensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3Sensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3Sensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3GyroscopicSensorSpeed"><code class="flex name class">
 <span>class <span class="ident">EV3GyroscopicSensorSpeed</span></span>
 <span>(</span><span>port, speed)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -608,29 +574,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3GyroscopicSensorSpeed.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.speed() == self.speed # en deg/s</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3GyroscopicSensor" href="#pyEV3PeNet.EV3GyroscopicSensor">EV3GyroscopicSensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3GyroscopicSensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3GyroscopicSensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3LightOff"><code class="flex name class">
 <span>class <span class="ident">EV3LightOff</span></span>
 <span>(</span><span>ev3)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -649,29 +608,21 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3LightOff.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.ev3.light.off()</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.OutEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3LightOn"><code class="flex name class">
 <span>class <span class="ident">EV3LightOn</span></span>
 <span>(</span><span>ev3, color)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -701,29 +652,21 @@ if __name__ == &#39;__main__&#39;:
 <div class="desc"></div>
 </dd>
 </dl>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3LightOn.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.ev3.light.on(self.color)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.OutEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3Motor"><code class="flex name class">
 <span>class <span class="ident">EV3Motor</span></span>
 <span>(</span><span>port, speed)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -748,29 +691,21 @@ if __name__ == &#39;__main__&#39;:
 <ul class="hlist">
 <li><a title="pyEV3PeNet.EV3MotorTime" href="#pyEV3PeNet.EV3MotorTime">EV3MotorTime</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3Motor.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.motor.run(500)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.OutEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3MotorTime"><code class="flex name class">
 <span>class <span class="ident">EV3MotorTime</span></span>
 <span>(</span><span>port, speed, duration)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -789,22 +724,14 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3MotorTime.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.motor.run_time(self.speed, self.duration)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3Motor" href="#pyEV3PeNet.EV3Motor">EV3Motor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3Motor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3PeNet"><code class="flex name class">
 <span>class <span class="ident">EV3PeNet</span></span>
@@ -848,7 +775,7 @@ if __name__ == &#39;__main__&#39;:
 <span>(</span><span>ev3, text, langue='fr-fr')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -869,29 +796,21 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3Say.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.ev3.speaker.say(self.text)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.OutEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3Sensor"><code class="flex name class">
 <span>class <span class="ident">EV3Sensor</span></span>
 <span>(</span><span>port)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -920,42 +839,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyEV3PeNet.EV3TouchSensor" href="#pyEV3PeNet.EV3TouchSensor">EV3TouchSensor</a></li>
 <li><a title="pyEV3PeNet.EV3UltrasonicSensor" href="#pyEV3PeNet.EV3UltrasonicSensor">EV3UltrasonicSensor</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3Sensor.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self):
-    pass</code></pre>
-</details>
-</dd>
-<dt id="pyEV3PeNet.EV3Sensor.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return False</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.InEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyDynaPeNet.InEvent.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3StdoutClear"><code class="flex name class">
 <span>class <span class="ident">EV3StdoutClear</span></span>
 <span>(</span><span>ev3)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -974,29 +873,21 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3StdoutClear.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.ev3.screen.clear()</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.DisplayEvent" href="pyDynaPeNet.html#pyDynaPeNet.DisplayEvent">DisplayEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.DisplayEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3StdoutDisplay"><code class="flex name class">
 <span>class <span class="ident">EV3StdoutDisplay</span></span>
 <span>(</span><span>ev3, cdc=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1016,29 +907,21 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="pyDynaPeNet.html#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3StdoutDisplay.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    self.ev3.screen.print(self.cdc)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.DisplayEvent" href="pyDynaPeNet.html#pyDynaPeNet.DisplayEvent">DisplayEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.DisplayEvent.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3TouchSensor"><code class="flex name class">
 <span>class <span class="ident">EV3TouchSensor</span></span>
 <span>(</span><span>port)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1057,29 +940,22 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3TouchSensor.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.pressed()</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3Sensor" href="#pyEV3PeNet.EV3Sensor">EV3Sensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3Sensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3Sensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyEV3PeNet.EV3UltrasonicSensor"><code class="flex name class">
 <span>class <span class="ident">EV3UltrasonicSensor</span></span>
 <span>(</span><span>port, distance)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1099,22 +975,15 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.InEvent" href="pyDynaPeNet.html#pyDynaPeNet.InEvent">InEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="pyDynaPeNet.html#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyEV3PeNet.EV3UltrasonicSensor.estDeclenchable"><code class="name flex">
-<span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def estDeclenchable(self):
-    return self.sensor.distance() == self.distance # en mm</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyEV3PeNet.EV3Sensor" href="#pyEV3PeNet.EV3Sensor">EV3Sensor</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyEV3PeNet.EV3Sensor.declencher" href="pyDynaPeNet.html#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+<li><code><a title="pyEV3PeNet.EV3Sensor.estDeclenchable" href="pyDynaPeNet.html#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -1131,7 +1000,6 @@ if __name__ == &#39;__main__&#39;:
 <h4><code><a title="pyEV3PeNet.EV3Button" href="#pyEV3PeNet.EV3Button">EV3Button</a></code></h4>
 <ul class="">
 <li><code><a title="pyEV3PeNet.EV3Button.buttonList" href="#pyEV3PeNet.EV3Button.buttonList">buttonList</a></code></li>
-<li><code><a title="pyEV3PeNet.EV3Button.estDeclenchable" href="#pyEV3PeNet.EV3Button.estDeclenchable">estDeclenchable</a></code></li>
 </ul>
 </li>
 <li>
@@ -1139,105 +1007,60 @@ if __name__ == &#39;__main__&#39;:
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3ColorSensorAmbient" href="#pyEV3PeNet.EV3ColorSensorAmbient">EV3ColorSensorAmbient</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3ColorSensorAmbient.estDeclenchable" href="#pyEV3PeNet.EV3ColorSensorAmbient.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3ColorSensorColor" href="#pyEV3PeNet.EV3ColorSensorColor">EV3ColorSensorColor</a></code></h4>
 <ul class="">
 <li><code><a title="pyEV3PeNet.EV3ColorSensorColor.colorList" href="#pyEV3PeNet.EV3ColorSensorColor.colorList">colorList</a></code></li>
-<li><code><a title="pyEV3PeNet.EV3ColorSensorColor.estDeclenchable" href="#pyEV3PeNet.EV3ColorSensorColor.estDeclenchable">estDeclenchable</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3ColorSensorRGB" href="#pyEV3PeNet.EV3ColorSensorRGB">EV3ColorSensorRGB</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3ColorSensorRGB.estDeclenchable" href="#pyEV3PeNet.EV3ColorSensorRGB.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3ColorSensorReflection" href="#pyEV3PeNet.EV3ColorSensorReflection">EV3ColorSensorReflection</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3ColorSensorReflection.estDeclenchable" href="#pyEV3PeNet.EV3ColorSensorReflection.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3GyroscopicSensor" href="#pyEV3PeNet.EV3GyroscopicSensor">EV3GyroscopicSensor</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3GyroscopicSensor.estDeclenchable" href="#pyEV3PeNet.EV3GyroscopicSensor.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3GyroscopicSensorSpeed" href="#pyEV3PeNet.EV3GyroscopicSensorSpeed">EV3GyroscopicSensorSpeed</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3GyroscopicSensorSpeed.estDeclenchable" href="#pyEV3PeNet.EV3GyroscopicSensorSpeed.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3LightOff" href="#pyEV3PeNet.EV3LightOff">EV3LightOff</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3LightOff.declencher" href="#pyEV3PeNet.EV3LightOff.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3LightOn" href="#pyEV3PeNet.EV3LightOn">EV3LightOn</a></code></h4>
 <ul class="">
 <li><code><a title="pyEV3PeNet.EV3LightOn.colorList" href="#pyEV3PeNet.EV3LightOn.colorList">colorList</a></code></li>
-<li><code><a title="pyEV3PeNet.EV3LightOn.declencher" href="#pyEV3PeNet.EV3LightOn.declencher">declencher</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3Motor" href="#pyEV3PeNet.EV3Motor">EV3Motor</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3Motor.declencher" href="#pyEV3PeNet.EV3Motor.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3MotorTime" href="#pyEV3PeNet.EV3MotorTime">EV3MotorTime</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3MotorTime.declencher" href="#pyEV3PeNet.EV3MotorTime.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3PeNet" href="#pyEV3PeNet.EV3PeNet">EV3PeNet</a></code></h4>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3Say" href="#pyEV3PeNet.EV3Say">EV3Say</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3Say.declencher" href="#pyEV3PeNet.EV3Say.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3Sensor" href="#pyEV3PeNet.EV3Sensor">EV3Sensor</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3Sensor.declencher" href="#pyEV3PeNet.EV3Sensor.declencher">declencher</a></code></li>
-<li><code><a title="pyEV3PeNet.EV3Sensor.estDeclenchable" href="#pyEV3PeNet.EV3Sensor.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3StdoutClear" href="#pyEV3PeNet.EV3StdoutClear">EV3StdoutClear</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3StdoutClear.declencher" href="#pyEV3PeNet.EV3StdoutClear.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3StdoutDisplay" href="#pyEV3PeNet.EV3StdoutDisplay">EV3StdoutDisplay</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3StdoutDisplay.declencher" href="#pyEV3PeNet.EV3StdoutDisplay.declencher">declencher</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3TouchSensor" href="#pyEV3PeNet.EV3TouchSensor">EV3TouchSensor</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3TouchSensor.estDeclenchable" href="#pyEV3PeNet.EV3TouchSensor.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="pyEV3PeNet.EV3UltrasonicSensor" href="#pyEV3PeNet.EV3UltrasonicSensor">EV3UltrasonicSensor</a></code></h4>
-<ul class="">
-<li><code><a title="pyEV3PeNet.EV3UltrasonicSensor.estDeclenchable" href="#pyEV3PeNet.EV3UltrasonicSensor.estDeclenchable">estDeclenchable</a></code></li>
-</ul>
 </li>
 </ul>
 </li>

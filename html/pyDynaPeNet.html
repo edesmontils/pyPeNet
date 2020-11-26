@@ -46,10 +46,16 @@ import time
 
 
 class Event(object):
+    &#34;&#34;&#34;
+        Classe type pour les évnements produits ou récupérés par le RdP.
+    &#34;&#34;&#34;
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
+        &#34;&#34;&#34;
+            Méthode appelée lorsque l&#39;événement est exécuté.
+        &#34;&#34;&#34;
         pass
 # ==================================================
 # OUT
@@ -57,6 +63,9 @@ class Event(object):
 
 
 class OutEvent(Event):
+    &#34;&#34;&#34;
+        Classe représentant un événement &#34;produit&#34; par une transition.
+    &#34;&#34;&#34;
     def __init__(self):
         super(OutEvent, self).__init__()
 
@@ -81,10 +90,16 @@ class StdoutDisplayEvent(DisplayEvent):
 
 
 class InEvent(Event):
+    &#34;&#34;&#34;
+        Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition.
+    &#34;&#34;&#34;
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
+        &#34;&#34;&#34;
+            Méthode permettant de déterminer si un événement est arrivé.
+        &#34;&#34;&#34;
         return False
 
     def declencher(self) :
@@ -248,7 +263,7 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">DisplayEvent</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -267,6 +282,14 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.StdoutDisplayEvent" href="#pyDynaPeNet.StdoutDisplayEvent">StdoutDisplayEvent</a></li>
 <li><a title="pyEV3PeNet.EV3StdoutClear" href="pyEV3PeNet.html#pyEV3PeNet.EV3StdoutClear">EV3StdoutClear</a></li>
 <li><a title="pyEV3PeNet.EV3StdoutDisplay" href="pyEV3PeNet.html#pyEV3PeNet.EV3StdoutDisplay">EV3StdoutDisplay</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.OutEvent.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
 </ul>
 </dd>
 <dt id="pyDynaPeNet.DynaPeNet"><code class="flex name class">
@@ -449,16 +472,22 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">Event</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe type pour les évnements produits ou récupérés par le RdP.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Event(object):
+    &#34;&#34;&#34;
+        Classe type pour les évnements produits ou récupérés par le RdP.
+    &#34;&#34;&#34;
     def __init__(self):
         super(Event, self).__init__()
 
     def declencher(self) :
+        &#34;&#34;&#34;
+            Méthode appelée lorsque l&#39;événement est exécuté.
+        &#34;&#34;&#34;
         pass</code></pre>
 </details>
 <h3>Subclasses</h3>
@@ -472,12 +501,15 @@ if __name__ == &#39;__main__&#39;:
 <span>def <span class="ident">declencher</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Méthode appelée lorsque l'événement est exécuté.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def declencher(self) :
+    &#34;&#34;&#34;
+        Méthode appelée lorsque l&#39;événement est exécuté.
+    &#34;&#34;&#34;
     pass</code></pre>
 </details>
 </dd>
@@ -487,16 +519,22 @@ if __name__ == &#39;__main__&#39;:
 <span>class <span class="ident">InEvent</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "en entrée", permettant de déclencher une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class InEvent(Event):
+    &#34;&#34;&#34;
+        Classe représentant un événement &#34;en entrée&#34;, permettant de déclencher une transition.
+    &#34;&#34;&#34;
     def __init__(self):
         super(InEvent, self).__init__()
 
     def estDeclenchable(self) :
+        &#34;&#34;&#34;
+            Méthode permettant de déterminer si un événement est arrivé.
+        &#34;&#34;&#34;
         return False
 
     def declencher(self) :
@@ -514,44 +552,45 @@ if __name__ == &#39;__main__&#39;:
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="pyDynaPeNet.InEvent.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    pass</code></pre>
-</details>
-</dd>
 <dt id="pyDynaPeNet.InEvent.estDeclenchable"><code class="name flex">
 <span>def <span class="ident">estDeclenchable</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Méthode permettant de déterminer si un événement est arrivé.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def estDeclenchable(self) :
+    &#34;&#34;&#34;
+        Méthode permettant de déterminer si un événement est arrivé.
+    &#34;&#34;&#34;
     return False</code></pre>
 </details>
 </dd>
 </dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.Event.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyDynaPeNet.OutEvent"><code class="flex name class">
 <span>class <span class="ident">OutEvent</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class OutEvent(Event):
+    &#34;&#34;&#34;
+        Classe représentant un événement &#34;produit&#34; par une transition.
+    &#34;&#34;&#34;
     def __init__(self):
         super(OutEvent, self).__init__()</code></pre>
 </details>
@@ -567,13 +606,21 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyEV3PeNet.EV3Motor" href="pyEV3PeNet.html#pyEV3PeNet.EV3Motor">EV3Motor</a></li>
 <li><a title="pyEV3PeNet.EV3Say" href="pyEV3PeNet.html#pyEV3PeNet.EV3Say">EV3Say</a></li>
 </ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.Event.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyDynaPeNet.StdoutDisplayEvent"><code class="flex name class">
 <span>class <span class="ident">StdoutDisplayEvent</span></span>
 <span>(</span><span>cdc=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Classe représentant un événement "produit" par une transition.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -592,22 +639,14 @@ if __name__ == &#39;__main__&#39;:
 <li><a title="pyDynaPeNet.OutEvent" href="#pyDynaPeNet.OutEvent">OutEvent</a></li>
 <li><a title="pyDynaPeNet.Event" href="#pyDynaPeNet.Event">Event</a></li>
 </ul>
-<h3>Methods</h3>
-<dl>
-<dt id="pyDynaPeNet.StdoutDisplayEvent.declencher"><code class="name flex">
-<span>def <span class="ident">declencher</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def declencher(self) :
-    print(self.cdc)</code></pre>
-</details>
-</dd>
-</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyDynaPeNet.DisplayEvent" href="#pyDynaPeNet.DisplayEvent">DisplayEvent</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyDynaPeNet.DisplayEvent.declencher" href="#pyDynaPeNet.Event.declencher">declencher</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -640,7 +679,6 @@ if __name__ == &#39;__main__&#39;:
 <li>
 <h4><code><a title="pyDynaPeNet.InEvent" href="#pyDynaPeNet.InEvent">InEvent</a></code></h4>
 <ul class="">
-<li><code><a title="pyDynaPeNet.InEvent.declencher" href="#pyDynaPeNet.InEvent.declencher">declencher</a></code></li>
 <li><code><a title="pyDynaPeNet.InEvent.estDeclenchable" href="#pyDynaPeNet.InEvent.estDeclenchable">estDeclenchable</a></code></li>
 </ul>
 </li>
@@ -649,9 +687,6 @@ if __name__ == &#39;__main__&#39;:
 </li>
 <li>
 <h4><code><a title="pyDynaPeNet.StdoutDisplayEvent" href="#pyDynaPeNet.StdoutDisplayEvent">StdoutDisplayEvent</a></code></h4>
-<ul class="">
-<li><code><a title="pyDynaPeNet.StdoutDisplayEvent.declencher" href="#pyDynaPeNet.StdoutDisplayEvent.declencher">declencher</a></code></li>
-</ul>
 </li>
 </ul>
 </li>
