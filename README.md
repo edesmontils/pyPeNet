@@ -117,5 +117,6 @@ rdp2.run()
 l.stop()
 ```
 
+[//]: # (Génération de la documentation : pdoc --html --force py*.py keyboardPeNet.py)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/edesmontils/pyPeNet.git/master)

@@ -247,6 +247,7 @@ if __name__ == &#39;__main__&#39;:
 
     parser = argparse.ArgumentParser(description=&#39;pyDynaPeNet&#39;)
     parser.add_argument(&#34;-f&#34;, &#34;--file&#34;, default=&#39;&#39;, dest=&#34;file&#34;, help=&#34;Nom du fichier CSV contenant le RdP&#34;)
+
     group = parser.add_mutually_exclusive_group()
 
     group.add_argument(&#34;-a&#34;, &#34;--aleatoire&#34;, action=&#34;store_true&#34;)
