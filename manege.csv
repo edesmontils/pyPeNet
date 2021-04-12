@@ -1,0 +1,24 @@
+name;type;v1;v2;v3
+Clients en attente;place;15;;
+Dans manège;place;0;;
+Espace attente;place;0;;
+Groupe en place;place;0;;
+groupe sorti;place;0;;
+Manège en fonction;place;0;;
+Arrivée;transition;1;;
+Départ;transition;1;;
+Entrée sas;transition;1;;
+Montée wagon grp complet;transition;1;;
+Arrivée to groupe sorti;normal;Arrivée;groupe sorti;1
+Clients en attente to Entrée sas;normal;Clients en attente;Entrée sas;2
+Dans manège to Arrivée;normal;Dans manège;Arrivée;1
+Départ to Dans manège;normal;Départ;Dans manège;1
+Entrée sas to Espace attente;normal;Entrée sas;Espace attente;2
+Espace attente to Montée wagon grp complet;normal;Espace attente;Montée wagon grp complet;10
+Groupe en place to Départ;normal;Groupe en place;Départ;1
+Manège en fonction to Arrivée;normal;Manège en fonction;Arrivée;1
+Manège en fonction to Entrée sas;inhibitor;Manège en fonction;Entrée sas;
+Manège en fonction to Entrée sas;inhibitor;Manège en fonction;Entrée sas;
+Manège en fonction to Montée wagon grp complet;inhibitor;Manège en fonction;Montée wagon grp complet;
+Montée wagon grp complet to Groupe en place;normal;Montée wagon grp complet;Groupe en place;1
+Montée wagon grp complet to Manège en fonction;normal;Montée wagon grp complet;Manège en fonction;1

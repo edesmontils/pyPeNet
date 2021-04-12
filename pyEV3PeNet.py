@@ -1,16 +1,19 @@
 #!/usr/bin/env pybricks-micropython
 # coding: utf8
 
+"""
+    Bibliothèque pour représenter les Réseaux de Pétri (RdP) pour exécuter sous EV3.
+
+    .. warning:: documentation à faire
+"""
+
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor
 from pybricks.parameters import Port, Color, Button
-
-"""
-    Bibliothèque pour représenter les Réseaux de Pétri (RdP) pour exécuter sous EV3.
-    TODO :
-    - EV3PeNet
-"""
 from pyDynaPeNet import *
+
+
+
 
 # ==================================================
 # ================ Entrées =========================

@@ -1,0 +1,20 @@
+name;type;v1;v2;v3
+capacité;place;20;;
+Etudiants;place;36;;
+Etudiants en attente;place;0;;
+Etudiants renseignés;place;0;;
+présents;place;0;;
+entrée;transition;1;;
+sortie;transition;1;;
+T0;transition;1;;
+T1;transition;1;;
+capacité to entrée;normal;capacité;entrée;1
+entrée to présents;normal;entrée;présents;1
+Etudiants en attente to entrée;normal;Etudiants en attente;entrée;1
+Etudiants en attente to T1;normal;Etudiants en attente;T1;1
+Etudiants to T0;normal;Etudiants;T0;1
+présents to sortie;normal;présents;sortie;1
+sortie to capacité;normal;sortie;capacité;1
+sortie to Etudiants en attente;normal;sortie;Etudiants en attente;1
+T0 to Etudiants en attente;normal;T0;Etudiants en attente;1
+T1 to Etudiants renseignés;normal;T1;Etudiants renseignés;1
