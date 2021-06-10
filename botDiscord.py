@@ -228,7 +228,7 @@ async def sauvegardeelev(ctx,choix:str):
             auteur=ctx.author
             if not f'{auteur}' in listelve :
               listelve[f'{auteur}']={'Couleur':discord.Colour.random(),'reseauelev':dict(),'nombredereseau': 0 }
-            if ('Programmation' != auteur.top_role.name):
+            if ('Enseignant' != auteur.top_role.name):
               embedR = discord.Embed(title=f"Vous n'avez pas les droits", colour=listelve[f'{auteur}']['Couleur'])
             else:
               if choix == "Save":
